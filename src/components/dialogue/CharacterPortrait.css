@@ -1,0 +1,2 @@
+.character-portrait { position: relative; flex: 0 0 clamp(44px, 6vw, 78px); aspect-ratio: 1; overflow: hidden; background: #34535b; display: grid; place-items: center; border: 1px solid #7b928b; border-radius: 2px; }
+.portrait-art { inset: 0; background-size: 130% auto; background-position: center 12%; }

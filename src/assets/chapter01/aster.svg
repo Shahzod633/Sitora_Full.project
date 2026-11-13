@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 310">
+  <!-- Temporary Aster exterior, port-side three-quarter view. -->
+  <defs>
+    <linearGradient id="burn"><stop stop-color="#fff5cc"/><stop offset=".22" stop-color="#9bd9cb" stop-opacity=".88"/><stop offset="1" stop-color="#84dfd3" stop-opacity="0"/></linearGradient>
+    <linearGradient id="plate" x2=".3" y2="1"><stop stop-color="#f9ead0"/><stop offset=".56" stop-color="#c6c5aa"/><stop offset="1" stop-color="#799592"/></linearGradient>
+    <pattern id="cells" width="12" height="15" patternUnits="userSpaceOnUse" patternTransform="skewX(-24)"><rect width="12" height="15" fill="#466771"/><path d="M0 0h12v15" fill="none" stroke="#9fb5ad" stroke-width="1"/><path d="M1 7h11" stroke="#829a98" stroke-width=".5"/></pattern>
+    <pattern id="vents" width="7" height="8" patternUnits="userSpaceOnUse" patternTransform="skewX(-16)"><rect width="7" height="8" fill="#35454c"/><path d="M2 0v8" stroke="#8e9b96" stroke-width="2"/></pattern>
+  </defs>
+  <g transform="rotate(-11 315 155)">
+    <g fill="url(#burn)"><path d="M506 114Q553 109 655 121Q553 126 504 132Z"/><path d="M496 168Q584 163 672 178Q582 184 494 186Z"/></g>
+    <g stroke="#243840" stroke-width="2.6" stroke-linejoin="round">
+      <path d="m276 129 57-78 59-29 15 7-46 100z" fill="#6a8685"/>
+      <path d="m294 119 48-64 50-33-32 76-26 26z" fill="url(#plate)"/>
+      <path d="m325 90 15-19 36-22-9 16z" fill="#c9865d"/>
+      <path d="m372 106 90-53 47 2-63 64z" fill="url(#cells)"/>
+      <path d="m398 112 76-54 29-1-65 62z" fill="none" stroke="#a3b6a6" stroke-width="1"/>
+      <path d="m415 105 62-6 32 12 1 22-37 14-53-9z" fill="#7f9690"/>
+      <path d="m465 100 35 3 14 9-1 22-18 9-31-4 10-16z" fill="url(#vents)"/>
+      <path d="m511 108 9 3-1 22-8 4z" fill="#b6c8b5"/>
+      <path d="m33 163 51-24 79-16 73-26 109-6 92 18 28 26-16 34-53 23-162 7-110-12-87-9z" fill="url(#plate)"/>
+      <path d="m33 163 92 3 83 4 107-12 97-20 52-3-15 34-53 23-162 7-110-12-87-9z" fill="#4b6369"/>
+      <path d="m55 161 83-20 40-7 24 9-28 16-93 7z" fill="#304b56"/>
+      <path d="m56 160 66-18 6 6-42 12zm78-20 21-5 10 6-23 5zm29-7 17-3 16 10-22 1z" stroke="none" fill="#a2c6bf"/>
+      <path d="m40 169 144 5 21 7 117-7-14 11-77 8-110-10-81-7z" fill="#cb8d63" stroke-width="1.4"/>
+      <path d="m210 119 36-16 85-6 32 15-50 14-77 4z" fill="#eee0c5"/>
+      <path d="m264 107 56-4 18 7-56 6z" fill="#9aa9a0" stroke-width="1"/>
+      <path d="m347 96 29 1 56 16 17 18-64-6-28-15z" fill="#cd916b"/>
+      <path d="m362 155 85-17 36 9 12 11-16 30-82 9-39-13z" fill="url(#plate)"/>
+      <path d="m378 174 94-16 14 8-11 20-76 10-33-11z" fill="#596e70"/>
+      <path d="m460 153 30-6 15 10-10 30-30 5 10-25z" fill="url(#vents)"/>
+      <path d="m498 157 11-2-7 32-12 3z" fill="#c0c9b7"/>
+      <path d="m165 174 96-13 72-19 39 6-38 19-100 36-51-5z" fill="url(#plate)"/>
+      <path d="m232 194 103-38 20-4-35 20-82 30z" fill="#c8865b"/>
+      <path d="m324 191-54 44 4 16 41-12 65-43z" fill="#83958d"/>
+      <path d="m315 202-41 34-2 12 35-13 48-34z" fill="url(#cells)"/>
+      <path d="m202 142 41-10 66-3m-76 3 13 15m80-25 14 10 38-7m-245 50 36 4m205-48 45 7m-203 47 39-1" stroke="#506a6a" fill="none" stroke-width="1.6"/>
+      <path d="m209 121-6-22 2-4 8 23m-20 8-13-16" stroke="#c1c6b5" fill="none" stroke-width="2"/>
+      <path d="m177 188-8 12-30-2" fill="none" stroke="#9da99d"/>
+    </g>
+    <g fill="#d8d3b6"><circle cx="109" cy="172" r="1.8"/><circle cx="119" cy="173" r="1.8"/><circle cx="129" cy="174" r="1.8"/></g>
+    <text x="255" y="153" fill="#324f53" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="3" transform="rotate(-6 255 153)">ASTER</text>
+  </g>
+</svg>

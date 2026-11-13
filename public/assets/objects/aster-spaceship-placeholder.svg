@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet">
+  <rect width="200" height="100" fill="#555" />
+  <polygon points="20,80 100,20 180,80" fill="#888" />
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="12">Aster</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 680" preserveAspectRatio="none">
+  <!-- Transparent windows reveal the same orbital sky as the exterior. -->
+  <defs>
+    <linearGradient id="frame" x2="0" y2="1"><stop stop-color="#778b88"/><stop offset=".28" stop-color="#475b61"/><stop offset="1" stop-color="#243741"/></linearGradient>
+    <linearGradient id="desk" x2=".1" y2="1"><stop stop-color="#929e91"/><stop offset=".48" stop-color="#52696a"/><stop offset="1" stop-color="#243943"/></linearGradient>
+    <pattern id="slat" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 0v12" stroke="#778786" stroke-width="3"/></pattern>
+    <pattern id="lights" width="34" height="18" patternUnits="userSpaceOnUse"><rect x="3" y="4" width="14" height="4" rx="1" fill="#8fc9bc"/><rect x="20" y="4" width="6" height="4" fill="#d8b480"/></pattern>
+  </defs>
+  <path d="M0 0h1400v82L1112 58 901 79 512 72 284 43 0 121Z" fill="url(#frame)" stroke="#172931" stroke-width="8"/>
+  <path d="m0 57 285-43 244 32 376 6 201-19 294 27" fill="none" stroke="#a3aba0" stroke-width="5"/>
+  <path d="m0 73 272-45 127 15-5 7-120-14L0 83zm969-25 145-10 188 16 5 7-193-15-145 11z" fill="#e1b884"/>
+  <g fill="url(#frame)" stroke="#142830" stroke-width="6">
+    <path d="m267 38 38 5-93 309-45 24z"/><path d="m498 58 25 4-43 243-26 3z"/>
+    <path d="m894 67 25-5 41 254-26-8z"/><path d="m1098 44 31 4 119 322-38-16z"/>
+    <path d="M0 138 56 111 91 374 0 411zm1400-32-52-13-44 283 96 39z"/>
+  </g>
+  <g stroke="#a5b5a7" stroke-width="3" fill="none"><path d="m282 48-97 312m322-284-44 218m450-211 36 212m173-237 107 290"/></g>
+  <path d="m0 383 239-60 219-24 476 3 234 31 232 58v289H0z" fill="url(#desk)" stroke="#203641" stroke-width="9"/>
+  <path d="m0 399 243-61 223-23 461 3 238 31 235 58" fill="none" stroke="#c1c6aa" stroke-width="5"/>
+  <g fill="#233c45" stroke="#abc0ab" stroke-width="2"><path d="m72 394 163-37-29 38-182 48z"/><path d="m265 352 163-22-17 30-167 31z"/><path d="m487 329 166-4-3 24-175 5z"/><path d="m745 328 155 2 11 26-164-6z"/><path d="m984 336 154 17 22 33-160-24z"/><path d="m1187 363 142 33 39 43-158-42z"/></g>
+  <g stroke="#95c4ae" stroke-width="3" fill="none"><path d="m88 402 29-8 10 0 13-8 10 3 45-13m76-11 27-8 10 3 29-9m157-11 21-1 11-7 17 11 14-7h40m186-1h71m157 14 50 7m-40 1 30 5"/></g>
+  <path d="m0 449 243-45 212-32 474 1 237 35 234 53v219H0z" fill="#263c46" stroke="#162a33" stroke-width="7"/>
+  <path d="m0 464 260-51 201-28 461 1 223 32 255 61" stroke="#738785" stroke-width="6" fill="none"/>
+  <path d="m0 476 188-36-27 93L0 578zm1400 14-221-46 38 88 183 58z" fill="url(#slat)"/>
+  <path d="m390 410 150-13-10 37-160 21zm477-11 150 13 17 40-158-19z" fill="url(#lights)"/>
+  <g fill="#13232c" stroke="#475e65" stroke-width="4"><path d="m137 680 35-153 135-59 99 9 38 52-11 151z"/><path d="m892 680-6-166 37-51 102-6 105 56 30 167z"/></g>
+</svg>

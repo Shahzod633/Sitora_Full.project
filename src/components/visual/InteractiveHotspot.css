@@ -1,0 +1,9 @@
+.hotspot {
+  position: absolute; z-index: 1; min-width: 44px; min-height: 44px; padding: 0;
+  border: 1px solid #ffddb1; background: #18323aeb; color: #ffe0ad;
+  border-radius: 50%; display: grid; place-items: center;
+}
+.hotspot::before, .hotspot::after { content: ""; position: absolute; width: 14px; height: 2px; background: currentColor; }
+.hotspot::after { transform: rotate(90deg); }
+.hotspot:hover { color: #162c34; background: #f5cf9e; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

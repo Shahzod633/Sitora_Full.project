@@ -1,0 +1,5 @@
+.info-panel::backdrop { background: #07131bd9; }
+.info-panel { border: 0; width: min(calc(100% - 40px), 510px); max-height: 90dvh; overflow: auto; color: var(--ink); background: var(--paper); padding: clamp(24px, 4vw, 42px); border-radius: 2px; }
+.info-panel h2 { font: 600 40px/1.05 "Barlow Condensed", sans-serif; margin: 0 0 18px; }
+.info-panel p { line-height: 1.55; }
+.info-panel .close-button { color: var(--paper); background: var(--ink); min-width: 96px; margin-top: 9px; }

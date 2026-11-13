@@ -1,0 +1,11 @@
+.cover-earth { width: min(82vw, 108vh); aspect-ratio: 1; left: 68%; top: 45%; translate: -50% -50%; }
+.cover-copy { position: absolute; top: 50%; left: max(var(--edge), 9vw); translate: 0 -50%; }
+.cover-copy .aster-mark { width: 42px; height: 42px; margin-bottom: 16px; }
+.cover-copy .title { margin: 0; font: 600 clamp(90px, 12vw, 195px)/.9 "Barlow Condensed", sans-serif; letter-spacing: -.025em; }
+.cover-copy .title span { display: block; font-size: clamp(22px, 2.7vw, 40px); letter-spacing: 0; margin-top: 16px; }
+.chapter-label { font-size: 12px; text-transform: uppercase; letter-spacing: .17em; color: #ecc296; margin: 30px 0 12px; }
+.sound-toggle { position: absolute; bottom: var(--bottom); right: var(--edge); width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid #79908b; color: var(--paper); background: #112832; border-radius: 50%; }
+@media (max-aspect-ratio: 1/1) {
+  .cover-earth { width: 104vw; left: 66%; top: 28%; }
+  .cover-copy { top: auto; bottom: 9%; translate: none; left: var(--edge); }
+}

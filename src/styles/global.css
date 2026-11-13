@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/assets/fonts/BarlowCondensed-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+:root {
+  --ink: #0d1c24;
+  --paper: #f1e9d4;
+  --accent: #e6ab79;
+  --edge: clamp(22px, 4.3vw, 84px);
+  --bottom: max(clamp(25px, 5.5vh, 58px), env(safe-area-inset-bottom));
+  color: var(--paper);
+  font-family: "Segoe UI", sans-serif;
+  background: var(--ink);
+}
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+button { font: inherit; cursor: pointer; }
+button:focus-visible, [tabindex]:focus-visible { outline: 3px solid #ffcb92; outline-offset: 4px; }
+::selection { color: var(--ink); background: var(--accent); }
+.scene {
+  position: relative; isolation: isolate; overflow: hidden;
+  width: 100%; height: 100%; height: 100dvh; background: #11242c;
+}
+.art-stage, .space-sky { position: absolute; inset: 0; }
+.art-stage { z-index: 0; }
+.scene-art { position: absolute; pointer-events: none; background-repeat: no-repeat; background-size: contain; background-position: center; }
+.space-sky { background-size: cover; }
+.chapter-mast, .scene-position, .scene-caption { position: absolute; z-index: 2; pointer-events: none; }
+.chapter-mast {
+  inset: max(24px, 4.3vh) auto auto var(--edge); display: flex; align-items: center;
+  gap: 24px; color: var(--paper); text-shadow: 0 2px 7px #08151c;
+}
+.wordmark { display: inline-flex; gap: 11px; align-items: center; font: 600 29px/1 "Barlow Condensed", sans-serif; letter-spacing: .15em; }
+.aster-mark { width: 35px; height: 35px; color: var(--accent); }
+.chapter-name { border-left: 1px solid #92a49b77; padding-left: 24px; font-size: 14px; }
+.chapter-name span { display: block; color: #e3c7a8; font-size: 10px; text-transform: uppercase; letter-spacing: .16em; font-weight: 600; margin-bottom: 3px; }
+.scene-position { display: flex; align-items: center; gap: 9px; top: max(32px, 5.4vh); right: var(--edge); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: .1em; color: #c6cabe; }
+.scene-position span { color: var(--paper); }
+.scene-position i { width: 32px; height: 1px; background: #c3c7b68c; }
+.scene-caption { left: var(--edge); top: max(90px, 14vh); }
+.scene-caption h1 { font: 600 clamp(30px, 3vw, 54px)/.98 "Barlow Condensed", sans-serif; margin: 0; text-shadow: 0 2px 9px #15252a88; }
+.frame-ticks { display: flex; gap: 4px; margin-bottom: 13px; }
+.frame-ticks i { width: 15px; height: 3px; transform: skewX(-27deg); background: var(--accent); }
+.frame-ticks i:nth-child(2) { width: 7px; }
+.frame-ticks i:last-child { width: 3px; }
+.next-button, .begin-button, .chapter-end-screen button, .close-button {
+  display: inline-flex; gap: 28px; align-items: center; justify-content: center;
+  min-height: 48px; padding: 13px 23px; border: 1px solid #f5e8cb; border-radius: 2px;
+  background: var(--paper); color: var(--ink); font-weight: 600; font-size: 15px;
+}
+.next-button { position: absolute; right: var(--edge); bottom: var(--bottom); z-index: 4; }
+.next-button:after, .begin-button:after { content: ""; width: 7px; height: 7px; border: solid currentColor; border-width: 1.5px 1.5px 0 0; transform: rotate(45deg); }
+.next-button:hover, .begin-button:hover, .chapter-end-screen button:hover, .close-button:hover { background: #ffe4be; }
+.next-button:disabled { visibility: hidden; }
+@media (max-width: 650px) {
+  .chapter-mast { gap: 14px; }
+  .wordmark { font-size: 24px; gap: 6px; }
+  .aster-mark { width: 26px; height: 26px; }
+  .chapter-name { padding-left: 13px; font-size: 11px; }
+  .chapter-name span { font-size: 9px; }
+  .scene-position { gap: 4px; font-size: 10px; }
+  .scene-position i { width: 15px; }
+  .scene-caption { top: 98px; }
+  .next-button { min-height: 46px; }
+}
+@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
+  .chapter-mast { top: 10px; } .scene-position { top: 20px; }
+  .scene-caption { top: 64px; } .scene-caption .frame-ticks { display: none; }
+}

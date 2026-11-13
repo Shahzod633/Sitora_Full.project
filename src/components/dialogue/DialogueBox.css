@@ -1,0 +1,17 @@
+.dialogue-box {
+  position: absolute; z-index: 4; bottom: var(--bottom); left: 50%; translate: -50% 0;
+  width: min(800px, calc(100% - 2 * var(--edge))); padding: clamp(14px, 2vw, 25px);
+  display: flex; gap: clamp(12px, 2vw, 22px); align-items: center; text-align: left;
+  background: #10232bf5; border: 1px solid #81958b; color: var(--paper); border-radius: 3px;
+}
+.dialogue-content { flex: 1; font-size: clamp(16px, 1.3vw, 20px); }
+.speaker-name { display: block; color: #f1bb8d; font: 600 20px/1.2 "Barlow Condensed", sans-serif; letter-spacing: .12em; margin-bottom: 6px; }
+.next-indicator { flex: 0 0 8px; height: 8px; border: solid #eed2a3; border-width: 1.5px 1.5px 0 0; transform: rotate(45deg); }
+.dialogue-box:hover { border-color: #edc29a; }
+@media (max-width: 650px) {
+  .dialogue-box { --edge: 15px; bottom: max(18px, env(safe-area-inset-bottom)); align-items: flex-start; }
+  .next-indicator { align-self: center; } .dialogue-content { font-size: 15px; }
+}
+.scene:not(.start-screen) > .sound-toggle {
+  top: max(65px, 9vh); bottom: auto; z-index: 4;
+}

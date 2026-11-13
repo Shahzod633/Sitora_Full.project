@@ -1,0 +1,7 @@
+.chapter-end-screen { display: grid; place-items: center; text-align: center; }
+.end-copy { position: relative; padding: 20px; }
+.end-copy .aster-mark { width: 48px; height: 48px; }
+.end-copy h1 { font: 600 clamp(35px, 6vw, 76px)/1 "Barlow Condensed", sans-serif; margin: 22px 0 8px; }
+.end-copy h2 { font: 600 clamp(24px, 3vw, 38px)/1.2 "Barlow Condensed", sans-serif; margin: 0 0 24px; color: #d8cdb1; }
+.end-copy p { margin: 6px 0; }
+.end-copy button { margin-top: 25px; }
