@@ -1,29 +1,37 @@
 import React from 'react';
-import { Illustration } from '../../data/assetManifest';
+import { assets, currentUrl, finalUrl, loadUrl, type AssetDef, type AssetId } from '../../data/assetManifest';
 
 type Props = {
-  asset: Illustration;
-  className: string;
+  asset: AssetId;
+  className?: string;
   label?: string;
+  portrait?: boolean;
 };
 
-// Keep bundled artwork painted while a replacement loads or fails to decode.
-export default function SceneArt({ asset, className, label }: Props) {
-  const [loaded, setLoaded] = React.useState<string>();
-  React.useEffect(() => {
-    if (!asset.src) return;
-    let active = true;
-    const image = new Image();
-    const url = asset.src;
-    image.src = url;
-    image.decode().then(() => {
-      if (active) setLoaded(url);
-    }).catch(() => {});
-    return () => { active = false; };
-  }, [asset.src]);
+// Paints the bundled illustration immediately and swaps in the final artwork once it has decoded.
+// A missing or broken final file keeps the bundled illustration.
+export default function SceneArt({ asset, className = '', label, portrait = false }: Props) {
+  const def: AssetDef = assets[asset];
+  const target = finalUrl(def, portrait);
+  const [url, setUrl] = React.useState(() => currentUrl(asset, portrait));
 
-  const selected = asset.src && loaded === asset.src ? asset.src : asset.fallback;
-  return <span className={`scene-art ${className}`} role={label ? 'img' : undefined}
-    aria-label={label} aria-hidden={label ? undefined : true}
-    style={{ backgroundImage: `url("${selected}")` }} />;
+  React.useEffect(() => {
+    if (!target) {
+      setUrl(def.fallback);
+      return;
+    }
+    let active = true;
+    void loadUrl(target).then(ok => {
+      if (active) setUrl(ok ? target : def.fallback);
+    });
+    return () => { active = false; };
+  }, [target, def.fallback]);
+
+  return <span
+    className={`scene-art fit-${def.fit ?? 'contain'} ${className}`}
+    role={label ? 'img' : undefined}
+    aria-label={label}
+    aria-hidden={label ? undefined : true}
+    style={{ backgroundImage: `url("${url.replace(/"/g, '%22')}")` }}
+  />;
 }

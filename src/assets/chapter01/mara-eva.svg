@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 340">
+  <!-- TEMPORARY placeholder: Captain Mara in a sealed pressurized EVA suit, three-quarter view facing right.
+       Teal shoulder band and amber chevrons identify Mara; her hair and face read through the visor. -->
+  <g stroke="#162a32" stroke-width="3" stroke-linejoin="round">
+    <path d="m40 92 36-8 9 98-37 8z" fill="#a9b0a0"/><path d="m47 104 22-4m-20 16 22-4m-20 16 22-4" stroke="#6f7f7c" stroke-width="2"/>
+    <path d="m78 210 27-2 4 92-29 2z" fill="#cfc8b3"/>
+    <path d="m108 208 29 2-3 94-28-2z" fill="#e6dfcb"/>
+    <path d="m79 256 28-2m3 0 26 2" stroke="#9aa59a" stroke-width="5"/>
+    <path d="m68 298 42-2 6 22-52 3z" fill="#5d6f72"/><path d="m100 300 44-1 9 20-54 3z" fill="#5d6f72"/>
+    <path d="m70 104 78-4 14 50-8 62-80 4-12-56z" fill="#e6dfcb"/>
+    <path d="m70 104 22 4-6 108-14 0-12-56z" fill="#cfc8b3"/>
+    <path d="m70 206 92-6 2 13-94 6z" fill="#b7bfb0"/>
+    <path d="m100 132 38-3 2 26-38 3z" fill="#607c7b"/>
+    <circle cx="110" cy="142" r="3" fill="#e6ab73" stroke-width="1.5"/><circle cx="121" cy="141" r="3" fill="#afe8d1" stroke-width="1.5"/>
+    <path d="m70 112-15 10-7 60 15 6 11-52z" fill="#d2cbb6"/><path d="m46 180 16 2-1 15-17-2z" fill="#8f9c95"/>
+    <path d="m118 102 30-2 6 18-32 3z" fill="#4f7d7c"/>
+    <path d="m124 110 7 5 8-6m-14 8 7 5 8-6" fill="none" stroke="#e6ab73" stroke-width="2.4"/>
+    <path d="m142 108 20 6 10 44-8 30-17-2 6-28-15-34z" fill="#e6dfcb"/><path d="m146 186 19 1 2 17-21 1z" fill="#8f9c95"/>
+    <path d="m84 98 56-4 4 11-58 4z" fill="#b7bfb0"/>
+    <circle cx="114" cy="60" r="40" fill="#ece6d4"/>
+    <path d="m96 26 15-4 4 9-15 4z" fill="#607c7b"/>
+    <ellipse cx="124" cy="63" rx="28" ry="24" fill="#1f3038"/>
+    <g stroke="none">
+      <path d="m110 52 21-5 15 10 2 21-10 12-21 2-10-14z" fill="#bc9880" opacity=".6"/>
+      <path d="m104 56 6-15 22-6 18 10 2 10-14-4-16 4-8 11z" fill="#29373e" opacity=".85"/>
+      <path d="m133 69 7-1" stroke="#162a32" stroke-width="2"/>
+    </g>
+    <ellipse cx="124" cy="63" rx="28" ry="24" fill="none" stroke="#9aa59a" stroke-width="4"/>
+    <path d="M104 52q15-17 38-9" fill="none" stroke="#f4dca8" stroke-width="3" opacity=".75" stroke-linecap="round"/>
+    <circle cx="158" cy="132" r="6" fill="#e6ab73" stroke-width="2"/>
+  </g>
+</svg>

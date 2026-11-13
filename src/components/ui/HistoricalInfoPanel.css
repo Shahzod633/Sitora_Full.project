@@ -1,5 +1,43 @@
-.info-panel::backdrop { background: #07131bd9; }
-.info-panel { border: 0; width: min(calc(100% - 40px), 510px); max-height: 90dvh; overflow: auto; color: var(--ink); background: var(--paper); padding: clamp(24px, 4vw, 42px); border-radius: 2px; }
-.info-panel h2 { font: 600 40px/1.05 "Barlow Condensed", sans-serif; margin: 0 0 18px; }
-.info-panel p { line-height: 1.55; }
-.info-panel .close-button { color: var(--paper); background: var(--ink); min-width: 96px; margin-top: 9px; }
+/* Archival panel for beat 25: paper tones and an explicit "Documented history" badge keep it
+   visually distinct from the illustrated fiction. */
+.archive-panel {
+  position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; user-select: text;
+  display: grid; gap: 18px; align-content: start; padding: clamp(18px, 3.2cqmin, 38px);
+  background: linear-gradient(#f1e8d1, #e6dbbf); color: #1c1a15; border-radius: 2px;
+  box-shadow: 0 22px 64px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(28, 26, 21, 0.15);
+}
+.archive-kicker { margin: 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6d6450; }
+.archive-badge { background: #1c1a15; color: #efe6cf; padding: 4px 8px; letter-spacing: 0.16em; }
+.archive-head h2 { margin: 8px 0 0; font: 600 clamp(26px, 3.4vw, 44px)/1.02 "Barlow Condensed", sans-serif; }
+.archive-body { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(16px, 3vw, 38px); }
+.archive-text p { line-height: 1.55; margin: 0 0 12px; }
+.archive-lead { font-size: clamp(16px, 1.3vw, 19px); }
+.archive-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 20px; margin: 16px 0; }
+.archive-facts dt { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6d6450; }
+.archive-facts dd { margin: 3px 0 0; font-weight: 600; line-height: 1.35; }
+.archive-text blockquote { margin: 14px 0 0; padding-left: 14px; border-left: 3px solid #b08a3e; font-style: italic; line-height: 1.5; }
+.archive-text cite { display: block; margin-top: 4px; font-style: normal; font-size: 12px; color: #6d6450; }
+.archive-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-content: start; }
+.archive-photos figure { margin: 0; }
+.archive-photos img, .photo-placeholder { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.photo-placeholder {
+  display: grid; place-content: center; gap: 4px; padding: 8px; text-align: center;
+  background: repeating-linear-gradient(135deg, #d9cfb6 0 8px, #d0c5aa 8px 16px);
+  border: 1px dashed #8a8068; color: #4a4434; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.photo-placeholder strong { font-size: 13px; letter-spacing: 0.04em; }
+.archive-photos figcaption { margin-top: 6px; font-size: 12px; line-height: 1.4; }
+.archive-credit { display: block; margin-top: 2px; color: #6d6450; font-size: 11px; }
+.archive-note { border-top: 1px solid rgba(28, 26, 21, 0.2); padding-top: 12px; font-size: 13px; line-height: 1.5; color: #3b372d; }
+.archive-note p { margin: 0 0 6px; }
+.archive-note a { color: #7a4f1a; }
+
+@container (max-width: 760px) {
+  .archive-body { grid-template-columns: 1fr; }
+  .archive-facts { grid-template-columns: 1fr 1fr; }
+}
+@container (max-width: 420px) {
+  .archive-facts { grid-template-columns: 1fr; }
+  .archive-photos { gap: 8px; }
+  .archive-photos figcaption { font-size: 11px; }
+}

@@ -1,11 +1,13 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { DialogueAudio } from './DialogueAudio';
 import { type VoiceProfile } from '../../data/voiceManifest';
+import type { SoundCue } from '../../story/types';
 
 type AudioControls = {
   unlock: () => void;
   playVoice: (profile: VoiceProfile, blip: number) => void;
   stopVoice: () => void;
+  playCue: (cue: SoundCue) => void;
   playClick: () => void;
   muteAll: () => void;
   unmuteAll: () => void;
@@ -34,24 +36,28 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const changeMute = (value: boolean) => {
+  const changeMute = useCallback((value: boolean) => {
     preference.current = value;
     setMuted(value);
     engine.current?.setMuted(value);
     try { localStorage.setItem(muteKey, String(value)); } catch { /* Session preference still works. */ }
     if (!value) unlock();
-  };
+  }, [unlock]);
   const playVoice = useCallback((profile: VoiceProfile, blip: number) => engine.current?.playVoice(profile, blip), []);
   const stopVoice = useCallback(() => engine.current?.stopVoice(), []);
+  const playCue = useCallback((cue: SoundCue) => engine.current?.playCue(cue), []);
+  const playClick = useCallback(() => engine.current?.playClick(), []);
   useEffect(() => () => {
     engine.current?.dispose();
     engine.current = null;
   }, []);
 
-  return <AudioContext.Provider value={{
-    unlock, playVoice, stopVoice, playClick: () => engine.current?.playClick(),
+  const value = useMemo<AudioControls>(() => ({
+    unlock, playVoice, stopVoice, playCue, playClick,
     isMuted: muted || unavailable, muteAll: () => changeMute(true), unmuteAll: () => changeMute(false),
-  }}>{children}</AudioContext.Provider>;
+  }), [unlock, playVoice, stopVoice, playCue, playClick, muted, unavailable, changeMute]);
+
+  return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
 }
 
 export function useAudio() {
@@ -59,4 +65,3 @@ export function useAudio() {
   if (!ctx) throw new Error('useAudio must be used within an AudioProvider');
   return ctx;
 }
-

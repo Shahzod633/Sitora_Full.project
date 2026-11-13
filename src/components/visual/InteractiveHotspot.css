@@ -1,9 +1,37 @@
+/* The hotspot fills its parent layer (the Apollo 11 lander), so camera moves keep it aligned.
+   Pixel sizes are divided by --cam-z to stay constant on screen at any zoom. */
 .hotspot {
-  position: absolute; z-index: 1; min-width: 44px; min-height: 44px; padding: 0;
-  border: 1px solid #ffddb1; background: #18323aeb; color: #ffe0ad;
-  border-radius: 50%; display: grid; place-items: center;
+  position: absolute; inset: 0; padding: 0; border: 0; background: transparent; color: #ffe0ad;
+  border-radius: 50%; cursor: pointer;
 }
-.hotspot::before, .hotspot::after { content: ""; position: absolute; width: 14px; height: 2px; background: currentColor; }
-.hotspot::after { transform: rotate(90deg); }
-.hotspot:hover { color: #162c34; background: #f5cf9e; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.hotspot:disabled { cursor: default; pointer-events: none; }
+.hotspot-ring {
+  position: absolute; left: 50%; top: 50%; width: 92%; aspect-ratio: 1; translate: -50% -50%;
+  border: calc(2px / var(--cam-z, 1)) solid #ffddb1; border-radius: 50%; animation: hotspot-pulse 1.9s ease-out infinite;
+}
+.hotspot-marker {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: calc(46px / var(--cam-z, 1)); height: calc(46px / var(--cam-z, 1));
+  border: calc(1.5px / var(--cam-z, 1)) solid #ffddb1; border-radius: 50%; background: #18323ae6;
+}
+.hotspot-marker::before, .hotspot-marker::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 40%; height: calc(2px / var(--cam-z, 1));
+  translate: -50% -50%; background: currentColor;
+}
+.hotspot-marker::after { transform: rotate(90deg); }
+.hotspot-label {
+  position: absolute; left: 50%; bottom: 100%; translate: -50% calc(-10px / var(--cam-z, 1));
+  display: grid; gap: calc(3px / var(--cam-z, 1)); width: max-content; text-align: center;
+  padding: calc(7px / var(--cam-z, 1)) calc(11px / var(--cam-z, 1));
+  background: var(--paper); color: var(--ink); border: calc(2px / var(--cam-z, 1)) solid var(--ink);
+  font-size: calc(12px / var(--cam-z, 1)); line-height: 1.2;
+}
+.hotspot-label strong { font: 600 calc(19px / var(--cam-z, 1))/1 "Barlow Condensed", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+.hotspot:hover .hotspot-marker, .hotspot:focus-visible .hotspot-marker { color: #162c34; background: #f5cf9e; }
+.hotspot:focus-visible { outline: none; }
+.hotspot:focus-visible .hotspot-ring { border-color: #fff; border-width: calc(3px / var(--cam-z, 1)); }
+@keyframes hotspot-pulse {
+  0% { opacity: 0.9; transform: scale(0.55); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) { .hotspot-ring { animation: none; opacity: 0.8; } }

@@ -1,59 +1,26 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import StartScreen from '../ui/StartScreen';
-import ChapterEndScreen from '../ui/ChapterEndScreen';
-import EarthDeparture from '../../chapters/chapter01/scenes/EarthDeparture';
-import AsterBridge from '../../chapters/chapter01/scenes/AsterBridge';
-import ApolloLegacy from '../../chapters/chapter01/scenes/ApolloLegacy';
-import { SceneKey } from '../../types/scene';
+import CreditsPanel from '../ui/CreditsPanel';
+import StoryboardPlayer from './StoryboardPlayer';
 import { AudioProvider } from '../audio/AudioContext';
+import { chapter01 } from '../../chapters/chapter01';
 
-// Centralized controller for chapter flow
+// Centralized controller for chapter flow: start screen → storyboard player (33 beats, including the
+// ending card) → replay. The player owns beat-level progression; this component owns screen-level flow.
 export const StoryController: React.FC = () => {
-  const scenes: SceneKey[] = ['earthDeparture', 'asterBridge', 'apolloLegacy'];
   const [started, setStarted] = useState(false);
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [completed, setCompleted] = useState(false);
+  const [run, setRun] = useState(0);
+  const [credits, setCredits] = useState(false);
 
-  const startStory = () => setStarted(true);
-  const advanceScene = () => {
-    if (currentIdx + 1 < scenes.length) {
-      setCurrentIdx(currentIdx + 1);
-    } else {
-      setCompleted(true);
-    }
-  };
-  const replay = () => {
-    setCurrentIdx(0);
-    setCompleted(false);
-  };
-
-  if (!started) {
-    return (
-      <AudioProvider>
-        <StartScreen onBegin={startStory} />
-      </AudioProvider>
-    );
-  }
-
-  if (completed) {
-    return (
-      <AudioProvider>
-        <ChapterEndScreen onReplay={replay} />
-      </AudioProvider>
-    );
-  }
-
-  const currentScene = scenes[currentIdx];
-  const SceneComponent = {
-    earthDeparture: EarthDeparture,
-    asterBridge: AsterBridge,
-    apolloLegacy: ApolloLegacy,
-  }[currentScene];
+  const openCredits = useCallback(() => setCredits(true), []);
+  const replay = useCallback(() => setRun(r => r + 1), []);
 
   return (
     <AudioProvider>
-      <SceneComponent onNext={advanceScene} />
+      {started
+        ? <StoryboardPlayer key={run} chapter={chapter01} onReplay={replay} onCredits={openCredits}/>
+        : <StartScreen onBegin={() => setStarted(true)} onCredits={openCredits}/>}
+      {credits && <CreditsPanel onClose={() => setCredits(false)}/>}
     </AudioProvider>
   );
 };
-

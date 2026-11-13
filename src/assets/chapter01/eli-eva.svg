@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 350">
+  <!-- TEMPORARY placeholder: Engineer Eli in a sealed pressurized EVA suit, three-quarter view facing right.
+       Amber-orange band and the thigh tool pouch identify Eli; his hair and beard read through the visor. -->
+  <g stroke="#152a33" stroke-width="3" stroke-linejoin="round">
+    <path d="m38 98 38-8 9 100-38 8z" fill="#a9b0a0"/><path d="m45 110 23-4m-21 17 23-4m-21 17 23-4" stroke="#6f7f7c" stroke-width="2"/>
+    <path d="m76 218 29-2 4 94-31 2z" fill="#cfc8b3"/>
+    <path d="m108 216 31 2-3 96-30-2z" fill="#e6dfcb"/>
+    <path d="m77 264 30-2m3 0 28 2" stroke="#9aa59a" stroke-width="5"/>
+    <path d="m116 236 18 1-1 22-18-1z" fill="#738b87"/>
+    <path d="m66 308 44-2 6 22-54 3z" fill="#5d6f72"/><path d="m100 310 46-1 9 20-56 3z" fill="#5d6f72"/>
+    <path d="m68 110 82-4 14 52-8 64-84 4-12-58z" fill="#e6dfcb"/>
+    <path d="m68 110 23 4-6 112-15 0-12-58z" fill="#cfc8b3"/>
+    <path d="m68 214 96-6 2 13-98 6z" fill="#b7bfb0"/>
+    <path d="m100 140 40-3 2 26-40 3z" fill="#738b87"/>
+    <circle cx="111" cy="150" r="3" fill="#afe8d1" stroke-width="1.5"/><circle cx="123" cy="149" r="3" fill="#e6ab73" stroke-width="1.5"/>
+    <path d="m68 118-16 10-7 62 16 6 11-54z" fill="#d2cbb6"/><path d="m43 188 17 2-1 15-18-2z" fill="#8f9c95"/>
+    <path d="m118 108 32-2 6 18-34 3z" fill="#ce946b"/>
+    <path d="m144 114 21 6 10 46-8 30-18-2 6-30-15-34z" fill="#e6dfcb"/><path d="m148 194 20 1 2 17-22 1z" fill="#8f9c95"/>
+    <path d="m82 104 60-4 4 11-62 4z" fill="#b7bfb0"/>
+    <circle cx="114" cy="64" r="42" fill="#ece6d4"/>
+    <path d="m128 26 12 2 1 9-13-1z" fill="#cb906a"/>
+    <ellipse cx="124" cy="67" rx="29" ry="25" fill="#1f3038"/>
+    <g stroke="none">
+      <path d="m108 56 22-6 15 10 3 22-10 12-22 2-10-14z" fill="#c3a288" opacity=".6"/>
+      <path d="m102 58 7-14 9-2 10-6 14 6 9 8-2 10-12-3-14 3-9 10z" fill="#384246" opacity=".85"/>
+      <path d="m110 80 8 9 16 0 10-9-2 9-12 9-14 0-8-8z" fill="#63544d" opacity=".85"/>
+    </g>
+    <ellipse cx="124" cy="67" rx="29" ry="25" fill="none" stroke="#9aa59a" stroke-width="4"/>
+    <path d="M103 56q16-18 40-9" fill="none" stroke="#f4dca8" stroke-width="3" opacity=".75" stroke-linecap="round"/>
+    <circle cx="160" cy="140" r="6" fill="#ce946b" stroke-width="2"/>
+  </g>
+</svg>

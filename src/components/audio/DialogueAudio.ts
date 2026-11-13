@@ -1,5 +1,6 @@
 import { assetManifest } from '../../data/assetManifest';
 import { voiceManifest, type VoiceProfile } from '../../data/voiceManifest';
+import type { SoundCue } from '../../story/types';
 
 type Source = OscillatorNode | AudioBufferSourceNode;
 
@@ -12,6 +13,7 @@ export class DialogueAudio {
   private requests = new AbortController();
   private voices = new Set<Source>();
   private muted = false;
+  private noiseBuffer?: AudioBuffer;
 
   async unlock() {
     if (!this.context) {
@@ -106,6 +108,78 @@ export class DialogueAudio {
     };
     source.start(start);
     source.stop(end);
+  }
+
+  /** Short original synthesized story cues. Quiet by design and skipped while muted or locked. */
+  playCue(name: SoundCue) {
+    const ctx = this.context;
+    if (!ctx || !this.master || this.muted || ctx.state !== 'running') return;
+    const t = ctx.currentTime;
+    switch (name) {
+      case 'computer':
+        this.tone(659, t, 0.14, 'sine', 0.07);
+        this.tone(988, t + 0.16, 0.24, 'sine', 0.06);
+        break;
+      case 'scan':
+        this.tone(330, t, 1.2, 'sine', 0.035, 990);
+        this.tone(660, t + 0.1, 1, 'triangle', 0.015, 1320);
+        break;
+      case 'save':
+        this.tone(523, t, 0.08, 'triangle', 0.05);
+        this.tone(659, t + 0.1, 0.08, 'triangle', 0.05);
+        this.tone(784, t + 0.2, 0.16, 'triangle', 0.05);
+        break;
+      case 'hotspot':
+        this.tone(880, t, 0.2, 'sine', 0.05, 660);
+        break;
+      case 'archive':
+        this.noise(t, 1.8, 1100, 0.035);
+        this.tone(110, t, 1.6, 'sine', 0.03, 98);
+        break;
+      case 'rumble':
+        this.noise(t, 2.8, 170, 0.12);
+        break;
+    }
+  }
+
+  private tone(freq: number, start: number, duration: number, type: OscillatorType, volume: number, endFreq?: number) {
+    const ctx = this.context!;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, start);
+    if (endFreq) osc.frequency.exponentialRampToValueAtTime(endFreq, start + duration);
+    gain.gain.setValueAtTime(0, start);
+    gain.gain.linearRampToValueAtTime(volume * voiceManifest.volume, start + Math.min(0.02, duration / 3));
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    osc.connect(gain).connect(this.master!);
+    osc.onended = () => { osc.disconnect(); gain.disconnect(); };
+    osc.start(start);
+    osc.stop(start + duration + 0.02);
+  }
+
+  private noise(start: number, duration: number, cutoff: number, volume: number) {
+    const ctx = this.context!;
+    if (!this.noiseBuffer) {
+      const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+      this.noiseBuffer = buffer;
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = this.noiseBuffer;
+    source.loop = true;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = cutoff;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0, start);
+    gain.gain.linearRampToValueAtTime(volume * voiceManifest.volume, start + duration * 0.25);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    source.connect(filter).connect(gain).connect(this.master!);
+    source.onended = () => { source.disconnect(); filter.disconnect(); gain.disconnect(); };
+    source.start(start);
+    source.stop(start + duration + 0.05);
   }
 
   playClick() {

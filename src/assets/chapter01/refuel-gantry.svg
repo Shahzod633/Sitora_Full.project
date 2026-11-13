@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <!-- TEMPORARY placeholder: fictional lunar refueling gantry (future technology, not an existing NASA facility). -->
+  <g stroke="#2c434a" stroke-width="2.6" stroke-linejoin="round">
+    <path d="m6 206 70-2 6 10-82 2z" fill="#657671"/>
+    <path d="m22 206 4-188h22l4 188z" fill="#4b6066"/>
+    <path d="m27 196 20-20m-20 0 20-20m-20 0 20-20m-20 0 20-20m-20 0 20-20m-20 0 20-20m-20 0 20-20m-20 0 20-20M27 196l20 0M27 156h20M27 116h20M27 76h20M27 36h20" fill="none" stroke="#9fb0a6" stroke-width="1.6"/>
+    <path d="m46 34 104 6v12L46 48z" fill="#c3c5af"/>
+    <path d="m60 40v10m20-9v10m20-9v10m20-9v10" stroke="#7f928e" stroke-width="1.6"/>
+    <path d="m138 52q4 40-10 74" fill="none" stroke="#cb906a" stroke-width="5" stroke-linecap="round"/>
+    <path d="m122 122 14 4-4 12-14-4z" fill="#c3c5af"/>
+    <rect x="18" y="8" width="38" height="12" rx="2" fill="#c3c5af"/>
+  </g>
+  <g fill="#e6ab73"><circle cx="26" cy="14" r="3"/><circle cx="48" cy="14" r="3"/><circle cx="148" cy="44" r="3"/></g>
+</svg>
