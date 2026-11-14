@@ -12,7 +12,7 @@ committed to git; the site only needs the copies in `public/`.
 Status legend: **Integrated** = used by the running app · **Not integrated** = available, not used yet ·
 **Duplicate / alternative** = same image or a variant of one that is integrated.
 
-## Team artwork — `Desktop\Photos\`
+## Team artwork — `Photos/`
 
 | Original file | Size · format · alpha | What it shows | Chapter / scene | Story beats | Status → project copy |
 |---|---|---|---|---|---|
