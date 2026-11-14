@@ -3,10 +3,11 @@
 Inspected November 2026 by opening every file (not by filename). Dimensions and transparency were read from
 the files themselves; variations were compared pixel-by-pixel to find exactly which region differs.
 
-**Where the art was found.** The project root contains no image files. The team's artwork was found in
-`C:\Users\user\Desktop\Photos\` (17 files) and in `public/assets/art/` (8 files added with the previous
-Chapter 1 commit). The originals in `Photos\` were **not modified or moved**: web-sized copies (2000 px wide,
-JPEG quality 88) were written to `public/assets/art/` under descriptive names.
+**Where the art is.** The team's originals are in `Photos/` in the project root (17 files; first found in
+`Desktop\Photos\`, since moved into the project — same files), plus `public/assets/art/` (8 files from the
+previous Chapter 1 commit). The originals were **not modified**: web-sized copies (2000 px wide, JPEG
+quality 88) were written to `public/assets/art/` under descriptive names. `Photos/` (~70 MB of PNGs) is not
+committed to git; the site only needs the copies in `public/`.
 
 Status legend: **Integrated** = used by the running app · **Not integrated** = available, not used yet ·
 **Duplicate / alternative** = same image or a variant of one that is integrated.
