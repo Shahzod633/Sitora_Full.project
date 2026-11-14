@@ -50,11 +50,13 @@ export type LayerTarget = LayerState & Motion;
 /** A single target, or keyframes played one after another. */
 export type LayerSpec = LayerTarget | LayerTarget[];
 
-export type FxKind =
+/** Built-in effect layers (story/fx.tsx). Chapters add their own through story/fxRegistry.ts. */
+export type CoreFxKind =
   | 'glow' | 'thruster' | 'vignette' | 'marsGlint' | 'nameTag' | 'hud' | 'pipDiag' | 'landingPad'
   | 'refuelLine' | 'statusTag' | 'dust' | 'landingGlow' | 'perimeter' | 'reticle' | 'scanWave'
   | 'hotspot' | 'dateCard' | 'archivePanel' | 'filmGrain' | 'label' | 'archiveBackdrop' | 'endCard'
-  | 'talkingPainting' | 'pipStatus';
+  | 'talkingPainting' | 'pipStatus' | 'tint' | 'titleLine';
+export type FxKind = CoreFxKind | (string & {});
 
 export type LayerDef = {
   id: string;
@@ -105,13 +107,20 @@ export type CameraSpec = {
   to: CameraMove | CameraMove[];
 };
 
-export type StageId = 'orbit' | 'cockpit' | 'lunarBase' | 'apolloSite' | 'archive' | 'ending';
+/** Stage ids are local to a chapter (see chapters/<chapter>/stages.ts). */
+export type StageId = string;
+
+/** Original synthesized ambience (components/audio/MusicBed.ts). `silence` fades the bed out. */
+export type MusicMood = 'space' | 'interior' | 'moon' | 'archive' | 'mars' | 'emotional' | 'finale' | 'silence';
+export type MusicCue = { mood?: MusicMood; /** 0-1 multiplier on the reader's music volume. */ level?: number };
 
 export type StageDef = {
   id: StageId;
   label: string;
-  /** Palette family: space, interior, moon, archive, black. */
-  tone: 'space' | 'interior' | 'moon' | 'archive' | 'black';
+  /** Palette family. */
+  tone: 'space' | 'interior' | 'moon' | 'archive' | 'black' | 'mars' | 'dusk';
+  /** Ambient bed while this stage is on screen. Beats can override it (`Beat.music`). */
+  music?: MusicMood;
   /** Portrait art used by the dialogue box while this stage is active. */
   costume: Costume;
   layers: LayerDef[];
@@ -125,7 +134,9 @@ export type TransitionKind = 'cut' | 'crossfade' | 'black' | 'push' | 'archive' 
 
 export type Caption = { kind: 'scene' | 'narration' | 'location'; text: string };
 
-export type SoundCue = 'computer' | 'scan' | 'save' | 'hotspot' | 'archive' | 'rumble';
+export type SoundCue =
+  | 'computer' | 'scan' | 'save' | 'hotspot' | 'archive' | 'rumble'
+  | 'brush' | 'reveal' | 'rover' | 'apxs' | 'tick' | 'hologram' | 'authorize' | 'wind' | 'entry' | 'chime';
 export type SoundEvent = { cue: SoundCue; at?: number };
 
 /** Changes applied together: on beat entry, when a line starts, or after the dialogue (outro). */
@@ -143,14 +154,16 @@ export type Advance =
   | { mode: 'auto'; hold: number }
   /** Dialogue: the reader advances each line (click, tap, Space, Enter, →). */
   | { mode: 'dialogue' }
-  /** Interactive: continue when the reader activates `target` (a hotspot layer). */
-  | { mode: 'interaction'; target: string; hint: string }
+  /** Interactive: continue when the reader activates `target` (a hotspot layer) or completes the activity
+   * rendered by that layer (dust brushing, rover drive, timelines). Activities show their own instructions,
+   * so `hint` is optional. */
+  | { mode: 'interaction'; target: string; hint?: string }
   /** Reading moment: continue on an explicit button. */
   | { mode: 'confirm'; label: string }
   /** Chapter ending: stays until Replay. */
   | { mode: 'end' };
 
-export type SequenceId = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type SequenceId = string;
 
 export type Beat<LineId extends string = string> = Cue & {
   /** Stable id used by the dev overlay, docs and ?beat= deep links (development only). */
@@ -172,6 +185,8 @@ export type Beat<LineId extends string = string> = Cue & {
   /** Delay before the first line, so the camera can settle. Default 0.45s. */
   dialogueDelay?: number;
   caption?: Caption | Caption[];
+  /** Ambient music from this beat onward (mood and/or level). Falls back to the stage's `music`. */
+  music?: MusicCue;
   advance: Advance;
   /** Next beat id. Defaults to the following beat. */
   next?: string;
@@ -184,10 +199,22 @@ export type ScriptLine<LineId extends string = string> = {
   expression?: Expression;
 };
 
+/** Text of the chapter-complete card (rendered by the `endCard` effect on the chapter's last beat). */
+export type ChapterEnding = {
+  kicker: string;
+  title: string;
+  note?: string;
+  nextLabel?: string;
+  nextValue?: string;
+};
+
 export type Chapter<LineId extends string = string> = {
   id: string;
   number: string;
   title: string;
+  ending?: ChapterEnding;
+  /** Lines that are approved additional staging rather than original screenplay (listed in docs/STORYBOARD.md). */
+  additionalLines?: readonly LineId[];
   sequences: Record<SequenceId, string>;
   script: Record<LineId, ScriptLine<LineId>>;
   /** Screenplay order, used to verify every line appears once and in order. */

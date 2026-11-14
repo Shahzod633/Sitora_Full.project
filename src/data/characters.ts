@@ -1,14 +1,16 @@
 import type { AssetId } from './assetManifest';
 
 export type CharacterId = 'mara' | 'eli' | 'pip';
-/** flight: inside Aster. eva: outside on the lunar surface (sealed suits for Mara and Eli, lunar kit for Pip). */
-export type Costume = 'flight' | 'eva';
+/** flight: inside Aster. deck: Aster's observation deck (crew seen from behind; portraits use other art).
+ * eva: outside on the lunar surface (sealed suits for Mara and Eli, lunar kit for Pip). mars: outside on Mars. */
+export type Costume = 'flight' | 'deck' | 'eva' | 'mars';
 
 export type Expression =
-  | 'neutral' | 'smile' | 'wry' | 'sarcastic' | 'grin' | 'serious' | 'surprised' | 'awed'
-  | 'exasperated' | 'reflective'
+  | 'neutral' | 'smile' | 'happy' | 'laughing' | 'wry' | 'sarcastic' | 'grin' | 'serious' | 'surprised' | 'awed'
+  | 'exasperated' | 'reflective' | 'thoughtful' | 'sad'
   // Pip's face screen
-  | 'curious' | 'analyzing' | 'scanning' | 'deadpan' | 'processing' | 'saving' | 'content';
+  | 'curious' | 'confused' | 'excited' | 'thinking' | 'analyzing' | 'scanning' | 'deadpan' | 'processing'
+  | 'saving' | 'content';
 
 type Look = {
   base: AssetId;
@@ -38,7 +40,13 @@ export const characters: Record<CharacterId, Character> = {
     looks: {
       flight: { base: 'mara', expressions: { smile: 'maraSmile' }, portrait: { focus: [0.6, 0.27], zoom: 2.15 }, emote: [0.86, 0.12],
         painted: { closed: 'cockpitTwoShot', talking: 'cockpitTwoShotMara', focus: [0.318, 0.5], zoom: 6.5 } },
+      // The observation-deck painting shows Mara from behind, so her portrait uses the character sheet.
+      deck: { base: 'mara', portrait: { focus: [0.6, 0.27], zoom: 2.15 }, emote: [0.86, 0.12],
+        painted: { closed: 'maraSheet', focus: [0.123, 0.135], zoom: 5.4 } },
       eva: { base: 'maraEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
+        painted: { closed: 'moonCrewPainting', focus: [0.28, 0.3], zoom: 8 } },
+      // No Mars painting yet: portraits reuse the lunar EVA painting until Mars art is delivered.
+      mars: { base: 'maraMars', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
         painted: { closed: 'moonCrewPainting', focus: [0.28, 0.3], zoom: 8 } },
     },
   },
@@ -47,7 +55,11 @@ export const characters: Record<CharacterId, Character> = {
     looks: {
       flight: { base: 'eli', portrait: { focus: [0.5, 0.25], zoom: 2.1 }, emote: [0.82, 0.08],
         painted: { closed: 'cockpitTwoShot', talking: 'cockpitTwoShotEli', focus: [0.272, 0.3], zoom: 6.5 } },
+      deck: { base: 'eli', portrait: { focus: [0.5, 0.25], zoom: 2.1 }, emote: [0.82, 0.08],
+        painted: { closed: 'cockpitTwoShot', talking: 'cockpitTwoShotEli', focus: [0.272, 0.3], zoom: 6.5 } },
       eva: { base: 'eliEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
+        painted: { closed: 'moonCrewPainting', focus: [0.452, 0.56], zoom: 8 } },
+      mars: { base: 'eliMars', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
         painted: { closed: 'moonCrewPainting', focus: [0.452, 0.56], zoom: 8 } },
     },
   },
@@ -55,7 +67,9 @@ export const characters: Record<CharacterId, Character> = {
     id: 'pip', name: 'PIP', role: 'Robot companion', voiceProfile: 'pip', faceScreen: true,
     looks: {
       flight: { base: 'pipFull', portrait: { focus: [0.5, 0.3], zoom: 1.85 }, emote: [0.9, 0.08] },
+      deck: { base: 'pipFull', portrait: { focus: [0.5, 0.3], zoom: 1.85 }, emote: [0.9, 0.08] },
       eva: { base: 'pipLunar', portrait: { focus: [0.5, 0.3], zoom: 1.85 }, emote: [0.9, 0.08] },
+      mars: { base: 'pipMars', portrait: { focus: [0.5, 0.3], zoom: 1.85 }, emote: [0.9, 0.08] },
     },
   },
 };
@@ -66,8 +80,9 @@ export type EmoteMark = 'sparkle' | 'sweat' | 'anger' | 'exclaim' | 'dots' | 'qu
 
 /** Manga-style emote marks for the human crew. Pip's face screen covers his expressions. */
 export const emoteFor: Partial<Record<Expression, EmoteMark>> = {
-  smile: 'sparkle', grin: 'sparkle', awed: 'sparkle',
+  smile: 'sparkle', grin: 'sparkle', awed: 'sparkle', happy: 'sparkle', laughing: 'sparkle',
   wry: 'sweat', sarcastic: 'squiggle',
-  exasperated: 'anger', surprised: 'exclaim',
-  reflective: 'dots', serious: 'dots',
+  exasperated: 'anger', surprised: 'exclaim', excited: 'exclaim',
+  reflective: 'dots', serious: 'dots', thoughtful: 'dots', sad: 'dots',
+  confused: 'question',
 };

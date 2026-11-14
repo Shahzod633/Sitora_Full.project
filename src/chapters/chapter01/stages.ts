@@ -36,7 +36,7 @@ const thruster: LayerDef = { id: 'asterThrust', fx: 'thruster', props: { single:
 export const stages: Record<StageId, StageDef> = {
   // ---------------------------------------------------------------- Space (B01–B04, B14, B32)
   orbit: {
-    id: 'orbit', label: 'Space between Earth and the Moon', tone: 'space', costume: 'flight',
+    id: 'orbit', label: 'Space between Earth and the Moon', tone: 'space', costume: 'flight', music: 'space',
     layers: [
       stars(0.05),
       { id: 'sun', fx: 'glow', props: { tone: 'sun' }, depth: 0.1, box: { x: 94, y: 6, w: '86cqmax', h: '86cqmax' }, initial: { opacity: 0.4 } },
@@ -45,6 +45,10 @@ export const stages: Record<StageId, StageDef> = {
         box: { x: 67, y: 50, w: 'min(68cqw, 92cqh)', aspect: 1 }, portrait: { x: 54, y: 34, w: 'min(150cqw, 66cqh)' } },
       { id: 'moon', asset: 'moonGlobe', label: 'The Moon', depth: 0.42, initial: { opacity: 0 },
         box: { x: 30, y: 50, w: 'min(62cqw, 88cqh)', aspect: 1 }, portrait: { x: 46, y: 40, w: 'min(136cqw, 66cqh)' } },
+      // Artists' painting of deep space and the limb of Earth: the opening view (B01–B03). Slightly oversized
+      // and far back, so the slow camera move reads as parallax against Aster. Hidden for lunar orbit (B14)
+      // and the departure (B32), where the small Earth and the Moon above are used instead.
+      { id: 'earthLimb', asset: 'spaceEarthLimb', label: 'Earth from orbit', depth: 0.3, box: cover(2000 / 1126, 1.12) },
       { id: 'aster', asset: 'aster', label: 'Aster spacecraft', depth: 1, initial: { opacity: 0 },
         box: { x: 46, y: 58, w: 'min(46cqw, 82cqh)' }, portrait: { x: 50, y: 64, w: '94cqw' }, children: [thruster] },
       // Artists' hero frame of Aster with Earth. Fades in at the end of B03; B04 pushes into its windows.
@@ -70,9 +74,11 @@ export const stages: Record<StageId, StageDef> = {
   // Two paintings of the same deck: `wide` (Mara seated, Eli standing, Earth in the window) and `twoShot`
   // (close two-shot with closed-mouth base frame + Mara/Eli talking frames for lip-sync).
   cockpit: {
-    id: 'cockpit', label: 'Aster flight deck', tone: 'interior', costume: 'flight', bounds: 'wide',
+    id: 'cockpit', label: 'Aster flight deck', tone: 'interior', costume: 'flight', bounds: 'wide', music: 'interior',
     layers: [
-      { id: 'wide', asset: 'cockpitWide', label: 'Aster flight deck: Mara at navigation, Eli by the window', depth: 1,
+      // Wide painting with Eli's open-mouth frame, so he can speak in the wide shot too (B11).
+      { id: 'wide', fx: 'talkingPainting', props: { base: 'cockpitWide', eli: 'cockpitWideEli' },
+        label: 'Aster flight deck: Mara at navigation, Eli by the window', depth: 1,
         box: cover(2000 / 1125),
         children: [
           marker('maraMark', 27, 52, 14, 30),
@@ -105,6 +111,7 @@ export const stages: Record<StageId, StageDef> = {
       windowIn: { target: 'windowMark', zoom: 2.1, portrait: { target: 'windowMark', zoom: 1.5 } },
       maraIntro: { target: 'maraMark', focus: [0.5, 0.35], zoom: 1.8, screen: [0.42, 0.48] },
       eliIntro: { target: 'eliMark', focus: [0.5, 0.3], zoom: 1.8, screen: [0.58, 0.46] },
+      eliWide: { target: 'eliMark', focus: [0.5, 0.2], zoom: 2.1, screen: [0.56, 0.4], portrait: { target: 'eliMark', focus: [0.5, 0.2], zoom: 1.7, screen: [0.5, 0.36] } },
       pipIntro: { target: 'pip', focus: [0.62, 0.42], zoom: 2.1, screen: [0.46, 0.5] },
       pipClose: { target: 'pip', focus: [0.55, 0.3], zoom: 2.6, screen: [0.48, 0.4] },
       pipMara: { target: ['maraMark', 'pip'], focus: [0.5, 0.42], fill: 0.9, screen: [0.5, 0.44] },
@@ -116,9 +123,28 @@ export const stages: Record<StageId, StageDef> = {
     },
   },
 
+  // ---------------------------------------------------------------- Aster galley (B13A)
+  // The artists' galley painting: Eli finally at the coffee machine, Mara with her tablet, the Moon filling
+  // the window. `glance` is the same frame with Mara looking over at Eli; fading it in and out is her glance.
+  galley: {
+    id: 'galley', label: 'Aster galley, with the Moon in the window', tone: 'interior', costume: 'flight', bounds: 'room', music: 'interior',
+    layers: [
+      { id: 'room', fx: 'talkingPainting', props: { base: 'galley', eli: 'galleyEli', mara: 'galleyMara' },
+        label: 'Eli at the coffee machine and Mara with a tablet; the Moon fills the window', depth: 1, box: cover(2000 / 1126),
+        children: [marker('eliG', 28.5, 42, 14, 50), marker('maraG', 47, 50, 10, 46), marker('moonG', 85, 36, 28, 44)] },
+      { id: 'glance', asset: 'galleyGlance', depth: 1, initial: { opacity: 0 }, box: cover(2000 / 1126) },
+      vignette(0.25),
+    ],
+    shots: {
+      wide: {},
+      coffee: { target: ['eliG', 'maraG'], focus: [0.4, 0.3], zoom: 1.55, screen: [0.46, 0.44], portrait: { target: 'eliG', focus: [0.6, 0.3], zoom: 1.25, screen: [0.5, 0.4] } },
+      moonView: { target: 'moonG', focus: [0.3, 0.5], zoom: 1.28, screen: [0.6, 0.46], portrait: { target: 'moonG', focus: [0.4, 0.5], zoom: 1.15, screen: [0.5, 0.4] } },
+    },
+  },
+
   // ---------------------------------------------------------------- Fictional lunar refuelling station (B15, B16, B31)
   lunarBase: {
-    id: 'lunarBase', label: 'A fictional future lunar base and refuelling pad', tone: 'moon', costume: 'flight',
+    id: 'lunarBase', label: 'A fictional future lunar base and refuelling pad', tone: 'moon', costume: 'flight', music: 'moon',
     layers: [
       stars(0.04, 34),
       { id: 'skyEarth', asset: 'earth', label: 'Earth in the lunar sky', depth: 0.12,
@@ -156,7 +182,7 @@ export const stages: Record<StageId, StageDef> = {
   // Two paintings: `crewScene` (Mara, Eli and Pip in EVA gear by the base) and `apolloScene` (the Apollo 11
   // descent stage). Lines alternate between them: the crew when they speak, the lander when it is the subject.
   apolloSite: {
-    id: 'apolloSite', label: 'The Apollo 11 landing site on the Moon', tone: 'moon', costume: 'eva', bounds: 'crewScene',
+    id: 'apolloSite', label: 'The Apollo 11 landing site on the Moon', tone: 'moon', costume: 'eva', bounds: 'crewScene', music: 'moon',
     layers: [
       // Pinned to the bottom and 8 % oversized so the source's top-right window icons stay off-screen.
       { id: 'crewScene', asset: 'moonCrewPainting', label: 'Mara, Eli and Pip on the lunar surface near the base', depth: 1,
@@ -200,7 +226,7 @@ export const stages: Record<StageId, StageDef> = {
 
   // ---------------------------------------------------------------- 1969 flashback (B24–B25)
   archive: {
-    id: 'archive', label: 'Apollo 11, July 1969 — historical flashback', tone: 'archive', costume: 'eva',
+    id: 'archive', label: 'Apollo 11, July 1969 — historical flashback', tone: 'archive', costume: 'eva', music: 'archive',
     layers: [
       { id: 'backdrop', fx: 'archiveBackdrop', depth: 0, box: full },
       { id: 'recon', asset: 'reconLander', label: 'Illustrated reconstruction of the lunar module Eagle at Tranquility Base',
@@ -225,7 +251,7 @@ export const stages: Record<StageId, StageDef> = {
 
   // ---------------------------------------------------------------- Ending card (B33)
   ending: {
-    id: 'ending', label: 'Chapter one complete', tone: 'black', costume: 'flight',
+    id: 'ending', label: 'Chapter one complete', tone: 'black', costume: 'flight', music: 'space',
     layers: [
       { ...stars(0.02), initial: { opacity: 0.35 } },
       { id: 'mars', fx: 'marsGlint', depth: 0.02, box: { x: 78, y: 26, w: '2.6cqmin', h: '2.6cqmin' }, portrait: { x: 74, y: 16 } },

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <!-- TEMPORARY placeholder: illustrated reconstruction of the Mars Pathfinder lander, 1997: petals open,
+       deflated airbags around the base, camera mast, rover ramp. Clearly an illustration, not a photograph.
+       Replace with the artists' reconstruction. -->
+  <g stroke="#2a221c" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- deflated airbags -->
+    <g fill="#cfc4ae"><ellipse cx="150" cy="330" rx="110" ry="30"/><ellipse cx="330" cy="344" rx="140" ry="30"/><ellipse cx="500" cy="328" rx="110" ry="28"/></g>
+    <path d="m70 326q40-14 80 0m60 14q60-18 120 0m80-14q50-14 100 0" fill="none" stroke="#9c917c" stroke-width="3"/>
+    <!-- petals -->
+    <path d="m210 300-150 14 40-52z" fill="#3f5068"/><path d="m430 300 150 12-44-52z" fill="#3f5068"/>
+    <path d="m214 300 212 0 30 34-270 2z" fill="#4a5d77"/>
+    <path d="m120 300 26-30m30 26 14-28m266 30-22-30m-28 26-12-26m-170 44 4 24m60-24 0 26m60-26-4 24" stroke="#7d93ad" stroke-width="2.5"/>
+    <!-- base and electronics box -->
+    <path d="m236 300 20-70 128 0 20 70z" fill="#bfb49d"/><path d="m262 230 116 0 6 22-128 0z" fill="#d8ceb8"/>
+    <path d="m280 262 80 0 0 26-80 0z" fill="#8f8573"/>
+    <!-- camera mast -->
+    <path d="m320 230 0-128" fill="none" stroke="#c8beaa" stroke-width="7"/>
+    <path d="m300 82 44 0 4 24-52 0z" fill="#9aa1a0"/><circle cx="312" cy="94" r="6" fill="#1d262c"/><circle cx="334" cy="94" r="6" fill="#1d262c"/>
+    <!-- antenna -->
+    <path d="m366 230 12-60" fill="none" stroke="#c8beaa" stroke-width="4"/><circle cx="380" cy="162" r="18" fill="#d8ceb8"/>
+    <!-- rover ramp -->
+    <path d="m430 300 120 62 30-6-110-62z" fill="#a89d88"/><path d="m452 306 104 54m-80-58 104 54" stroke="#7c7363" stroke-width="2.5"/>
+  </g>
+</svg>

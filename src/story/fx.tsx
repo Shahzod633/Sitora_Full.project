@@ -1,5 +1,6 @@
 import React from 'react';
 import type { FxKind } from './types';
+import { lookupFx } from './fxRegistry';
 import { useMouthOpen, useStoryActions } from './StoryActions';
 import SceneArt from '../components/visual/SceneArt';
 import { assets, type AssetId } from '../data/assetManifest';
@@ -99,8 +100,18 @@ export function Fx({ id, kind, props }: Props) {
     case 'archiveBackdrop':
       return <span className="archive-backdrop"/>;
     case 'endCard':
-      return actions.ended ? <ChapterEndCard onReplay={actions.replay} onCredits={actions.credits}/> : null;
-    default:
+      return actions.ended ? <ChapterEndCard/> : null;
+    case 'tint':
+      // Flat colour wash driven by layer opacity (dusk light, hologram glow, fade to black inside a stage).
+      return <span className={`fx-tint tint-${text('tone') || 'black'}`}/>;
+    case 'titleLine':
+      return <span className={`title-line title-line-${text('size') || 'md'}`}>{text('text')}</span>;
+    default: {
+      // Chapter-specific effects and activities (see story/fxRegistry.ts).
+      const Custom = lookupFx(kind);
+      if (Custom) return <Custom id={id} props={props}/>;
+      if (import.meta.env.DEV) console.warn(`[storyboard] unknown fx "${kind}" on layer "${id}"`);
       return null;
+    }
   }
 }

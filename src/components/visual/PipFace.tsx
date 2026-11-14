@@ -30,6 +30,7 @@ function eyes(expression: Expression) {
         <rect x="77" y="71" width="15" height="3.2" rx="1"/>
       </>;
     case 'processing':
+    case 'thinking':
       return <g className="pip-dots">
         <circle cx="60" cy="72" r="3.4"/><circle cx="71" cy="72" r="3.4"/><circle cx="82" cy="72" r="3.4"/>
       </g>;
@@ -47,8 +48,27 @@ function eyes(expression: Expression) {
     case 'surprised':
     case 'awed':
       return <><circle cx="55" cy="72" r="7"/><circle cx="85" cy="72" r="7"/></>;
+    case 'excited':
+      return <>
+        <path d="M55 62l2.6 7 7 2.6-7 2.6-2.6 7-2.6-7-7-2.6 7-2.6zM85 62l2.6 7 7 2.6-7 2.6-2.6 7-2.6-7-7-2.6 7-2.6z"/>
+        <path className="pip-smile" d="M63 85q7 5 14 0" fill="none" strokeWidth="2.2" strokeLinecap="round"/>
+      </>;
+    case 'confused':
+      return <>
+        <rect x="48" y="69" width="13" height="8" rx="2"/>
+        <rect x="78" y="62" width="13" height="16" rx="2"/>
+        <path d="M66 84q3-3 6 0t6 0" fill="none" strokeWidth="2" strokeLinecap="round"/>
+      </>;
+    case 'sad':
+      return <g fill="none" strokeWidth="3" strokeLinecap="round">
+        <path d="M48 70l13 5M91 70l-13 5"/>
+        <path d="M51 78h8M81 78h8" strokeWidth="2.4"/>
+        <path d="M64 87q7-4 14 0" strokeWidth="2"/>
+      </g>;
     case 'smile':
     case 'grin':
+    case 'happy':
+    case 'laughing':
       return <g fill="none" strokeWidth="3" strokeLinecap="round"><path d="M48 75q6.5-8 13 0M78 75q6.5-8 13 0"/></g>;
     default:
       return <><rect x="48" y="65" width="13" height="14" rx="2"/><rect x="78" y="65" width="13" height="14" rx="2"/></>;

@@ -18,12 +18,14 @@ type Props = {
   onAdvance: () => void;
   /** Who is mouthing words right now (while their line types out), or null. Drives lip-sync. */
   onTalkingChange?: (speaker: CharacterId | null) => void;
+  /** Reader pause: typing, blips and lip-sync hold. */
+  paused?: boolean;
 };
 
 // Undertale-inspired dialogue box: portrait, speaker name, typewriter text with per-character voice blips.
 // First click completes the line, the next click advances. Works with click, tap, Space, Enter and →.
 const DialogueBox = React.forwardRef<DialogueBoxHandle, Props>(function DialogueBox(
-  { line, visible, costume, expression, onAdvance, onTalkingChange }, ref,
+  { line, visible, costume, expression, onAdvance, onTalkingChange, paused = false }, ref,
 ) {
   const textRef = React.useRef<DialogueTextHandle>(null);
   const eligible = React.useRef(0);
@@ -37,27 +39,27 @@ const DialogueBox = React.forwardRef<DialogueBoxHandle, Props>(function Dialogue
   }, [line, stopVoice]);
 
   React.useEffect(() => {
-    if (!visible) stopVoice();
-  }, [visible, stopVoice]);
+    if (!visible || paused) stopVoice();
+  }, [visible, paused, stopVoice]);
 
   // Mouths open while a line is typing out and close as soon as it is complete or hidden.
   const doneLine = React.useRef<string>();
   React.useEffect(() => {
-    onTalkingChange?.(visible && line && doneLine.current !== line.id ? line.speaker : null);
-  }, [line, visible, onTalkingChange]);
+    onTalkingChange?.(visible && !paused && line && doneLine.current !== line.id ? line.speaker : null);
+  }, [line, visible, paused, onTalkingChange]);
   const onComplete = React.useCallback(() => {
     doneLine.current = line?.id;
     onTalkingChange?.(null);
   }, [line, onTalkingChange]);
 
   const onReveal = (char: string) => {
-    if (!profile || !visible || !/[\p{L}\p{N}]/u.test(char)) return;
+    if (!profile || !visible || paused || !/[\p{L}\p{N}]/u.test(char)) return;
     const count = eligible.current++;
     if (count % profile.everyLetters === 0) playVoice(profile, count / profile.everyLetters);
   };
 
   const advance = () => {
-    if (!line || !visible) return;
+    if (!line || !visible || paused) return;
     stopVoice();
     if (textRef.current?.finishTyping()) return;
     onAdvance();
@@ -76,7 +78,7 @@ const DialogueBox = React.forwardRef<DialogueBoxHandle, Props>(function Dialogue
       <CharacterPortrait speaker={line.speaker} costume={costume} expression={expression ?? line.expression}/>
       <span className="dialogue-content">
         <span className="speaker-name">{character.name}</span>
-        <DialogueText key={line.id} ref={textRef} text={line.text} onReveal={onReveal} onComplete={onComplete}/>
+        <DialogueText key={line.id} ref={textRef} text={line.text} onReveal={onReveal} onComplete={onComplete} paused={paused}/>
       </span>
       <span className="next-indicator" aria-hidden="true"/>
     </button>}

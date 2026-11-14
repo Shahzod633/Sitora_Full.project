@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100">
+  <!-- TEMPORARY placeholder: a Martian rock seen from above (mini-game obstacle). -->
+  <ellipse cx="64" cy="62" rx="52" ry="32" fill="#3a1c14" opacity=".35"/>
+  <path d="m18 56 14-30 34-14 34 16 10 30-20 26-44 6z" fill="#6a3626" stroke="#2e1711" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m32 26 34-14 34 16-36 14z" fill="#8d4e36"/><path d="m64 42 36-14 10 30-30 6z" fill="#7a412d"/>
+</svg>

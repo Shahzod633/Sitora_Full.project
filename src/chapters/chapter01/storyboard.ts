@@ -1,7 +1,7 @@
 import type { Beat, LayerTarget } from '../../story/types';
 import type { LineId } from './script';
 
-// Chapter 01 storyboard: 33 connected beats across six reusable stages.
+// Chapter 01 storyboard: 34 connected beats across seven reusable stages.
 // Pure data. Timings are in seconds. Layer `dx/dy` are % of the viewport; camera shots are named per stage
 // (see stages.ts). Progression modes: auto (cinematic, click to fast-forward), dialogue (reader-paced),
 // interaction (hotspot), confirm (reading moment), end.
@@ -105,9 +105,9 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'B11', slug: 'eli-interrupts-pip', sequence: 'B', title: 'Eli interrupts Pip', stage: 'cockpit',
-    // Snap cut back to Eli for comic timing.
-    layers: { twoShot: show(0.15), pipDiag: hide(0.2) },
-    camera: { to: { shot: 'twoEli', duration: 0.3, ease: 'power3.out' } },
+    // Whip from Pip to Eli in the same wide painting (comic timing); his open-mouth frame carries the line.
+    layers: { pipDiag: hide(0.2) },
+    camera: { to: { shot: 'eliWide', duration: 0.35, ease: 'power3.out' } },
     dialogueDelay: 0.1,
     dialogue: ['eli-dont-start'],
     advance: { mode: 'dialogue' },
@@ -140,11 +140,23 @@ export const storyboard: Beat<LineId>[] = [
     advance: { mode: 'auto', hold: 5.8 },
   },
 
+  {
+    // Wordless beat in the artists' galley painting: Eli gets his coffee after all, Mara glances over,
+    // and the Moon fills the window. No dialogue is added to the screenplay.
+    id: 'B13A', slug: 'galley-moon', sequence: 'B', title: 'The Moon fills the window', stage: 'galley',
+    transition: { kind: 'crossfade', duration: 1.3 },
+    layers: { glance: [{ opacity: 1, duration: 0.14, delay: 2.2 }, { opacity: 0, duration: 0.14, delay: 1.7 }] },
+    camera: { from: 'coffee', to: { shot: 'moonView', duration: 6.2, delay: 0.6, ease: 'sine.inOut' } },
+    caption: { kind: 'location', text: 'Aster galley · lunar approach' },
+    advance: { mode: 'auto', hold: 7 },
+  },
+
   // ============================================================ SEQUENCE C — ARRIVAL ON THE MOON
   {
     id: 'B14', slug: 'lunar-orbit', sequence: 'C', title: 'Lunar orbit', stage: 'orbit',
     transition: { kind: 'push', duration: 1.1 },
     from: {
+      earthLimb: { opacity: 0 },
       earth: { opacity: 0.9, scale: 0.2, dx: -51, dy: -32 },
       moon: { opacity: 1, dx: 40 },
       aster: { opacity: 1, dx: -36, dy: -12, scale: 0.42, rotation: 2 },
@@ -348,6 +360,7 @@ export const storyboard: Beat<LineId>[] = [
     id: 'B32', slug: 'toward-mars', sequence: 'F', title: 'Toward Mars', stage: 'orbit',
     transition: { kind: 'crossfade', duration: 1.4 },
     from: {
+      earthLimb: { opacity: 0 },
       earth: { opacity: 0.85, scale: 0.15, dx: -52, dy: -36 },
       moon: { opacity: 1, dx: -6, dy: 26, scale: 1.25 },
       aster: { opacity: 1, dx: -16, dy: 6, scale: 0.7, rotation: -2 },

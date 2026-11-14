@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300">
+  <!-- TEMPORARY placeholder: a Mars Exploration Rover (the twin design shared by Spirit and Opportunity):
+       winged solar deck, tall camera mast, robotic arm, six wheels. Drawn in one tone so the hologram effect
+       can tint it. No mission insignia. Replace with the artists' drawing or a credited NASA image. -->
+  <g stroke="#1c3440" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" fill="#9fc6c4">
+    <circle cx="110" cy="248" r="30"/><circle cx="214" cy="254" r="30"/><circle cx="318" cy="246" r="30"/>
+    <path d="m110 248 62-56 42 62m-42-62 100-4 46 58" fill="none" stroke-width="9" stroke="#6f9a9c"/>
+    <path d="m120 176 190-8 16 22-204 12z"/>
+    <path d="m60 150 130-14 150 4 50 26-70 14-200 6z" fill="#7fb0b3"/>
+    <path d="m110 142 6 34m46-38 4 36m46-36 2 34m48-34 2 34m46-30 0 28" stroke-width="2.5" stroke="#3f6c74"/>
+    <path d="m236 146 0-94" fill="none" stroke-width="8"/>
+    <path d="m204 30 66 0 4 26-74 0z"/><circle cx="222" cy="43" r="7" fill="#1c3440"/><circle cx="252" cy="43" r="7" fill="#1c3440"/>
+    <path d="m326 184 56 22-12 34" fill="none" stroke-width="7"/><circle cx="368" cy="244" r="10"/>
+    <path d="m150 140-18-52" fill="none" stroke-width="5"/><circle cx="130" cy="80" r="14"/>
+  </g>
+</svg>

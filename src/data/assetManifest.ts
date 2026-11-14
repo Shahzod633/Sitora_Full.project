@@ -1,9 +1,10 @@
-// Asset manifest for Chapter 01.
+// Central asset manifest for all three chapters.
 //
-// Every illustration has a bundled TEMPORARY fallback (src/assets/chapter01/*.svg) and an optional `src`
+// Every illustration has a bundled TEMPORARY fallback (src/assets/chapter0N/*.svg) and an optional `src`
 // for the artists' final file in public/. Drop the delivered file into public/, set `src` (and `mobileSrc`
-// for an optional portrait crop) and the story swaps it in once it decodes. Source images are never
-// modified: framing is done by the camera and layer boxes in chapters/chapter01/stages.ts.
+// for an optional portrait crop), change `status` to 'final', and the story swaps it in once it decodes.
+// Source images are never modified: framing is done by the camera and layer boxes in
+// chapters/chapter0N/stages.ts. See docs/ART_INTEGRATION_GUIDE.md.
 import space from '../assets/chapter01/space.svg';
 import earth from '../assets/chapter01/earth.svg';
 import bridge from '../assets/chapter01/bridge.svg';
@@ -23,8 +24,25 @@ import pipFull from '../assets/chapter01/pip-full.svg';
 import pipLunar from '../assets/chapter01/pip-lunar.svg';
 import reconLander from '../assets/chapter01/recon-lander.svg';
 import reconAstronaut from '../assets/chapter01/recon-astronaut.svg';
+import marsGlobe from '../assets/chapter02/mars-globe.svg';
+import marsLandscape from '../assets/chapter02/mars-landscape.svg';
+import marsDescent from '../assets/chapter02/mars-descent.svg';
+import marsDigSite from '../assets/chapter02/mars-digsite.svg';
+import sojourner from '../assets/chapter02/sojourner.svg';
+import pathfinderLander from '../assets/chapter02/pathfinder-lander.svg';
+import roverTop from '../assets/chapter02/rover-top.svg';
+import rock from '../assets/chapter02/rock.svg';
+import rockTarget from '../assets/chapter02/rock-target.svg';
+import groundTop from '../assets/chapter02/ground-top.svg';
+import roverMer from '../assets/chapter03/rover-mer.svg';
+import roverMsl from '../assets/chapter03/rover-msl.svg';
+import maraKneel from '../assets/chapter03/mara-kneel.svg';
+import maraSalute from '../assets/chapter03/mara-salute.svg';
+import pipCarry from '../assets/chapter03/pip-carry.svg';
+import marsSunset from '../assets/chapter03/mars-sunset.svg';
 
 export type AssetKind = 'background' | 'object' | 'character' | 'reconstruction';
+/** temporary: bundled placeholder (or a stand-in reused from another scene). final: the artists' artwork. */
 export type AssetStatus = 'temporary' | 'final';
 
 export type AssetDef = {
@@ -101,6 +119,80 @@ export const assets = {
     brief: 'MISSING ART: illustrated reconstruction of Eagle on the surface, 1969 (archival tones, clearly not a photo).' }),
   reconAstronaut: asset({ kind: 'reconstruction', fallback: reconAstronaut, aspect: 60 / 110, status: 'temporary',
     brief: 'MISSING ART: illustrated 1969 astronaut figure for the first-step reconstruction (separate layer).' }),
+
+  // ---- Artist paintings added from the team's artwork folder (copied, originals untouched) ----
+  spaceEarthLimb: asset({ kind: 'background', fallback: space, src: 'assets/art/space-earth-limb.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Deep space with the limb of Earth (title screen and Chapter 1 opening, B01-B03).' }),
+  cockpitWideEli: asset({ kind: 'background', fallback: bridge, src: 'assets/art/cockpit-wide-eli.jpg', aspect: 2000 / 1125, fit: 'stretch', status: 'final',
+    brief: 'Cockpit wide shot, Eli mouth open (talking frame for cockpitWide).' }),
+  galley: asset({ kind: 'background', fallback: bridge, src: 'assets/art/galley-idle.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Aster galley: Eli at the coffee machine, Mara with a tablet, the Moon in the window. Both mouths closed, Mara reading.' }),
+  galleyGlance: asset({ kind: 'background', fallback: bridge, src: 'assets/art/galley-glance.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Same galley frame, Mara glancing toward Eli (eyes variant).' }),
+  galleyEli: asset({ kind: 'background', fallback: bridge, src: 'assets/art/galley-eli.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Same galley frame, Eli mouth open (talking frame).' }),
+  galleyMara: asset({ kind: 'background', fallback: bridge, src: 'assets/art/galley-mara.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Same galley frame, Mara mouth open (talking frame).' }),
+  observationDeck: asset({ kind: 'background', fallback: bridge, src: 'assets/art/observation-closed.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Observation window: Eli and Mara from behind, Earth below, the Moon beyond. Both mouths closed (idle/listening frame).' }),
+  observationDeckEli: asset({ kind: 'background', fallback: bridge, src: 'assets/art/observation-eli.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Same observation frame, Eli mouth open (talking frame).' }),
+  observationDeckMara: asset({ kind: 'background', fallback: bridge, src: 'assets/art/observation-mara.jpg', aspect: 2000 / 1126, fit: 'stretch', status: 'final',
+    brief: 'Same observation frame, Mara mouth open (talking frame).' }),
+  maraSheet: asset({ kind: 'character', fallback: mara, src: 'assets/art/mara-turnaround.jpg', aspect: 2000 / 1500, fit: 'stretch', status: 'final',
+    brief: 'Mara character turnaround (front, three-quarter, side, rear three-quarter, back) on black. Used for her dialogue portrait where the scene shows her from behind.' }),
+
+  // ---- Chapter 02: Mars (temporary placeholders until the artists deliver) ----
+  marsGlobe: asset({ kind: 'object', fallback: marsGlobe, aspect: 1, status: 'temporary',
+    brief: 'MISSING ART: Mars from orbit on transparency (approach and orbit shots).' }),
+  marsDescentSky: asset({ kind: 'background', fallback: marsDescent, aspect: 16 / 9, fit: 'stretch', status: 'temporary',
+    brief: 'MISSING ART: Mars during atmospheric descent: curved horizon, thin dusty atmosphere, 16:9.' }),
+  marsLandscape: asset({ kind: 'background', fallback: marsLandscape, aspect: 16 / 9, fit: 'stretch', status: 'temporary',
+    brief: 'MISSING ART: wide Martian plain near the Pathfinder site: dusty sky, low hills, rock-strewn ground, 16:9. No characters.' }),
+  marsDigSite: asset({ kind: 'background', fallback: marsDigSite, aspect: 16 / 9, fit: 'stretch', status: 'temporary',
+    brief: 'MISSING ART: close, low view of the discovery site with open ground in the middle for the rover, 16:9. No rover, no characters.' }),
+  marsCloseUp: asset({ kind: 'background', fallback: marsDigSite, aspect: 16 / 9, fit: 'stretch', status: 'temporary',
+    brief: 'MISSING ART: close-up ground at the discovery site (camera low, just dust and small stones), 16:9. The rover is a separate layer in the middle.' }),
+  asterMars: asset({ kind: 'object', fallback: aster, src: 'assets/art/aster.webp', aspect: 1810 / 869, status: 'temporary',
+    brief: 'STAND-IN: the space-flight Aster is reused. Needed: Aster landed on Mars (landing gear down, dusty), transparent.' }),
+  sojourner: asset({ kind: 'object', fallback: sojourner, aspect: 420 / 280, status: 'temporary',
+    brief: 'MISSING ART: Sojourner rover, three-quarter view, dust-worn and not operating, transparent. No mission insignia.' }),
+  maraMars: asset({ kind: 'character', fallback: maraEva, aspect: 200 / 340, status: 'temporary',
+    brief: 'MISSING ART: Mara in a sealed Mars exploration suit, full body, standing, transparent.' }),
+  eliMars: asset({ kind: 'character', fallback: eliEva, aspect: 200 / 350, status: 'temporary',
+    brief: 'MISSING ART: Eli in a sealed Mars exploration suit, full body, standing, transparent.' }),
+  pipMars: asset({ kind: 'character', fallback: pipLunar, aspect: 150 / 236, status: 'temporary',
+    brief: 'MISSING ART: Pip with Mars exploration kit, full body, no helmet, transparent.' }),
+  reconPathfinder: asset({ kind: 'reconstruction', fallback: pathfinderLander, aspect: 640 / 400, status: 'temporary',
+    brief: 'MISSING ART: illustrated reconstruction of the Mars Pathfinder lander (petals open, airbags, ramp), archival tones.' }),
+  gameGround: asset({ kind: 'background', fallback: groundTop, aspect: 12 / 7, fit: 'stretch', status: 'temporary',
+    brief: 'MISSING ART: top-down Martian ground for the rover mini-game, 12:7.' }),
+  gameRover: asset({ kind: 'object', fallback: roverTop, aspect: 130 / 100, status: 'temporary',
+    brief: 'MISSING ART: Sojourner from above, front pointing right, transparent.' }),
+  gameRock: asset({ kind: 'object', fallback: rock, aspect: 120 / 100, status: 'temporary',
+    brief: 'MISSING ART: Martian rock from above (obstacle), transparent.' }),
+  gameRockTarget: asset({ kind: 'object', fallback: rockTarget, aspect: 120 / 100, status: 'temporary',
+    brief: 'MISSING ART: the target rock "Barnacle Bill" from above (rough, knobbly surface), transparent.' }),
+
+  // ---- Chapter 03: the legacy (temporary placeholders until the artists deliver) ----
+  holoSojourner: asset({ kind: 'object', fallback: sojourner, aspect: 420 / 280, status: 'temporary',
+    brief: 'MISSING ART: Sojourner for the hologram row (clean line drawing, transparent).' }),
+  holoSpirit: asset({ kind: 'object', fallback: roverMer, aspect: 420 / 300, status: 'temporary',
+    brief: 'MISSING ART: Spirit (Mars Exploration Rover) for the hologram row, transparent.' }),
+  holoOpportunity: asset({ kind: 'object', fallback: roverMer, aspect: 420 / 300, status: 'temporary',
+    brief: 'MISSING ART: Opportunity (twin of Spirit) for the hologram row, transparent.' }),
+  holoCuriosity: asset({ kind: 'object', fallback: roverMsl, aspect: 460 / 300, status: 'temporary',
+    brief: 'MISSING ART: Curiosity for the hologram row, transparent.' }),
+  holoPerseverance: asset({ kind: 'object', fallback: roverMsl, aspect: 460 / 300, status: 'temporary',
+    brief: 'MISSING ART: Perseverance for the hologram row, transparent.' }),
+  maraKneel: asset({ kind: 'character', fallback: maraKneel, aspect: 260 / 260, status: 'temporary',
+    brief: 'MISSING ART: Mara kneeling on one knee, reaching forward to wipe the nameplate, sealed suit, transparent.' }),
+  maraSalute: asset({ kind: 'character', fallback: maraSalute, aspect: 200 / 340, status: 'temporary',
+    brief: 'MISSING ART: Mara standing at attention giving a military salute, sealed suit, transparent. Same canvas as maraMars.' }),
+  pipCarry: asset({ kind: 'character', fallback: pipCarry, aspect: 150 / 236, status: 'temporary',
+    brief: 'MISSING ART: Pip holding both arms forward, hands open under the load (Sojourner is a separate layer), transparent.' }),
+  marsSunset: asset({ kind: 'background', fallback: marsSunset, aspect: 16 / 9, fit: 'stretch', status: 'temporary',
+    brief: 'MISSING ART: panoramic Martian plain at sunset (warm sky, cool blue glow around the Sun), 16:9 or wider. No characters, no ship.' }),
 } as const;
 
 export type AssetId = keyof typeof assets;
@@ -114,6 +206,56 @@ export type ArchivePhoto = {
   credit: string;
   source: string;
   available: boolean;
+};
+
+/** Mars Pathfinder / Sojourner photographs for the 1997 reconstruction (Chapter 2). */
+export const pathfinderPhotos: ArchivePhoto[] = [
+  {
+    nasaId: 'PIA00634', file: 'assets/nasa/PIA00634.jpg', available: false,
+    caption: "Sojourner's Alpha Proton X-ray Spectrometer studies the rock \u201cBarnacle Bill\u201d, its first rock analysis, begun on Sol 3.",
+    credit: 'Image: NASA/JPL',
+    source: 'https://www.jpl.nasa.gov/images/pia00634-sojourners-apxs-studies-barnacle-bill/',
+  },
+  {
+    nasaId: 'PIA00638', file: 'assets/nasa/PIA00638.jpg', available: false,
+    caption: 'Sojourner on the Martian surface near \u201cBarnacle Bill\u201d, seen by the Imager for Mars Pathfinder.',
+    credit: 'Image: NASA/JPL',
+    source: 'https://science.nasa.gov/photojournal/sojourner-near-barnacle-bill/',
+  },
+  {
+    nasaId: 'PIA01466', file: 'assets/nasa/PIA01466.jpg', available: false,
+    caption: 'Colour panorama from the Pathfinder lander: the petals, Sojourner\u2019s tracks and the distant Twin Peaks.',
+    credit: 'Image: NASA/JPL',
+    source: 'https://science.nasa.gov/photojournal/improved-mpf-360-degree-color-panorama/',
+  },
+];
+
+/** One photograph per rover-timeline entry (Chapter 3), keyed by entry id. */
+export const roverPhotos: Record<string, ArchivePhoto> = {
+  sojourner: {
+    nasaId: 'PIA00638', file: 'assets/nasa/PIA00638.jpg', available: false,
+    caption: 'Sojourner near the rock \u201cBarnacle Bill\u201d, July 1997.',
+    credit: 'Image: NASA/JPL',
+    source: 'https://science.nasa.gov/photojournal/sojourner-near-barnacle-bill/',
+  },
+  mer: {
+    nasaId: 'PIA18079', file: 'assets/nasa/PIA18079.jpg', available: false,
+    caption: 'Self-portrait by Opportunity, March 2014, after wind had cleaned dust from its solar panels.',
+    credit: 'Image: NASA/JPL-Caltech/Cornell Univ./Arizona State Univ.',
+    source: 'https://photojournal.jpl.nasa.gov/catalog/PIA18079',
+  },
+  curiosity: {
+    nasaId: 'PIA16239', file: 'assets/nasa/PIA16239.jpg', available: false,
+    caption: 'Self-portrait by Curiosity at \u201cRocknest\u201d in Gale Crater, assembled from 55 arm-camera images.',
+    credit: 'Image: NASA/JPL-Caltech/MSSS',
+    source: 'https://photojournal.jpl.nasa.gov/catalog/pia16239',
+  },
+  perseverance: {
+    nasaId: 'PIA24542', file: 'assets/nasa/PIA24542.jpg', available: false,
+    caption: 'Perseverance with the Ingenuity helicopter, April 2021, assembled from 62 arm-camera images.',
+    credit: 'Image: NASA/JPL-Caltech/MSSS',
+    source: 'https://science.nasa.gov/photojournal/perseverances-selfie-with-ingenuity/',
+  },
 };
 
 export const archivePhotos: ArchivePhoto[] = [
@@ -142,8 +284,15 @@ export const publicUrl = (path: string) => `${import.meta.env.BASE_URL}${path.re
 export const assetManifest = {
   assets,
   archivePhotos,
+  pathfinderPhotos,
+  roverPhotos,
   audio: { click: publicUrl('assets/audio/click-placeholder.wav') },
 };
+
+/** Scenes that still use placeholder art carry a small on-screen label. Set to false to hide the label. */
+export const SHOW_PLACEHOLDER_LABEL = true;
+
+export const isTemporary = (id: AssetId) => (assets[id] as AssetDef).status === 'temporary';
 
 // ---- Loading and caching -------------------------------------------------
 

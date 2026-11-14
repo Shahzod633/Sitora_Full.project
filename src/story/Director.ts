@@ -4,8 +4,8 @@ import { characters, type CharacterId, type Costume, type Expression } from '../
 import { camTransform, resolveShot, restCam, type Cam, type Rect, type View } from './camera';
 import { StoryTimer } from './timer';
 import type {
-  Beat, Caption, CameraSpec, Chapter, Cue, LayerDef, LayerSpec, LayerState, ScriptLine, ShotRef,
-  SoundCue, StageDef, StageId, TransitionKind,
+  Beat, Caption, CameraSpec, Chapter, Cue, LayerDef, LayerSpec, LayerState, MusicCue, MusicMood, ScriptLine,
+  ShotRef, SoundCue, StageDef, StageId, TransitionKind,
 } from './types';
 
 /** DOM handles a mounted StageView gives the Director. */
@@ -30,13 +30,16 @@ export type Snapshot = {
   expressions: Partial<Record<CharacterId, Expression>>;
   costume: Costume;
   captions: Caption[];
-  interaction?: { target: string; hint: string };
+  interaction?: { target: string; hint?: string };
   confirm?: { label: string };
   portrait: boolean;
+  paused: boolean;
 };
 
 export type DirectorOptions = {
   cue?: (cue: SoundCue) => void;
+  /** Ambient bed: called whenever the resolved mood or level changes. */
+  music?: (mood: MusicMood, level: number) => void;
   startAt?: number;
 };
 
@@ -100,6 +103,7 @@ export class Director {
   private grain?: HTMLElement | null;
   private dialogue?: { advance: () => void } | null;
   private destroyed = false;
+  private musicState = '';
 
   constructor(chapter: Chapter, private options: DirectorOptions = {}) {
     this.chapter = chapter;
@@ -115,7 +119,7 @@ export class Director {
     this.snap = {
       beatIndex: index, beat, stages: [{ key, id: beat.stage }], phase: 'loading', lineIndex: 0,
       dialogueVisible: false, expressions: {}, costume: chapter.stages[beat.stage].costume, captions: [],
-      portrait: this.view.portrait,
+      portrait: this.view.portrait, paused: false,
     };
   }
 
@@ -175,11 +179,34 @@ export class Director {
     this.listeners.clear();
   }
 
+  // ---- Pause ------------------------------------------------------------
+
+  /** Freeze the story: pending progression, every running timeline and (via `paused`) the typewriter. */
+  pause() {
+    if (this.snap.paused || this.destroyed) return;
+    this.timer.pause();
+    for (const tl of this.timelines()) tl.pause();
+    this.patch({ paused: true });
+  }
+
+  resume() {
+    if (!this.snap.paused || this.destroyed) return;
+    for (const tl of this.timelines()) tl.resume();
+    this.timer.resume();
+    this.lock(250);
+    this.patch({ paused: false });
+  }
+
+  private timelines() {
+    return [this.beatTl, this.lineTl, this.transitionTl, ...this.camTls.values()]
+      .filter((tl): tl is gsap.core.Timeline => !!tl);
+  }
+
   // ---- Reader input ------------------------------------------------------
 
   /** Click, tap, Space, Enter or → anywhere on the story. */
   primary() {
-    if (now() < this.lockUntil) return;
+    if (this.snap.paused || now() < this.lockUntil) return;
     switch (this.snap.phase) {
       case 'dialogue': this.dialogue?.advance(); break;
       case 'cinematic': this.skip(); break;
@@ -195,7 +222,7 @@ export class Director {
 
   /** Called by the dialogue box once the current line is fully shown and the reader continues. */
   advanceLine = () => {
-    if (this.snap.phase !== 'dialogue' || now() < this.lockUntil) return;
+    if (this.snap.paused || this.snap.phase !== 'dialogue' || now() < this.lockUntil) return;
     this.lock(200);
     const lines = this.snap.beat.dialogue ?? [];
     if (this.snap.lineIndex + 1 < lines.length) this.showLine(this.snap.lineIndex + 1);
@@ -203,7 +230,7 @@ export class Director {
   };
 
   interact(target: string) {
-    if (this.snap.phase !== 'interaction' || this.snap.interaction?.target !== target || now() < this.lockUntil) return;
+    if (this.snap.paused || this.snap.phase !== 'interaction' || this.snap.interaction?.target !== target || now() < this.lockUntil) return;
     this.lock(400);
     this.cue('hotspot');
     this.patch({ interaction: undefined });
@@ -211,7 +238,7 @@ export class Director {
   }
 
   confirm() {
-    if (this.snap.phase !== 'confirm' || now() < this.lockUntil) return;
+    if (this.snap.paused || this.snap.phase !== 'confirm' || now() < this.lockUntil) return;
     this.lock(400);
     this.patch({ confirm: undefined });
     this.next();
@@ -308,6 +335,7 @@ export class Director {
     });
     this.applyFocus(beat.focus);
     this.preloadAhead(index);
+    this.applyMusic(index);
 
     const advance = beat.advance;
     const ms = (s: number) => s * 1000;
@@ -524,8 +552,8 @@ export class Director {
     }
     const s = state.scale ?? 1;
     const w = el.offsetWidth * s, h = el.offsetHeight * s;
-    const cx = x + el.offsetWidth / 2 + ((state.dx ?? 0) / 100) * this.view.W;
-    const cy = y + el.offsetHeight / 2 + ((state.dy ?? 0) / 100) * this.view.H;
+    const cx = x + el.offsetWidth / 2 + ((state.dx ?? 0) / 100) * this.view.W + ((state.xp ?? 0) / 100) * el.offsetWidth;
+    const cy = y + el.offsetHeight / 2 + ((state.dy ?? 0) / 100) * this.view.H + ((state.yp ?? 0) / 100) * el.offsetHeight;
     return { x: cx - w / 2, y: cy - h / 2, w, h, depth: def?.depth ?? 1 };
   }
 
@@ -672,6 +700,26 @@ export class Director {
 
   private cue(name: SoundCue) {
     try { this.options.cue?.(name); } catch { /* Sound must never block the story. */ }
+  }
+
+  /** Mood and level persist from earlier beats on the same stage visit, so a jump lands on the right ambience. */
+  private applyMusic(index: number) {
+    if (!this.options.music) return;
+    const beats = this.chapter.beats;
+    const stage = this.chapter.stages[beats[index].stage];
+    let mood: MusicMood | undefined;
+    let level: number | undefined;
+    for (let i = index; i >= 0 && beats[i].stage === stage.id; i--) {
+      const cue: MusicCue | undefined = beats[i].music;
+      if (mood === undefined && cue?.mood) mood = cue.mood;
+      if (level === undefined && cue?.level !== undefined) level = cue.level;
+      if (mood !== undefined && level !== undefined) break;
+    }
+    const resolved: MusicMood = mood ?? stage.music ?? 'silence';
+    const state = `${resolved}:${level ?? 1}`;
+    if (state === this.musicState) return;
+    this.musicState = state;
+    try { this.options.music(resolved, level ?? 1); } catch { /* Sound must never block the story. */ }
   }
 
   private patch(update: Partial<Snapshot>) {

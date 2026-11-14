@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260">
+  <!-- TEMPORARY placeholder: Captain Mara in her sealed exploration suit, kneeling on one knee and reaching
+       forward with her right hand (wiping Sojourner's nameplate). Facing right. Same suit as mara-eva.svg.
+       Replace with the artists' pose on transparency. -->
+  <g stroke="#162a32" stroke-width="3" stroke-linejoin="round">
+    <path d="m34 78 34-8 10 84-36 8z" fill="#a9b0a0"/><path d="m42 90 20-4m-18 16 20-4m-18 16 20-4" stroke="#6f7f7c" stroke-width="2"/>
+    <!-- back leg: knee on the ground -->
+    <path d="m70 168 40 6 6 30-58 34-20-18z" fill="#cfc8b3"/><path d="m36 216 26 22 34 4 2 14-66-2z" fill="#5d6f72"/>
+    <!-- front leg: foot planted -->
+    <path d="m96 164 66 10 8 26-66-6z" fill="#e6dfcb"/><path d="m146 176 26 2-2 60-28-2z" fill="#e6dfcb"/>
+    <path d="m136 234 46 2 10 20-58 2z" fill="#5d6f72"/><path d="m144 204 28 2" stroke="#9aa59a" stroke-width="5"/>
+    <!-- torso leaning forward -->
+    <path d="m62 88 76-6 16 44-10 54-80 6-12-50z" fill="#e6dfcb"/>
+    <path d="m62 88 20 4-6 92-12 0-12-50z" fill="#cfc8b3"/>
+    <path d="m92 112 36-3 2 24-36 3z" fill="#607c7b"/>
+    <circle cx="102" cy="122" r="3" fill="#e6ab73" stroke-width="1.5"/><circle cx="113" cy="121" r="3" fill="#afe8d1" stroke-width="1.5"/>
+    <path d="m110 86 30-2 6 16-32 3z" fill="#4f7d7c"/>
+    <path d="m116 93 7 5 8-6m-14 8 7 5 8-6" fill="none" stroke="#e6ab73" stroke-width="2.4"/>
+    <!-- reaching arm -->
+    <path d="m134 92 30 14 46 40-10 16-52-30-22-18z" fill="#e6dfcb"/><path d="m200 148 22 12-8 16-22-12z" fill="#8f9c95"/>
+    <!-- resting arm -->
+    <path d="m62 96-14 10-6 52 14 6 12-46z" fill="#d2cbb6"/><path d="m40 156 16 2-1 14-17-2z" fill="#8f9c95"/>
+    <!-- helmet -->
+    <circle cx="116" cy="46" r="38" fill="#ece6d4"/>
+    <ellipse cx="128" cy="50" rx="26" ry="22" fill="#1f3038"/>
+    <g stroke="none">
+      <path d="m114 40 20-5 14 10 2 20-10 11-20 2-9-13z" fill="#bc9880" opacity=".6"/>
+      <path d="m108 44 6-14 21-6 17 10 2 9-13-4-15 4-8 10z" fill="#29373e" opacity=".85"/>
+    </g>
+    <ellipse cx="128" cy="50" rx="26" ry="22" fill="none" stroke="#9aa59a" stroke-width="4"/>
+    <path d="M108 40q15-16 36-8" fill="none" stroke="#f4dca8" stroke-width="3" opacity=".75" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100">
+  <!-- TEMPORARY placeholder: the target rock for the APXS reconstruction ("Barnacle Bill", named for its rough,
+       knobbly surface). Seen from above. -->
+  <ellipse cx="64" cy="64" rx="54" ry="32" fill="#3a1c14" opacity=".35"/>
+  <path d="m14 58 12-28 30-18 40 8 16 30-14 30-46 10z" fill="#7b5a48" stroke="#2e1711" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m26 30 30-18 40 8-34 18z" fill="#9c7a64"/>
+  <g fill="#5d4336"><circle cx="44" cy="52" r="6"/><circle cx="66" cy="62" r="7"/><circle cx="86" cy="46" r="5"/><circle cx="54" cy="74" r="5"/><circle cx="82" cy="70" r="4"/><circle cx="34" cy="66" r="4"/></g>
+</svg>

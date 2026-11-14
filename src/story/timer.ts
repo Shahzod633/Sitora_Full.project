@@ -5,6 +5,7 @@ export class StoryTimer {
   private due = 0;
   private remaining = 0;
   private fn?: () => void;
+  private held = false;
 
   constructor() {
     document.addEventListener('visibilitychange', this.onVisibility);
@@ -14,7 +15,27 @@ export class StoryTimer {
     this.clear();
     this.fn = fn;
     this.remaining = Math.max(0, ms);
-    if (!document.hidden) this.arm();
+    if (!document.hidden && !this.held) this.arm();
+  }
+
+  /** Reader pause: freezes the pending action with its remaining time. */
+  pause() {
+    if (this.held) return;
+    this.held = true;
+    this.suspend();
+  }
+
+  resume() {
+    if (!this.held) return;
+    this.held = false;
+    if (this.fn && !document.hidden && this.id === undefined) this.arm();
+  }
+
+  private suspend() {
+    if (this.id === undefined) return;
+    window.clearTimeout(this.id);
+    this.id = undefined;
+    this.remaining = Math.max(0, this.due - performance.now());
   }
 
   /** Run the pending action now (used when the reader fast-forwards). */
@@ -51,12 +72,7 @@ export class StoryTimer {
 
   private onVisibility = () => {
     if (!this.fn) return;
-    if (document.hidden) {
-      window.clearTimeout(this.id);
-      this.id = undefined;
-      this.remaining = Math.max(0, this.due - performance.now());
-    } else if (this.id === undefined) {
-      this.arm();
-    }
+    if (document.hidden) this.suspend();
+    else if (this.id === undefined && !this.held) this.arm();
   };
 }
