@@ -6,12 +6,15 @@ export type DialogueTextHandle = { finishTyping: () => boolean };
 type Props = {
   text: string;
   onReveal: (character: string) => void;
+  /** Called once when the whole line is visible (typed out or skipped). Drives lip-sync. */
+  onComplete?: () => void;
 };
 
-const DialogueText = React.forwardRef<DialogueTextHandle, Props>(function DialogueText({ text, onReveal }, ref) {
+const DialogueText = React.forwardRef<DialogueTextHandle, Props>(function DialogueText({ text, onReveal, onComplete }, ref) {
   const [length, setLength] = React.useState(0);
   const timer = React.useRef<number>();
   const delivered = React.useRef(0);
+  const completed = React.useRef(false);
 
   React.useImperativeHandle(ref, () => ({
     finishTyping() {
@@ -24,6 +27,7 @@ const DialogueText = React.forwardRef<DialogueTextHandle, Props>(function Dialog
   }), [length, text]);
 
   React.useEffect(() => {
+    completed.current = false;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       delivered.current = text.length;
       setLength(text.length);
@@ -43,7 +47,11 @@ const DialogueText = React.forwardRef<DialogueTextHandle, Props>(function Dialog
       delivered.current = length;
       onReveal(text[length - 1]);
     }
-  }, [length, text, onReveal]);
+    if (length >= text.length && !completed.current) {
+      completed.current = true;
+      onComplete?.();
+    }
+  }, [length, text, onReveal, onComplete]);
 
   return <span className="dialogue-text">
     <span className="dialogue-measure" aria-hidden="true">{text}</span>

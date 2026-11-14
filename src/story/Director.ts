@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { preloadAssets, type AssetId } from '../data/assetManifest';
+import { assets, preloadAssets, type AssetId } from '../data/assetManifest';
 import { characters, type CharacterId, type Costume, type Expression } from '../data/characters';
 import { camTransform, resolveShot, restCam, type Cam, type Rect, type View } from './camera';
 import { StoryTimer } from './timer';
@@ -499,7 +499,9 @@ export class Director {
     if (import.meta.env.DEV && typeof ref === 'string' && stage && !stage.shots[ref]) {
       console.warn(`[storyboard] shot "${ref}" missing on stage ${stage.id}`);
     }
-    return resolveShot(shot, this.view, id => this.rectOf(key, id));
+    const boundsId = shot.bounds ?? stage?.bounds;
+    const bounds = boundsId ? this.rectOf(key, boundsId) : undefined;
+    return resolveShot(shot, this.view, id => this.rectOf(key, id), bounds);
   }
 
   private stageOf(key: number): StageDef | undefined {
@@ -655,6 +657,9 @@ export class Director {
       const stage = this.chapter.stages[beat.stage];
       for (const def of this.layerMap(stage.id).values()) {
         if (def.asset) ids.add(def.asset);
+        for (const value of Object.values(def.props ?? {})) {
+          if (typeof value === 'string' && Object.hasOwn(assets, value)) ids.add(value as AssetId);
+        }
         if (def.character) {
           const look = characters[def.character].looks[stage.costume];
           ids.add(look.base);

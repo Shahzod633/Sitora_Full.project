@@ -11,7 +11,7 @@ export const restCam = (): Cam => ({ tx: 0, ty: 0, z: 1 });
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 /** Solve the camera that frames `shot` on the current viewport. Pure: no DOM access. */
-export function resolveShot(shot: CameraShot, view: View, rectOf: (id: string) => Rect | undefined): Cam {
+export function resolveShot(shot: CameraShot, view: View, rectOf: (id: string) => Rect | undefined, bounds?: Rect): Cam {
   const s: CameraShot = view.portrait && shot.portrait ? { ...shot, ...shot.portrait } : shot;
   const { W, H } = view;
   const ids = s.target === undefined ? [] : typeof s.target === 'string' ? [s.target] : s.target;
@@ -32,8 +32,15 @@ export function resolveShot(shot: CameraShot, view: View, rectOf: (id: string) =
   const [sx, sy] = s.screen ?? [0.5, 0.5];
   const planeScale = 1 + (z - 1) * depth;
   // A layer at depth d is drawn at p * (1 + (z - 1) d) + t d. Solve t so the focus lands on (sx, sy).
-  const tx = clamp((sx * W - fx * planeScale) / depth, W * (1 - z), 0);
-  const ty = clamp((sy * H - fy * planeScale) / depth, H * (1 - z), 0);
+  // Keep the frame inside the content: the viewport by default, or a painting that overflows it
+  // (so narrow screens can pan across the whole painting).
+  const b = bounds ?? { x: 0, y: 0, w: W, h: H };
+  const fit = (t: number, size: number, start: number, length: number) => {
+    const lo = size - (start + length) * z, hi = -start * z;
+    return lo > hi ? (lo + hi) / 2 : clamp(t, lo, hi);
+  };
+  const tx = fit((sx * W - fx * planeScale) / depth, W, b.x, b.w);
+  const ty = fit((sy * H - fy * planeScale) / depth, H, b.y, b.h);
   return { tx, ty, z };
 }
 

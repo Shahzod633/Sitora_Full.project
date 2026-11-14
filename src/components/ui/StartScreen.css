@@ -9,7 +9,7 @@
   width: var(--size); height: var(--size); left: calc(70% - var(--size) / 2); top: calc(50% - var(--size) / 2);
 }
 .cover-aster-track { position: absolute; left: 0; right: 0; top: 17%; height: 9vh; pointer-events: none; opacity: 0.9; animation: aster-cross 52s linear infinite; }
-.cover-aster { position: absolute; right: 0; top: 0; height: 100%; aspect-ratio: 680 / 310; }
+.cover-aster { position: absolute; left: 0; top: 0; height: 100%; aspect-ratio: 1810 / 869; }
 .cover-copy { position: absolute; z-index: 1; left: max(var(--edge), 8vw); top: 50%; translate: 0 -50%; max-width: 560px; }
 .cover-copy .aster-mark { width: 42px; height: 42px; margin-bottom: 14px; }
 .cover-copy .title { margin: 0; font: 600 clamp(88px, 13vw, 200px)/0.86 "Barlow Condensed", sans-serif; letter-spacing: 0.02em; text-shadow: 0 4px 26px rgba(4, 10, 14, 0.6); }
@@ -27,7 +27,7 @@
 .cover-tools { animation: cover-in 0.8s 1.3s both; }
 @keyframes cover-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes cover-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-@keyframes aster-cross { from { transform: translateX(110%); } to { transform: translateX(-115%); } }
+@keyframes aster-cross { from { transform: translateX(-115%); } to { transform: translateX(110%); } }
 @keyframes sky-drift { from { transform: translate(0, 0); } to { transform: translate(-2%, 1.5%); } }
 
 @media (max-aspect-ratio: 1/1) {

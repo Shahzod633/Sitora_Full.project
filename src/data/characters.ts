@@ -18,6 +18,8 @@ type Look = {
   portrait: { focus: readonly [number, number]; zoom: number };
   /** Where emote marks sit, as fractions of the drawing. */
   emote: readonly [number, number];
+  /** Portrait cropped from a painted scene instead of the figure. `talking` is the open-mouth frame. */
+  painted?: { closed: AssetId; talking?: AssetId; focus: readonly [number, number]; zoom: number };
 };
 
 export type Character = {
@@ -34,15 +36,19 @@ export const characters: Record<CharacterId, Character> = {
   mara: {
     id: 'mara', name: 'MARA', role: 'Captain', voiceProfile: 'mara',
     looks: {
-      flight: { base: 'mara', expressions: { smile: 'maraSmile' }, portrait: { focus: [0.6, 0.27], zoom: 2.15 }, emote: [0.86, 0.12] },
-      eva: { base: 'maraEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05] },
+      flight: { base: 'mara', expressions: { smile: 'maraSmile' }, portrait: { focus: [0.6, 0.27], zoom: 2.15 }, emote: [0.86, 0.12],
+        painted: { closed: 'cockpitTwoShot', talking: 'cockpitTwoShotMara', focus: [0.318, 0.5], zoom: 6.5 } },
+      eva: { base: 'maraEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
+        painted: { closed: 'moonCrewPainting', focus: [0.28, 0.3], zoom: 8 } },
     },
   },
   eli: {
     id: 'eli', name: 'ELI', role: 'Engineer', voiceProfile: 'eli',
     looks: {
-      flight: { base: 'eli', portrait: { focus: [0.5, 0.25], zoom: 2.1 }, emote: [0.82, 0.08] },
-      eva: { base: 'eliEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05] },
+      flight: { base: 'eli', portrait: { focus: [0.5, 0.25], zoom: 2.1 }, emote: [0.82, 0.08],
+        painted: { closed: 'cockpitTwoShot', talking: 'cockpitTwoShotEli', focus: [0.272, 0.3], zoom: 6.5 } },
+      eva: { base: 'eliEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
+        painted: { closed: 'moonCrewPainting', focus: [0.452, 0.56], zoom: 8 } },
     },
   },
   pip: {

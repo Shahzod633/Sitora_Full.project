@@ -1,11 +1,27 @@
 import React from 'react';
 import type { FxKind } from './types';
-import { useStoryActions } from './StoryActions';
+import { useMouthOpen, useStoryActions } from './StoryActions';
+import SceneArt from '../components/visual/SceneArt';
+import { assets, type AssetId } from '../data/assetManifest';
+import { isCharacterId, type CharacterId } from '../data/characters';
 import InteractiveHotspot from '../components/visual/InteractiveHotspot';
 import HistoricalInfoPanel from '../components/ui/HistoricalInfoPanel';
 import ChapterEndCard from '../components/ui/ChapterEndScreen';
 
 type Props = { id: string; kind: FxKind; props: Record<string, string | number | boolean> };
+
+/** A painted scene with per-character talking frames (identical art except the mouth). The base frame
+ * has every mouth closed; while a character's line types out their talking frame flaps on and off. */
+function TalkingPainting({ base, frames }: { base: AssetId; frames: Partial<Record<CharacterId, AssetId>> }) {
+  const { talking } = useStoryActions();
+  const speaker = talking && frames[talking] ? talking : undefined;
+  const open = useMouthOpen(speaker);
+  return <span className="talking-painting">
+    <SceneArt asset={base} className="layer-art"/>
+    {(Object.entries(frames) as [CharacterId, AssetId][]).map(([who, asset]) =>
+      <SceneArt key={who} asset={asset} className={`layer-art mouth-frame${open && speaker === who ? ' is-open' : ''}`}/>)}
+  </span>;
+}
 
 // Reusable effect layers. Ambient motion lives in CSS (cheap, and disabled under reduced motion);
 // story timing (when an effect appears, how far a gauge fills) is driven by the Director via layer states.
@@ -13,10 +29,23 @@ export function Fx({ id, kind, props }: Props) {
   const actions = useStoryActions();
   const text = (key: string) => String(props[key] ?? '');
   switch (kind) {
+    case 'talkingPainting': {
+      const asset = (key: string) => (Object.hasOwn(assets, text(key)) ? text(key) as AssetId : undefined);
+      const frames: Partial<Record<CharacterId, AssetId>> = {};
+      for (const key of Object.keys(props)) {
+        const frame = asset(key);
+        if (isCharacterId(key) && frame) frames[key] = frame;
+      }
+      return <TalkingPainting base={asset('base') ?? 'cockpit'} frames={frames}/>;
+    }
+    case 'pipStatus':
+      return <span className={`pip-status pip-status-${text('mode') || 'saved'}`}>
+        {text('mode') === 'thinking' ? <><i/><i/><i/></> : text('text')}
+      </span>;
     case 'glow':
       return <span className={`fx-glow glow-${text('tone') || 'amber'}`}/>;
     case 'thruster':
-      return <span className="fx-thruster"><i/><i/></span>;
+      return <span className={`fx-thruster${props.single ? ' single' : ''}`}><i/><i/></span>;
     case 'vignette':
       return <span className="fx-vignette"/>;
     case 'marsGlint':

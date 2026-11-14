@@ -53,7 +53,8 @@ export type LayerSpec = LayerTarget | LayerTarget[];
 export type FxKind =
   | 'glow' | 'thruster' | 'vignette' | 'marsGlint' | 'nameTag' | 'hud' | 'pipDiag' | 'landingPad'
   | 'refuelLine' | 'statusTag' | 'dust' | 'landingGlow' | 'perimeter' | 'reticle' | 'scanWave'
-  | 'hotspot' | 'dateCard' | 'archivePanel' | 'filmGrain' | 'label' | 'archiveBackdrop' | 'endCard';
+  | 'hotspot' | 'dateCard' | 'archivePanel' | 'filmGrain' | 'label' | 'archiveBackdrop' | 'endCard'
+  | 'talkingPainting' | 'pipStatus';
 
 export type LayerDef = {
   id: string;
@@ -90,6 +91,8 @@ export type CameraShot = {
   /** Where the focus point lands on screen (fractions). Default [0.5, 0.5]. */
   screen?: Vec2;
   maxZoom?: number;
+  /** Layer whose box limits the frame (a painting larger than the viewport). Defaults to the stage's `bounds`. */
+  bounds?: string;
   portrait?: Omit<CameraShot, 'portrait'>;
 };
 
@@ -114,6 +117,8 @@ export type StageDef = {
   layers: LayerDef[];
   /** Named camera framing presets for this stage. `wide` is the default. */
   shots: Record<string, CameraShot>;
+  /** Default camera bounds layer (see CameraShot.bounds). Without it the viewport is the bound. */
+  bounds?: string;
 };
 
 export type TransitionKind = 'cut' | 'crossfade' | 'black' | 'push' | 'archive' | 'present';

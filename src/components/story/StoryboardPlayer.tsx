@@ -4,6 +4,7 @@ import { Director, type Snapshot } from '../../story/Director';
 import { StageView } from '../../story/StageView';
 import { StoryActionsContext, type StoryActions } from '../../story/StoryActions';
 import type { Chapter } from '../../story/types';
+import type { CharacterId } from '../../data/characters';
 import DialogueBox, { type DialogueBoxHandle } from '../dialogue/DialogueBox';
 import SoundToggle from '../audio/SoundToggle';
 import ChapterFrame, { Captions } from '../visual/ChapterFrame';
@@ -84,13 +85,15 @@ function PlayerView({ director, onReplay, onCredits }: { director: Director } & 
     director.primary();
   };
 
+  const [talking, setTalking] = React.useState<CharacterId | null>(null);
   const actions = React.useMemo<StoryActions>(() => ({
     interact: target => director.interact(target),
     replay: onReplay,
     credits: onCredits,
     interactionTarget: snap.interaction?.target,
     ended: snap.phase === 'end',
-  }), [director, onReplay, onCredits, snap.interaction?.target, snap.phase]);
+    talking,
+  }), [director, onReplay, onCredits, snap.interaction?.target, snap.phase, talking]);
 
   const speakerExpression = snap.line ? snap.expressions[snap.line.speaker] : undefined;
 
@@ -112,7 +115,7 @@ function PlayerView({ director, onReplay, onCredits }: { director: Director } & 
       {snap.phase === 'cinematic' && snap.beat.advance.mode === 'auto' &&
         <p className="skip-hint" aria-hidden="true">Click or press Space to continue</p>}
       <DialogueBox ref={dialogue} line={snap.line} visible={snap.dialogueVisible} costume={snap.costume}
-        expression={speakerExpression} onAdvance={director.advanceLine}/>
+        expression={speakerExpression} onAdvance={director.advanceLine} onTalkingChange={setTalking}/>
       <SoundToggle/>
       {DevOverlay && <React.Suspense fallback={null}><DevOverlay director={director} snap={snap}/></React.Suspense>}
     </main>

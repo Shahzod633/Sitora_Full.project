@@ -3,8 +3,27 @@
 Chapter 01 ("Where It All Began") was rebuilt from **3 screens into 33 connected story beats** played by a
 data-driven storyboard engine. The story and every line of dialogue follow `Demo_chapter1.txt` verbatim.
 
-> **Artwork status:** every illustration in this build is a **temporary placeholder** in the project's flat
-> hand-drawn style. No final artwork has been delivered or integrated yet. See [Assets](#assets).
+> **Artwork status:** the artists' paintings are now integrated for the Aster ship, the Aster hero frame, the
+> cockpit (wide shot + lip-synced two-shot), the crew on the Moon and the Apollo 11 site (see §7). The remaining
+> slots (Pip in the cockpit, lunar base/landing, Moon globe, 1969 reconstruction, NASA photos) are still
+> **temporary placeholders**.
+
+## 0. Painted scenes and lip-sync
+
+* Paintings are cover-fitted layers with their exact aspect ratio. Characters, the window, the lander and the
+  hotspot are **markers in % of the painting** (`marker()` in `stages.ts`), so camera targets and the hotspot
+  stay on the painted objects at any screen size. Shots clamp to the painting (`bounds`), so phones can pan
+  across a painting wider than the screen.
+* **Lip-sync:** the cockpit two-shot uses three frames that differ only in the mouths
+  (`cockpit-twoshot-closed.jpg`, `-mara.jpg`, `-eli.jpg`; the supplied frames 6 and 7 were identical, so one
+  was dropped). While a character's line is typing out, their talking frame flaps on/off every 120 ms
+  (`useMouthOpen`, `talkingPainting` effect). The mouth closes as soon as the line is complete or skipped.
+  The same frames drive Mara's and Eli's dialogue portraits, which are crops of the paintings.
+  Add another character by giving the painting a `<characterId>: <assetId>` prop.
+* **Moon:** lines cut between `crewScene` (whoever speaks) and `apolloScene` (what they look at), e.g. Mara's
+  "Is that really Apollo 11?" plays over the lander, Eli answers on camera.
+* `moon-crew.webp` has window-control icons in its top-right corner (it looks like a screenshot). The layer is
+  8 % oversized and pinned to the bottom, so they never show; a clean export is still requested.
 
 ---
 
@@ -164,6 +183,21 @@ and safe-area insets are respected.
 
 ## 7. Assets
 
+### Artists' artwork integrated (`public/assets/art/`, files unchanged)
+| File | Used for |
+|---|---|
+| `aster.webp` (transparent) | Aster in B02–B04, B14–B16, B31, B32 and the start screen (ship flies left → right) |
+| `aster-space.webp` | Hero frame at the end of B03; B04 pushes into its windows |
+| `cockpit-wide.jpg` | Cockpit establishing, crew intro, Pip shots, Moon approach (B05, B06, B10, B12, B13) |
+| `cockpit-twoshot-closed/-mara/-eli.jpg` | Lip-synced dialogue two-shot (B07–B09, B11, "Mara smiles" in B12) + Mara/Eli portraits |
+| `moon-crew.webp` | Crew on the Moon (B17, B19–B22, B27–B30) + Mara/Eli EVA portraits |
+| `apollo-site.jpg` | Apollo 11 discovery, scan, hotspot, return from 1969 (B18–B20, B22–B23, B26, B30) |
+
+**Notes for the art team:** the Apollo painting shows the **full lunar module including the ascent stage**;
+historically only the **descent stage** remains at Tranquility Base (the ascent stage left in 1969), so a corrected
+version is recommended. The EVA suits carry NASA logos; the brief asks not to imply the future base is a NASA
+operation, so please confirm this is intended.
+
 ### Reused from the existing project (unchanged files)
 `space.svg` (starfield), `earth.svg` (Earth, also in the cockpit window and lunar sky), `bridge.svg` (cockpit),
 `moon.svg` (lunar ground), `facility.svg` (lunar base, also on the horizon), `apollo.svg` (descent stage),
@@ -240,12 +274,22 @@ not watched in real time, so smoothness and timing feel are **not verified**.
 | — | Viewports | ✅ 1920×1080, 1366×768, 1024×768, 390×844, 844×390 (emulated); fixes applied for 844×390 and 390×844 |
 | — | `npm run build` / `npm run typecheck` | ✅ both pass |
 
+**Artwork integration pass (after the paintings were supplied):** full automated run again: 33/33 beats, 18/18
+lines in order, validator clean; open-mouth frames observed only for the character whose line was typing; ship
+direction, hero frame, cockpit wide/two-shot, Moon crew and Apollo paintings captured at 1024×768; cockpit
+two-shot and Apollo hotspot captured at 390×844 (hotspot measured on the painted lander); production build
+passes and ships all 8 paintings.
+
 **Not tested:** real phones and Safari/Firefox, `prefers-reduced-motion` (could not be emulated in this browser),
 audible sound, and the touch-specific path (only mouse and keyboard events).
 
 ## 10. Known limitations
 
-* All artwork is temporary (see §7). Final visual quality depends on the art team's files.
+* Pip has no painted cockpit art yet: the temporary Pip figure stands on the painted deck and clashes in style.
+  Pip's Moon close-ups use the painting (his happy face), so his face-screen expressions (scanning, processing,
+  saving) currently show only in the dialogue portrait.
+* The lunar base, landing/liftoff, Moon globe and 1969 reconstruction are still temporary (see §7).
+* Only the cockpit two-shot has talking frames; the Moon crew painting is a single frame (no lip-sync there).
 * Mara's and Eli's expressions are mostly emote marks; only "Mara smiles" has expression art.
 * Walking is a gentle bob, not a walk cycle. Heads do not turn and characters do not blink.
 * Pip's face overlay is drawn for the placeholder's face-screen shape and must be updated with final Pip art.
