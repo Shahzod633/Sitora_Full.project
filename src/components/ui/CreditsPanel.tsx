@@ -10,18 +10,29 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
   const ref = React.useRef<HTMLDialogElement>(null);
   React.useLayoutEffect(() => {
     const dialog = ref.current!;
-    dialog.showModal();
-    return () => dialog.close();
+    // Older mobile browsers have no modal <dialog>: fall back to a plain open dialog (styled as an overlay).
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+    return () => { if (typeof dialog.close === 'function' && dialog.open) dialog.close(); };
   }, []);
   const temporary = Object.values<AssetDef>(assets).filter(a => a.status === 'temporary').length;
   const photos = new Map<string, ArchivePhoto>();
   [...archivePhotos, reflectorPhoto, lunokhodModelPhoto, lunokhodOrbitPhoto, apolloLrvPhoto,
     ...pathfinderPhotos, ...Object.values(roverPhotos)].forEach(p => photos.set(p.nasaId, p));
 
-  return <dialog className="credits-panel" ref={ref} aria-labelledby="credits-title"
+  // Only a click on the backdrop closes the panel. The dialog element has no padding of its own, so taps on the
+  // blank space between paragraphs land on the body below and never dismiss the panel by accident.
+  return <dialog className="credits-panel" ref={ref} aria-labelledby="credits-title" data-no-advance
     onCancel={event => { event.preventDefault(); onClose(); }}
     onClick={event => { event.stopPropagation(); if (event.target === ref.current) onClose(); }}>
-    <h2 id="credits-title">Credits &amp; Sources</h2>
+    <div className="credits-body">
+    <header className="credits-head">
+      <h2 id="credits-title">Credits &amp; Sources</h2>
+      <button type="button" className="credits-close" aria-label="Close credits" onClick={onClose} autoFocus>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+    <div className="credits-scroll">
     <section>
       <h3>ASTER — Abandoned But Not Forgotten</h3>
       <p>An interactive webcomic in three chapters, created for the NASA Space Apps Challenge (“Abandoned but Not
@@ -77,6 +88,8 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
         <li>Earth illustration coastlines — Natural Earth (public domain)</li>
       </ul>
     </section>
-    <button type="button" className="close-button" onClick={onClose} autoFocus>Close</button>
+    <button type="button" className="close-button" onClick={onClose}>Close</button>
+    </div>
+    </div>
   </dialog>;
 }

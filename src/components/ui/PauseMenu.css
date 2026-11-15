@@ -37,7 +37,7 @@
 .sound-mute input { width: 20px; height: 20px; accent-color: #e6ab79; }
 
 @media (max-width: 650px) {
-  .pause-button { top: 64px; width: 40px; height: 40px; }
+  .pause-button { top: 64px; width: 44px; height: 44px; }
   .pause-menu h2 { font-size: 44px; }
 }
 @media (max-height: 520px) and (min-aspect-ratio: 1/1) {
@@ -45,3 +45,6 @@
   .pause-body { gap: 14px; padding: 16px 20px; }
   .pause-menu h2 { font-size: 34px; }
 }
+
+/* Browsers without modal dialogs: the open menu becomes a fixed overlay. */
+.pause-menu:not(:modal) { position: fixed; z-index: 40; inset: 0; margin: auto; height: fit-content; box-shadow: 0 0 0 100vmax rgba(5, 12, 17, 0.82); }

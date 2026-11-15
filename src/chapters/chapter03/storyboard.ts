@@ -82,7 +82,9 @@ export const storyboard: Beat<LineId>[] = [
     id: 'L06', slug: 'mara-approaches', sequence: 'D', title: 'Mara approaches Sojourner', stage: 'legacySite',
     // Screenplay: "The music becomes quieter. Mara slowly approaches Sojourner."
     expressions: { mara: 'reflective', eli: 'neutral', pip: 'neutral' },
-    layers: { mara: [{ xp: 95, duration: 4.6, delay: 1.4, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }] },
+    // No walk-cycle art: a soft step-dissolve moves her beside the rover while the camera closes in, instead
+    // of sliding a standing figure across the ground.
+    layers: { mara: [hide(0.7, 1.6), { xp: 95, duration: 0.01 }, show(0.9, 0.2)] },
     camera: { to: [{ shot: 'siteWide', duration: 2.6, ease: 'sine.inOut' }, { shot: 'maraRover', duration: 3.6, delay: 0.6, ease: 'sine.inOut' }] },
     caption: { kind: 'scene', text: 'The Final Salute' },
     music: { mood: 'emotional', level: 0.45 },

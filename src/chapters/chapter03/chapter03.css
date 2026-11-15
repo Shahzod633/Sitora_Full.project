@@ -109,7 +109,7 @@
 .legacy-label strong { font: 600 clamp(14px, 1.6cqw, 21px)/1.05 "Barlow Condensed", sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper); }
 .legacy-label em { font-style: normal; margin-top: 2px; padding: 1px 5px; border: 1px dashed rgba(241, 233, 212, 0.6); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; }
 .legacy-node.is-fiction .legacy-thumb { border-style: dashed; }
-.legacy-line[data-portrait="true"] { inset: 12% 4% 6%; }
+.legacy-line[data-portrait="true"] { inset: 10% 4% 5%; }
 .legacy-line[data-portrait="true"] .legacy-node { width: 96px; gap: 3px; }
 
 /* ---- The end ---------------------------------------------------------------------------- */

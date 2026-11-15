@@ -1,5 +1,5 @@
 import React from 'react';
-import { assets, currentUrl, finalUrl, loadUrl, type AssetDef, type AssetId } from '../../data/assetManifest';
+import { assets, finalUrl, loadUrl, urlState, type AssetDef, type AssetId } from '../../data/assetManifest';
 
 type Props = {
   asset: AssetId;
@@ -8,23 +8,28 @@ type Props = {
   portrait?: boolean;
 };
 
-// Paints the bundled illustration immediately and swaps in the final artwork once it has decoded.
-// A missing or broken final file keeps the bundled illustration.
+// Paints the final artwork once it has decoded. While it is still loading the layer stays empty (the
+// Director holds a stage back until its art is ready), so a reader never sees a stand-in drawing flash
+// before the real one. Only a missing or broken final file falls back to the bundled illustration.
 export default function SceneArt({ asset, className = '', label, portrait = false }: Props) {
   const def: AssetDef = assets[asset];
   const target = finalUrl(def, portrait);
-  const [url, setUrl] = React.useState(() => currentUrl(asset, portrait));
+  const pick = () => {
+    if (!target) return def.fallback;
+    const state = urlState(target);
+    return state === true ? target : state === false ? def.fallback : '';
+  };
+  const [url, setUrl] = React.useState(pick);
 
   React.useEffect(() => {
-    if (!target) {
-      setUrl(def.fallback);
-      return;
-    }
+    setUrl(pick());
+    if (!target || urlState(target) !== undefined) return;
     let active = true;
     void loadUrl(target).then(ok => {
       if (active) setUrl(ok ? target : def.fallback);
     });
     return () => { active = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target, def.fallback]);
 
   return <span
@@ -32,6 +37,6 @@ export default function SceneArt({ asset, className = '', label, portrait = fals
     role={label ? 'img' : undefined}
     aria-label={label}
     aria-hidden={label ? undefined : true}
-    style={{ backgroundImage: `url("${url.replace(/"/g, '%22')}")` }}
+    style={url ? { backgroundImage: `url("${url.replace(/"/g, '%22')}")` } : undefined}
   />;
 }

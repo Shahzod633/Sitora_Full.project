@@ -40,22 +40,33 @@ button:focus-visible, [tabindex]:focus-visible, a:focus-visible { outline: 3px s
 .chapter-name span { display: block; color: #e3c7a8; font-size: 10px; text-transform: uppercase; letter-spacing: .16em; font-weight: 600; margin-bottom: 3px; }
 
 .next-button, .begin-button, .end-replay, .close-button {
-  display: inline-flex; gap: 28px; align-items: center; justify-content: center;
-  min-height: 48px; padding: 13px 23px; border: 1px solid #f5e8cb; border-radius: 2px;
-  background: var(--paper); color: var(--ink); font-weight: 600; font-size: 15px;
+  position: relative; display: inline-flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 48px; padding: 12px 24px; border: 1px solid #f5e8cb; border-radius: 2px;
+  background: var(--paper); color: var(--ink); font-weight: 600; font-size: 15px; line-height: 1.2;
+  transition: background-color 0.15s, transform 0.08s;
 }
+/* The chevron sits in its own gutter on the right; an equal gutter on the left keeps the label truly centred. */
+.next-button, .begin-button, .end-replay { padding-inline: 46px; }
 .next-button { position: absolute; right: var(--edge); bottom: var(--bottom); z-index: 4; }
-.next-button:after, .begin-button:after, .end-replay:after { content: ""; width: 7px; height: 7px; border: solid currentColor; border-width: 1.5px 1.5px 0 0; transform: rotate(45deg); }
+.next-button:after, .begin-button:after, .end-replay:after {
+  content: ""; position: absolute; right: 21px; top: 50%; width: 7px; height: 7px; margin-top: -4px;
+  border: solid currentColor; border-width: 1.5px 1.5px 0 0; transform: rotate(45deg);
+}
 .next-button:hover, .begin-button:hover, .end-replay:hover, .close-button:hover { background: #ffe4be; }
+.next-button:active, .begin-button:active, .end-replay:active, .close-button:active { transform: translateY(1px); background: #f3d3a8; }
+button:disabled { cursor: default; }
 .text-button {
   background: none; border: 0; padding: 10px 2px; min-height: 44px; color: var(--paper); font-size: 13px; letter-spacing: .08em;
   text-decoration: underline; text-underline-offset: 5px; text-decoration-color: #f1e9d466;
 }
 .text-button:hover { text-decoration-color: var(--accent); }
+.text-button:active { color: var(--accent); }
 .sound-toggle {
   width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid #79908b;
-  color: var(--paper); background: #112832; border-radius: 50%;
+  color: var(--paper); background: #112832; border-radius: 50%; padding: 0;
 }
+.sound-toggle:hover { border-color: var(--accent); }
+.sound-toggle:active, .pause-button:active { background: #1c3a47; }
 
 @media (max-width: 650px) {
   .chapter-mast { gap: 14px; }
@@ -63,7 +74,6 @@ button:focus-visible, [tabindex]:focus-visible, a:focus-visible { outline: 3px s
   .aster-mark { width: 26px; height: 26px; }
   .chapter-name { padding-left: 13px; font-size: 11px; }
   .chapter-name span { font-size: 9px; }
-  .next-button { min-height: 46px; }
 }
 @media (max-height: 520px) and (min-aspect-ratio: 1/1) {
   .chapter-mast { top: 10px; }

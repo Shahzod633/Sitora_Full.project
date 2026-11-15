@@ -2,9 +2,12 @@
 .stage.tone-mars { background: #3a1f17; }
 .stage.tone-dusk { background: #24151a; }
 
-.tint-dust { background: linear-gradient(180deg, rgba(214, 150, 104, 0.5), rgba(176, 106, 68, 0.75)); mix-blend-mode: screen; }
+/* Airborne dust: a pale ochre veil. (The old red-brown mix pushed the plain toward blood red on phone screens.) */
+.tint-dust { background: linear-gradient(180deg, rgba(222, 176, 128, 0.5), rgba(198, 150, 104, 0.6)); mix-blend-mode: screen; }
 .tint-archive { background: rgba(196, 232, 228, 0.5); mix-blend-mode: screen; }
-.tint-dusk { background: linear-gradient(180deg, rgba(46, 26, 44, 0.62), rgba(120, 50, 26, 0.5)); mix-blend-mode: multiply; }
+/* Evening light: cool violet in the sky easing to a warm tan on the ground. It shades the scene without
+   multiplying everything by red, so suits and the rover keep their own colours. */
+.tint-dusk { background: linear-gradient(180deg, rgba(88, 66, 104, 0.6), rgba(206, 150, 112, 0.3) 70%); mix-blend-mode: multiply; }
 .tint-holo { background: radial-gradient(ellipse at 50% 30%, rgba(120, 214, 232, 0.28), transparent 62%); mix-blend-mode: screen; }
 
 .layer.fx-scanWave[data-flip="true"] .scan-wave { transform: scaleX(-1); }
@@ -64,3 +67,21 @@
 }
 
 @keyframes holo-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3%); } }
+
+/* ---- Palette: dusty ochre and terracotta ------------------------------------------------
+   The Mars paintings are untagged sRGB; wide-gamut phone screens stretch their reds toward crimson.
+   A light grade on the painted backgrounds only (never the characters or the rover) keeps the plain in the
+   ochre / orange / terracotta range on every screen. */
+[data-layer="land"] > .layer-art, [data-layer="site"] > .layer-art, [data-layer="closeScene"] > .layer-art,
+[data-layer="plain"] > .layer-art, .tone-mars [data-layer="sky"] > .layer-art, .game-ground {
+  filter: hue-rotate(7deg) saturate(0.82) brightness(1.03);
+}
+[data-layer="mars"] > .layer-art, [data-layer="marsFar"] > .layer-art { filter: hue-rotate(6deg) saturate(0.86); }
+
+/* ---- Holograms on upright phones: three above, two below, all inside one screen width ---- */
+.storyboard[data-portrait="true"] .holo-row { grid-template-columns: repeat(6, 1fr); grid-template-rows: 1fr 1fr; gap: 4% 2%; }
+.storyboard[data-portrait="true"] .holo { grid-column: span 2; }
+.storyboard[data-portrait="true"] .holo:nth-child(4) { grid-column: 2 / span 2; }
+.storyboard[data-portrait="true"] .holo:nth-child(5) { grid-column: 4 / span 2; }
+.storyboard[data-portrait="true"] .holo-name { font-size: calc(10px / var(--cam-z)); letter-spacing: 0.08em; }
+.storyboard[data-portrait="true"] .holo-name strong { font-size: calc(14px / var(--cam-z)); letter-spacing: 0.08em; }

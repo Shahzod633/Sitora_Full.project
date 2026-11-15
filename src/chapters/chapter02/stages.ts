@@ -94,7 +94,10 @@ export const stages: Record<StageId, StageDef> = {
     layers: [
       { id: 'land', asset: 'marsLandscape', label: 'A wide, dusty Martian plain under a butterscotch sky', depth: 1, box: cover(16 / 9),
         children: [
-          { id: 'asterL', asset: 'aster', label: 'Aster, landed', box: { x: 74, y: 63, w: '34%', anchor: [0.5, 1] },
+          // Contact shadow, faded in as the ship settles (it has no landing-gear drawing).
+          { id: 'asterShadowL', fx: 'shadow', box: { x: 74, y: 63.2, w: '32%', h: '5%' }, portrait: { w: '22%', h: '3.4%' }, initial: { opacity: 0 } },
+          // Phones: a smaller ship, so the whole hull fits one screen width when the camera settles on it.
+          { id: 'asterL', asset: 'aster', label: 'Aster, landed', box: { x: 74, y: 63, w: '34%', anchor: [0.5, 1] }, portrait: { w: '23%' },
             children: [
               thruster,
               { id: 'landingGlow', fx: 'landingGlow', box: { x: 50, y: 100, w: '60%', h: '60%' }, initial: { opacity: 0 } },
@@ -113,8 +116,8 @@ export const stages: Record<StageId, StageDef> = {
     ],
     shots: {
       wide: {},
-      landingSky: { target: 'asterL', focus: [0.5, -0.9], zoom: 1.25, screen: [0.56, 0.4] },
-      landed: { target: 'asterL', focus: [0.5, 0.6], zoom: 1.5, screen: [0.56, 0.54] },
+      landingSky: { target: 'asterL', focus: [0.5, -0.9], zoom: 1.25, screen: [0.56, 0.4], portrait: { target: 'asterL', focus: [0.5, -0.9], zoom: 1, screen: [0.5, 0.4] } },
+      landed: { target: 'asterL', focus: [0.5, 0.6], zoom: 1.5, screen: [0.56, 0.54], portrait: { target: 'asterL', focus: [0.5, 0.6], zoom: 1.04, screen: [0.5, 0.52] } },
       plain: { target: 'land', focus: [0.5, 0.5], zoom: 1, portrait: { target: ['mara', 'pip'], focus: [0.5, 0.2], zoom: 1 } },
       crewWalk: { target: ['pip', 'mara'], focus: [0.5, 0.4], zoom: 1.7, screen: [0.56, 0.5], portrait: { target: ['pip', 'mara'], focus: [0.5, 0.4], zoom: 1.2, screen: [0.5, 0.46] } },
       pipScan: { target: 'pip', focus: [0.4, 0.3], zoom: 3, screen: [0.56, 0.44] },

@@ -69,7 +69,7 @@
   display: grid; place-items: center; border: 1px solid rgba(241, 233, 212, 0.55); border-radius: 2px; background: rgba(241, 233, 212, 0.08);
   color: var(--paper); font-size: 15px; touch-action: none; user-select: none; -webkit-user-select: none;
 }
-.pad-button:active:not(:disabled) { background: var(--accent); color: var(--ink); }
+.pad-button:active:not(:disabled) { background: var(--accent); color: var(--ink); transform: scale(0.96); }
 .pad-button:disabled { opacity: 0.4; }
 .rover-actions { display: grid; gap: 8px; flex: 1 1 200px; max-width: 280px; }
 
@@ -126,9 +126,16 @@
 }
 
 @media (max-width: 650px) {
-  .rover-game { padding: 104px 12px calc(max(12px, env(safe-area-inset-bottom)) + 250px); }
+  /* Phones: the board keeps the top of the screen; the controls live in the thumb zone at the bottom —
+     the two actions side by side, and a large drive pad centred underneath. */
+  .rover-game { padding: 118px 12px calc(max(12px, env(safe-area-inset-bottom)) + 344px); }
   .game-board { width: 100%; }
-  .pad { grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 40px); }
+  .rover-hud .rover-controls { flex-direction: column-reverse; align-items: stretch; gap: 12px; }
+  .rover-hud .rover-actions { grid-template-columns: 1fr 1fr; max-width: none; flex: none; }
+  .rover-hud .rover-actions .activity-button { padding: 10px 8px; }
+  .rover-hud .pad { align-self: center; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(3, 50px); gap: 5px; }
+  .rover-hud .pad-button { font-size: 18px; border-radius: 6px; }
+  .rover-hud > p:not(.activity-title):not(.activity-note) { font-size: 13px; }
 }
 @media (max-height: 520px) and (min-aspect-ratio: 1/1) {
   /* Phone held sideways: board on the left, controls in a column on the right. */

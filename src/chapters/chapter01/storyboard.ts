@@ -144,7 +144,9 @@ export const storyboard: Beat<LineId>[] = [
     // Wordless beat in the artists' galley painting: Eli gets his coffee after all, Mara glances over,
     // and the Moon fills the window. No dialogue is added to the screenplay.
     id: 'B13A', slug: 'galley-moon', sequence: 'B', title: 'The Moon fills the window', stage: 'galley',
-    transition: { kind: 'crossfade', duration: 1.3 },
+    // A change of room and time with the same two people in both frames: dip through black rather than
+    // dissolve, so no half-transparent doubles of Mara and Eli appear.
+    transition: { kind: 'black', duration: 0.9 },
     layers: { glance: [{ opacity: 1, duration: 0.14, delay: 2.2 }, { opacity: 0, duration: 0.14, delay: 1.7 }] },
     camera: { from: 'coffee', to: { shot: 'moonView', duration: 6.2, delay: 0.6, ease: 'sine.inOut' } },
     caption: { kind: 'location', text: 'Aster galley · lunar approach' },
@@ -169,7 +171,7 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'B15', slug: 'lunar-descent', sequence: 'C', title: 'Descent to the lunar base', stage: 'lunarBase',
-    transition: { kind: 'crossfade', duration: 1.4 },
+    transition: { kind: 'crossfade', duration: 1 },
     from: { aster: { dx: -18, dy: -46, scale: 0.55, rotation: 4 }, landingGlow: { opacity: 1 } },
     layers: {
       aster: [
@@ -372,7 +374,7 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'B32', slug: 'toward-mars', sequence: 'F', title: 'Toward Mars', stage: 'orbit',
-    transition: { kind: 'crossfade', duration: 1.4 },
+    transition: { kind: 'crossfade', duration: 1 },
     from: {
       earthLimb: { opacity: 0 },
       earth: { opacity: 0.85, scale: 0.15, dx: -52, dy: -36 },

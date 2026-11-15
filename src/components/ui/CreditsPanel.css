@@ -1,12 +1,32 @@
+/* Credits & Sources: a modal sheet with a fixed header (title + close) and one scrolling column. */
 .credits-panel::backdrop { background: #07131bd9; }
 .credits-panel {
-  border: 0; width: min(calc(100% - 32px), 600px); max-height: 88dvh; overflow: auto;
-  color: var(--ink); background: var(--paper); padding: clamp(22px, 4vw, 40px); border-radius: 2px;
+  border: 0; padding: 0; width: min(calc(100% - 24px), 620px); height: auto; max-height: min(88vh, 860px); max-height: min(88dvh, 860px);
+  overflow: hidden; color: var(--ink); background: var(--paper); border-radius: 2px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
 }
-.credits-panel h2 { font: 600 40px/1.05 "Barlow Condensed", sans-serif; margin: 0 0 14px; }
+/* Browsers without modal dialogs: the open dialog becomes a fixed overlay sheet. */
+.credits-panel:not(:modal) { position: fixed; z-index: 50; inset: 0; margin: auto; box-shadow: 0 0 0 100vmax #07131bd9, 0 24px 70px rgba(0, 0, 0, 0.6); }
+.credits-body { display: flex; flex-direction: column; max-height: inherit; }
+.credits-head {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: clamp(14px, 3vw, 22px) clamp(18px, 4vw, 36px); border-bottom: 1px solid rgba(13, 28, 36, 0.16); background: var(--paper);
+}
+.credits-panel h2 { font: 600 clamp(28px, 6vw, 40px)/1.05 "Barlow Condensed", sans-serif; margin: 0; }
+.credits-close {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(13, 28, 36, 0.4); border-radius: 50%;
+  background: transparent; color: var(--ink);
+}
+.credits-close:hover { background: rgba(13, 28, 36, 0.08); }
+.credits-scroll {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  padding: 4px clamp(18px, 4vw, 36px) max(22px, env(safe-area-inset-bottom));
+}
 .credits-panel h3 { font: 600 20px/1.1 "Barlow Condensed", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; margin: 22px 0 6px; }
-.credits-panel p, .credits-panel li { line-height: 1.55; font-size: 15px; }
+.credits-panel p, .credits-panel li { line-height: 1.55; font-size: 15px; overflow-wrap: anywhere; }
 .credits-panel ul { padding-left: 18px; margin: 6px 0; }
+.credits-panel li { padding: 2px 0; }
 .credits-panel a { color: #7a4f1a; }
 .credits-note { color: #4f4a3c; font-size: 13px !important; }
-.credits-panel .close-button { color: var(--paper); background: var(--ink); min-width: 96px; margin-top: 18px; }
+.credits-panel .close-button { color: var(--paper); background: var(--ink); border-color: var(--ink); min-width: 120px; margin-top: 18px; }
+.credits-panel .close-button:hover { background: #1c3340; }

@@ -342,6 +342,7 @@ export const isTemporary = (id: AssetId) => (assets[id] as AssetDef).status === 
 
 const decoded = new Map<string, Promise<boolean>>();
 const ready = new Set<string>();
+const failed = new Set<string>();
 
 /** The best URL that is already decoded, falling back to the bundled illustration. */
 export function currentUrl(id: AssetId, portrait = false): string {
@@ -355,17 +356,60 @@ export function finalUrl(def: AssetDef, portrait = false) {
   return path ? publicUrl(path) : undefined;
 }
 
-/** Decode once and remember the result. Resolves false on a missing or broken file. */
+/** Load (and, where the browser allows, pre-decode) once and remember the result. Resolves false on a missing
+ * or broken file. Decoding is only a smoothness optimisation: a background tab can leave decode() pending
+ * forever, so a loaded image counts as ready shortly after its load event either way. */
 export function loadUrl(url: string): Promise<boolean> {
   let pending = decoded.get(url);
   if (!pending) {
-    const image = new Image();
-    image.decoding = 'async';
-    image.src = url;
-    pending = image.decode().then(() => { ready.add(url); return true; }, () => false);
+    pending = new Promise<boolean>(resolve => {
+      const image = new Image();
+      let settled = false;
+      const finish = (ok: boolean) => {
+        if (settled) return;
+        settled = true;
+        (ok ? ready : failed).add(url);
+        resolve(ok);
+      };
+      image.decoding = 'async';
+      image.onload = () => {
+        const decode = typeof image.decode === 'function' ? image.decode() : Promise.resolve();
+        decode.then(() => finish(true), () => finish(true));
+        window.setTimeout(() => finish(true), 350);
+      };
+      image.onerror = () => finish(false);
+      image.src = url;
+    });
     decoded.set(url, pending);
   }
   return pending;
+}
+
+/** True when every listed asset has its final artwork decoded (assets without final art count as ready). */
+export function assetsReady(ids: Iterable<AssetId>, portrait = false) {
+  for (const id of ids) {
+    const url = finalUrl(assets[id], portrait);
+    if (url && !ready.has(url) && !failed.has(url)) return false;
+  }
+  return true;
+}
+
+/** Resolves once every listed asset has decoded or failed, or after `timeoutMs` (the story must never hang). */
+export function whenAssetsReady(ids: Iterable<AssetId>, portrait = false, timeoutMs = 6000): Promise<void> {
+  const pending: Promise<boolean>[] = [];
+  for (const id of ids) {
+    const url = finalUrl(assets[id], portrait);
+    if (url) pending.push(loadUrl(url));
+  }
+  return new Promise(resolve => {
+    const timer = window.setTimeout(resolve, timeoutMs);
+    void Promise.all(pending).then(() => { window.clearTimeout(timer); resolve(); });
+  });
+}
+
+/** Whether the final artwork for `url` is decoded (`true`), failed (`false`) or still loading (`undefined`). */
+export function urlState(url: string): boolean | undefined {
+  return ready.has(url) ? true : failed.has(url) ? false : undefined;
 }
 
 /** Warm the cache for the assets of upcoming beats. Only listed assets load; nothing from later chapters. */

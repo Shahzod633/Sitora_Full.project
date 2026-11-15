@@ -29,7 +29,7 @@ export const stages: Record<StageId, StageDef> = {
         ],
       }),
       // Evening light over both paintings, and the cool glow the holograms throw.
-      { id: 'duskLight', fx: 'tint', props: { tone: 'dusk' }, depth: 0, box: full, initial: { opacity: 0.55 } },
+      { id: 'duskLight', fx: 'tint', props: { tone: 'dusk' }, depth: 0, box: full, initial: { opacity: 0.4 } },
       { id: 'holoGlow', fx: 'tint', props: { tone: 'holo' }, depth: 0, box: full, initial: { opacity: 0 } },
       // The crew display (fictional): a quiet card at the top of the frame.
       { id: 'crewDisplay', fx: 'crewDisplay', depth: 0, box: { x: 50, y: 14, anchor: [0.5, 0] }, portrait: { y: 16 }, initial: { opacity: 0 } },
@@ -39,6 +39,8 @@ export const stages: Record<StageId, StageDef> = {
     ],
     shots: {
       ...siteShots,
+      // Phones: centre the wide view on the rover, so Mara (now beside it), Sojourner and Pip share the frame.
+      siteWide: { target: 'site', zoom: 1, portrait: { target: 'roverS', focus: [0.5, 0.5], zoom: 1 } },
       pipHolding: { target: 'pipCarry', focus: [0.5, 0.5], zoom: 2.6, screen: [0.5, 0.44], portrait: { zoom: 2, screen: [0.5, 0.4] } },
     },
   },
@@ -51,9 +53,12 @@ export const stages: Record<StageId, StageDef> = {
     costume: 'mars', bounds: 'plain', music: 'finale',
     layers: [
       { id: 'plain', asset: 'marsSunset', label: 'A wide Martian plain under a sunset sky', depth: 1, box: cover(16 / 9) },
+      // The ship rests on the plain: sized by width (so its hull meets the box's bottom edge) over a contact shadow.
+      { id: 'asterShadowS', fx: 'shadow', depth: 1, box: { x: 79, y: 67.2, w: '25cqw', h: '2.6cqh' },
+        portrait: { x: 72, y: 66.2, w: '46cqw', h: '1.8cqh' }, initial: { opacity: 0.8 } },
       { id: 'asterS', asset: 'aster', label: 'Aster in the distance', depth: 1,
-        box: { x: 79, y: 67, w: '26cqw', h: '18cqh', anchor: [0.5, 1] },
-        portrait: { x: 73, y: 65, w: '48cqw', h: '14cqh' }, initial: { brightness: 0.65 } },
+        box: { x: 79, y: 67.6, w: '26cqw', anchor: [0.5, 1] },
+        portrait: { x: 72, y: 66.4, w: '48cqw' }, initial: { brightness: 0.82 } },
       // Viewport-relative group instead of children of a cover-cropped landscape: all boots and
       // the carried rover fit on narrow phones too. Children share the same camera plane.
       { id: 'returnParty', depth: 1,
@@ -63,10 +68,10 @@ export const stages: Record<StageId, StageDef> = {
           { id: 'maraShadow', fx: 'shadow', box: { x: 18, y: 99, w: '22%', h: '3%' }, initial: { opacity: 0.65 } },
           { id: 'eliShadow', fx: 'shadow', box: { x: 47, y: 99, w: '22%', h: '3%' }, initial: { opacity: 0.65 } },
           { id: 'pipShadow', fx: 'shadow', box: { x: 78, y: 99, w: '18%', h: '3%' }, initial: { opacity: 0.65 } },
-          { id: 'maraW', asset: 'maraMars', label: 'Mara', box: { x: 18, y: 100, w: '18%', h: '100%', anchor: [0.5, 1] }, initial: { brightness: 0.7 } },
-          { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 47, y: 100, w: '19%', h: '100%', anchor: [0.5, 1] }, initial: { brightness: 0.7, flags: { flip: true } } },
+          { id: 'maraW', asset: 'maraMars', label: 'Mara', box: { x: 18, y: 100, w: '18%', h: '100%', anchor: [0.5, 1] }, initial: { brightness: 0.9 } },
+          { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 47, y: 100, w: '19%', h: '100%', anchor: [0.5, 1] }, initial: { brightness: 0.9, flags: { flip: true } } },
           // One carrying sprite keeps the grip intact at every viewport size.
-          { id: 'pipW', asset: 'pipCarry', label: 'Pip supporting Sojourner with both hands', box: { x: 78, y: 100, h: '50%', anchor: [0.5, 1] }, initial: { brightness: 0.7 } },
+          { id: 'pipW', asset: 'pipCarry', label: 'Pip supporting Sojourner with both hands', box: { x: 78, y: 100, h: '50%', anchor: [0.5, 1] }, initial: { brightness: 0.9 } },
         ] },
       { id: 'nightFall', fx: 'tint', props: { tone: 'black' }, depth: 0, box: full, initial: { opacity: 0 } },
       vignette(0.4),

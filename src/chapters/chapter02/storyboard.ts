@@ -88,7 +88,8 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'M07', slug: 'landing', sequence: 'B', title: 'Landing on Mars', stage: 'marsSurface',
-    transition: { kind: 'crossfade', duration: 1.4 },
+    // Short dissolve: both stages show the ship, and a long one reads as two ships at once.
+    transition: { kind: 'crossfade', duration: 0.8 },
     from: { asterL: { dy: -62, dx: -6, scale: 0.8, rotation: -4 }, landingGlow: { opacity: 1 } },
     layers: {
       asterL: [
@@ -97,6 +98,7 @@ export const storyboard: Beat<LineId>[] = [
       ],
       landingDust: [{ opacity: 0.9, duration: 0.9, delay: 4.6 }, { opacity: 0, duration: 4.4 }],
       landingGlow: { opacity: 0, duration: 0.8, delay: 6 },
+      asterShadowL: { opacity: 0.8, duration: 1.4, delay: 5.2 },
       asterThrust: { opacity: 0, duration: 0.8, delay: 6 },
       haze: [{ opacity: 0.32, duration: 1.6, delay: 4.8 }, { opacity: 0.12, duration: 4.4 }],
     },
@@ -112,13 +114,9 @@ export const storyboard: Beat<LineId>[] = [
   // ============================================================ SEQUENCE C — AN UNEXPECTED DISCOVERY
   {
     id: 'M08', slug: 'exploration', sequence: 'C', title: 'Across the plain', stage: 'marsSurface',
-    // The crew walks in from the ship. Offsets are in % of each figure, so they follow the painting.
-    from: { mara: { xp: 310 }, eli: { xp: 282 }, pip: { xp: 470 } },
-    layers: {
-      mara: [show(0.6), { xp: 0, duration: 6, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-      eli: [show(0.6, 0.2), { xp: 0, duration: 6, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-      pip: [show(0.6, 0.4), { xp: 0, duration: 5.6, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-    },
+    // There is no walk-cycle art, so nobody slides across the ground: the camera travels over the plain and
+    // finds the crew already out on foot (a time cut), each figure easing in as the frame reaches them.
+    layers: { mara: show(1.1, 2.6), eli: show(1.1, 3), pip: show(1.1, 3.4) },
     camera: { to: [{ shot: 'plain', duration: 3, ease: 'sine.inOut' }, { shot: 'crewWalk', duration: 4.4, ease: 'sine.inOut' }] },
     caption: [
       { kind: 'scene', text: 'An Unexpected Discovery' },
@@ -141,9 +139,7 @@ export const storyboard: Beat<LineId>[] = [
       hold: 3.6, focus: 'all', expressions: { pip: 'curious' },
       layers: {
         moundReticle: hide(0.4),
-        mara: [{ xp: -218, duration: 3.2, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-        eli: [{ xp: -197, duration: 3.2, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-        pip: [{ xp: -281, duration: 3, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
+        // The approach is carried by the camera move toward the mound; the figures stay planted.
       },
       camera: { to: { shot: 'toMound', duration: 3.2, ease: 'sine.inOut' } },
     },

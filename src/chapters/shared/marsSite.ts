@@ -33,7 +33,9 @@ export function siteLayers({ dust, siteExtras = [] }: SiteOptions): LayerDef[] {
     { id: 'site', asset: 'marsDigSite', label: 'The crew on the Martian plain beside a small, half-buried rover', depth: 1,
       box: cover(ASPECT),
       children: [
-        { id: 'holo', fx: 'holoRow', box: { x: 50, y: 25, w: '80%', h: '30%' }, initial: { opacity: 0, vars: { n: 0 } } },
+        // Phones: the five models stack 3 + 2 inside one screen width instead of one long row.
+        { id: 'holo', fx: 'holoRow', box: { x: 50, y: 25, w: '80%', h: '30%' }, portrait: { x: 52, y: 42, w: '24.4%', h: '34%' },
+          initial: { opacity: 0, vars: { n: 0 } } },
         { id: 'mara', character: 'mara', label: 'Mara', box: { x: 29, y: 91, h: '50%', anchor: [0.5, 1] } },
         // Eli is drawn facing left (toward the rover); Pip is drawn facing right, so he is mirrored.
         { id: 'eli', character: 'eli', label: 'Eli', box: { x: 69, y: 92, h: '51%', anchor: [0.5, 1] } },
@@ -59,7 +61,7 @@ export function siteLayers({ dust, siteExtras = [] }: SiteOptions): LayerDef[] {
           ] },
         ...(dust ? [{ id: 'dustCover', fx: 'dustReveal', box: { x: 50, y: 52, w: '40%', h: '52%' }, portrait: { w: '21%', h: '28%' } } as LayerDef] : []),
         { id: 'revealTag', fx: 'nameTag', props: { name: 'Sojourner', role: 'Mars Pathfinder rover · 1997' },
-          box: { x: 50, y: 20, anchor: [0.5, 1] }, portrait: { y: 34 }, initial: { opacity: 0 } },
+          box: { x: 50, y: 20, anchor: [0.5, 1] }, portrait: { y: 39.5 }, initial: { opacity: 0 } },
       ] },
     // A cool wash for the moment the suit computer's display flickers.
     { id: 'flicker', fx: 'tint', props: { tone: 'archive' }, depth: 0, box: full, initial: { opacity: 0 } },

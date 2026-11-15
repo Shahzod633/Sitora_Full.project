@@ -301,6 +301,13 @@
 }
 .storyboard > .sound-toggle { position: absolute; z-index: 5; top: max(64px, 9.5vh); right: calc(var(--edge) + 56px); }
 
+/* Shown only if a scene's artwork is slow to arrive (the stage waits for it rather than flashing stand-ins). */
+.storyboard[data-phase="loading"]::after {
+  content: ""; position: absolute; z-index: 6; left: 50%; bottom: calc(var(--bottom) + 18px); width: 26px; height: 26px; margin-left: -13px;
+  border-radius: 50%; border: 2px solid rgba(241, 233, 212, 0.25); border-top-color: var(--accent);
+  opacity: 0; animation: spin 0.9s linear infinite, fade-in 0.4s 0.9s forwards; pointer-events: none;
+}
+
 /* Honest labelling: scenes that still use stand-in art say so (data/assetManifest.ts, SHOW_PLACEHOLDER_LABEL). */
 .placeholder-chip {
   position: absolute; z-index: 2; left: var(--edge); bottom: calc(var(--bottom) - 8px); margin: 0; pointer-events: none;
@@ -323,11 +330,12 @@
 .dev-ok { color: #8f8; } .dev-bad { color: #f88; }
 
 @media (max-width: 650px) {
-  .captions { top: 96px; }
+  /* Below the sound and menu buttons, so a long location line never runs underneath them. */
+  .captions { top: 122px; }
   .sequence-progress { top: 32px; gap: 3px; }
   .sequence-progress i { width: 9px; }
   .sequence-progress i[data-state="current"] { width: 18px; }
-  .storyboard > .sound-toggle { top: 64px; right: calc(var(--edge) + 48px); width: 40px; height: 40px; }
+  .storyboard > .sound-toggle { top: 64px; right: calc(var(--edge) + 54px); width: 44px; height: 44px; }
   .skip-hint { display: none; }
   .placeholder-chip { font-size: 9px; letter-spacing: 0.08em; }
   /* Phones: no room beside captions and panels; the label shows in cinematic moments only. */
@@ -383,6 +391,7 @@
 @keyframes caption-out { to { opacity: 0; } }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
   .storyboard *, .storyboard *::before, .storyboard *::after {

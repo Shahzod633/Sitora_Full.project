@@ -126,7 +126,8 @@ export const stages: Record<StageId, StageDef> = {
       twoMara: { target: 'twoMara', zoom: 1.9, screen: [0.44, 0.42], portrait: { target: 'twoMara', zoom: 1.6, screen: [0.5, 0.4] } },
       // All three faces kept in the upper two-thirds, clear of the dialogue box; bounded to the painting.
       bridgeGroup: { target: ['maraB', 'pipB'], focus: [0.5, 0.3], fill: 0.92, screen: [0.5, 0.36], bounds: 'bridge',
-        portrait: { target: ['maraB', 'pipB'], focus: [0.5, 0.3], fill: 1, screen: [0.5, 0.32], bounds: 'bridge' } },
+        // Phones cannot hold all three: frame the speaker (Eli) cleanly instead of cropping faces at the edges.
+        portrait: { target: 'eliB', focus: [0.5, 0.42], zoom: 1.55, screen: [0.5, 0.36], bounds: 'bridge' } },
     },
   },
 
@@ -203,7 +204,9 @@ export const stages: Record<StageId, StageDef> = {
         box: cover(1672 / 941),
         children: [
           marker('apollo', 38.5, 50, 28, 40, [
-            { id: 'apolloReticle', fx: 'reticle', props: { label: 'Scan · no contact' }, box: { x: 50, y: 50, w: '124%', h: '128%' }, initial: { opacity: 0 } },
+            { id: 'apolloReticle', fx: 'reticle', props: { label: 'Scan · no contact' }, box: { x: 50, y: 50, w: '124%', h: '128%' },
+              // The lander is wider than a phone screen at this framing: keep the brackets and their label on screen.
+              portrait: { w: '84%', h: '112%' }, initial: { opacity: 0 } },
             { id: 'apolloHotspot', fx: 'hotspot', props: { label: 'Apollo 11 landing site', hint: 'Look back to 1969' },
               box: { x: 50, y: 52, w: '70%', h: '80%' }, initial: { opacity: 0 } },
           ]),
@@ -214,13 +217,16 @@ export const stages: Record<StageId, StageDef> = {
     ],
     shots: {
       wide: {},
-      crewArrive: { target: 'crewScene', focus: [0.3, 0.6], zoom: 1.3, portrait: { target: 'crewScene', focus: [0.36, 0.6], zoom: 1.05 } },
-      crewGroup: { target: ['maraM', 'pipM'], focus: [0.5, 0.45], fill: 0.86, screen: [0.5, 0.45] },
+      // Upright phones show one figure at a time, so the arrival becomes a slow pan from Mara across Eli to Pip.
+      crewArrive: { target: 'crewScene', focus: [0.3, 0.6], zoom: 1.3, portrait: { target: 'maraM', focus: [0.5, 0.4], zoom: 1.04, screen: [0.5, 0.46] } },
+      crewGroup: { target: ['maraM', 'pipM'], focus: [0.5, 0.45], fill: 0.86, screen: [0.5, 0.45],
+        portrait: { target: 'pipM', focus: [0.5, 0.4], zoom: 1.04, screen: [0.5, 0.48] } },
       maraCrew: { target: 'maraM', focus: [0.5, 0.2], zoom: 1.9, screen: [0.46, 0.38], portrait: { target: 'maraM', focus: [0.5, 0.2], zoom: 1.4, screen: [0.5, 0.34] } },
       eliCrew: { target: 'eliM', focus: [0.5, 0.25], zoom: 1.9, screen: [0.48, 0.4], portrait: { target: 'eliM', focus: [0.5, 0.25], zoom: 1.4, screen: [0.5, 0.38] } },
       pipCrew: { target: 'pipM', focus: [0.45, 0.3], zoom: 2.2, screen: [0.5, 0.42], portrait: { target: 'pipM', focus: [0.45, 0.3], zoom: 1.6, screen: [0.5, 0.4] } },
       pipCloser: { target: 'pipM', focus: [0.45, 0.28], zoom: 2.6, screen: [0.5, 0.42], portrait: { target: 'pipM', focus: [0.45, 0.28], zoom: 1.9, screen: [0.5, 0.4] } },
-      maraEli: { target: ['maraM', 'eliM'], focus: [0.5, 0.3], fill: 0.9, screen: [0.5, 0.42] },
+      maraEli: { target: ['maraM', 'eliM'], focus: [0.5, 0.3], fill: 0.9, screen: [0.5, 0.42],
+        portrait: { target: 'eliM', focus: [0.5, 0.25], zoom: 1.25, screen: [0.5, 0.38] } },
       toBase: { target: 'baseM', focus: [0.4, 0.5], zoom: 1.35, portrait: { target: 'baseM', focus: [0.4, 0.5], zoom: 1.05 } },
       apolloWide: { target: 'apolloScene', focus: [0.5, 0.5], zoom: 1, bounds: 'apolloScene' },
       apolloReveal: { target: 'apollo', focus: [0.6, 0.45], zoom: 1.12, screen: [0.5, 0.45], bounds: 'apolloScene' },

@@ -23,7 +23,10 @@ export default function PauseMenu({ open, onPause, onResume, currentChapter, onR
   React.useLayoutEffect(() => {
     const el = dialog.current;
     if (!el) return;
-    if (open && !el.open) el.showModal();
+    if (open && !el.open) {
+      if (typeof el.showModal === 'function') el.showModal();
+      else el.setAttribute('open', '');
+    }
     if (!open && el.open) {
       el.close();
       opener.current?.focus({ preventScroll: true });

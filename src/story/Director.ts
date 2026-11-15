@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { assets, preloadAssets, type AssetId } from '../data/assetManifest';
+import { assets, assetsReady, preloadAssets, whenAssetsReady, type AssetId } from '../data/assetManifest';
 import { characters, type CharacterId, type Costume, type Expression } from '../data/characters';
 import { camTransform, resolveShot, restCam, type Cam, type Rect, type View } from './camera';
 import { StoryTimer } from './timer';
@@ -50,7 +50,8 @@ type Live = {
 };
 
 const MOTION_KEYS = new Set(['duration', 'delay', 'ease']);
-const DIM = 0.62;
+// Non-speaking characters step back slightly; they must stay clearly readable on small, dim phone screens.
+const DIM = 0.84;
 const toArray = <T,>(v: T | readonly T[] | undefined): T[] => (v === undefined ? [] : Array.isArray(v) ? [...v] : [v as T]);
 const now = () => performance.now();
 
@@ -88,7 +89,7 @@ export class Director {
   private layerMaps = new Map<StageId, Map<string, LayerDef>>();
   private activeKey = -1;
   private keySeq = 0;
-  private pending?: { index: number; key: number; fromKey?: number; cut?: boolean };
+  private pending?: { index: number; key: number; fromKey?: number; cut?: boolean; waiting?: boolean };
   private live: Live = { layers: {}, camera: 'wide', expressions: {} };
   private beatTl?: gsap.core.Timeline;
   private lineTl?: gsap.core.Timeline;
@@ -296,9 +297,19 @@ export class Director {
     if (!pending || this.destroyed) return;
     const handle = this.handles.get(pending.key);
     if (!handle) return;
-    this.pending = undefined;
     const { index, key, fromKey, cut } = pending;
     const beat = this.chapter.beats[index];
+    // Never reveal a stage before its artwork has decoded: the previous stage (or black) stays up meanwhile.
+    const art = this.stageArt(beat.stage);
+    if (!pending.waiting && !assetsReady(art, this.view.portrait)) {
+      pending.waiting = true;
+      gsap.set(handle.root, { autoAlpha: 0 });
+      void whenAssetsReady(art, this.view.portrait).then(() => {
+        if (this.pending === pending && !this.destroyed) this.mountPending();
+      });
+      return;
+    }
+    this.pending = undefined;
     this.activeKey = key;
     this.live = this.resolveBefore(index);
     this.setInstant(handle, this.live.layers);
@@ -679,22 +690,27 @@ export class Director {
 
   // ---- Misc --------------------------------------------------------------
 
-  private preloadAhead(index: number) {
-    const ids = new Set<AssetId>();
-    for (const beat of this.chapter.beats.slice(index, index + 4)) {
-      const stage = this.chapter.stages[beat.stage];
-      for (const def of this.layerMap(stage.id).values()) {
-        if (def.asset) ids.add(def.asset);
-        for (const value of Object.values(def.props ?? {})) {
-          if (typeof value === 'string' && Object.hasOwn(assets, value)) ids.add(value as AssetId);
-        }
-        if (def.character) {
-          const look = characters[def.character].looks[stage.costume];
-          ids.add(look.base);
-          Object.values(look.expressions ?? {}).forEach(id => ids.add(id));
-        }
+  /** Every illustration a stage can show: layer art, painted frames passed as props, character looks. */
+  private stageArt(stageId: StageId, ids = new Set<AssetId>()) {
+    const stage = this.chapter.stages[stageId];
+    for (const def of this.layerMap(stage.id).values()) {
+      if (def.asset) ids.add(def.asset);
+      for (const value of Object.values(def.props ?? {})) {
+        if (typeof value === 'string' && Object.hasOwn(assets, value)) ids.add(value as AssetId);
+      }
+      if (def.character) {
+        const look = characters[def.character].looks[stage.costume];
+        ids.add(look.base);
+        Object.values(look.expressions ?? {}).forEach(id => ids.add(id));
       }
     }
+    return ids;
+  }
+
+  private preloadAhead(index: number) {
+    const ids = new Set<AssetId>();
+    // Look far enough ahead that the next stage is normally decoded before its transition starts.
+    for (const beat of this.chapter.beats.slice(index, index + 6)) this.stageArt(beat.stage, ids);
     preloadAssets(ids, this.view.portrait);
   }
 
