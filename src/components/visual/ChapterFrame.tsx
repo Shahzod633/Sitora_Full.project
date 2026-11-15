@@ -2,10 +2,7 @@ import React from 'react';
 import type { Caption, SequenceId } from '../../story/types';
 
 export function AsterMark() {
-  return <svg className="aster-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-    <path d="m22 2 3.4 14.7L38 12l-9.8 10L42 25l-15.8 2.1L22 42l-3.9-15L3 22l14.2-3.9L13 7l7.2 9.3z" fill="currentColor"/>
-    <circle cx="22" cy="22" r="3.1" fill="#183139"/>
-  </svg>;
+  return <span className="aster-mark" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}aster-logo-small.png)` }} aria-hidden="true"/>;
 }
 
 type Props = {
