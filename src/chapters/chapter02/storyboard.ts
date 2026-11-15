@@ -110,7 +110,7 @@ export const storyboard: Beat<LineId>[] = [
   {
     id: 'M08', slug: 'exploration', sequence: 'C', title: 'Across the plain', stage: 'marsSurface',
     // The crew walks in from the ship. Offsets are in % of each figure, so they follow the painting.
-    from: { mara: { xp: 150 }, eli: { xp: 150 }, pip: { xp: 300 } },
+    from: { mara: { xp: 310 }, eli: { xp: 282 }, pip: { xp: 470 } },
     layers: {
       mara: [show(0.6), { xp: 0, duration: 6, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
       eli: [show(0.6, 0.2), { xp: 0, duration: 6, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
@@ -138,9 +138,9 @@ export const storyboard: Beat<LineId>[] = [
       hold: 3.6, focus: 'all', expressions: { pip: 'curious' },
       layers: {
         moundReticle: hide(0.4),
-        mara: [{ xp: -105, duration: 3.2, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-        eli: [{ xp: -105, duration: 3.2, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
-        pip: [{ xp: -180, duration: 3, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
+        mara: [{ xp: -218, duration: 3.2, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
+        eli: [{ xp: -197, duration: 3.2, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
+        pip: [{ xp: -281, duration: 3, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }],
       },
       camera: { to: { shot: 'toMound', duration: 3.2, ease: 'sine.inOut' } },
     },

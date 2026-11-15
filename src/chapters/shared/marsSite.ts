@@ -35,12 +35,14 @@ export function siteLayers({ dust, siteExtras = [] }: SiteOptions): LayerDef[] {
       children: [
         { id: 'holo', fx: 'holoRow', box: { x: 50, y: 25, w: '80%', h: '30%' }, initial: { opacity: 0, vars: { n: 0 } } },
         { id: 'mara', character: 'mara', label: 'Mara', box: { x: 29, y: 91, h: '50%', anchor: [0.5, 1] } },
-        { id: 'eli', character: 'eli', label: 'Eli', box: { x: 69, y: 92, h: '51%', anchor: [0.5, 1] }, initial: { flags: { flip: true } } },
-        { id: 'pip', character: 'pip', label: 'Pip', box: { x: 57.5, y: 92, h: '23%', anchor: [0.5, 1] },
+        // Eli is drawn facing left (toward the rover); Pip is drawn facing right, so he is mirrored.
+        { id: 'eli', character: 'eli', label: 'Eli', box: { x: 69, y: 92, h: '51%', anchor: [0.5, 1] } },
+        { id: 'pip', character: 'pip', label: 'Pip', box: { x: 57.5, y: 92, h: '23%', anchor: [0.5, 1] }, initial: { flags: { flip: true } },
           children: [
             { id: 'pipThinking', fx: 'pipStatus', props: { mode: 'thinking' }, box: { x: 96, y: 22, anchor: [0, 0.5] }, initial: { opacity: 0 } },
           ] },
-        { id: 'roverS', asset: 'sojourner', label: 'Sojourner', box: { x: 46.5, y: 91, w: '12%', anchor: [0.5, 1] },
+        // Sojourner is 63 cm long: a little shorter than Pip is tall.
+        { id: 'roverS', asset: 'sojourner', label: 'Sojourner', box: { x: 46.5, y: 91, w: '9.4%', h: '14%', anchor: [0.5, 1] },
           children: [
             { id: 'scanReticle', fx: 'reticle', props: { label: 'Suit computer · archive search' },
               box: { x: 50, y: 50, w: '130%', h: '140%' }, initial: { opacity: 0 } },
@@ -50,12 +52,12 @@ export function siteLayers({ dust, siteExtras = [] }: SiteOptions): LayerDef[] {
     { id: 'closeScene', asset: 'marsCloseUp', label: 'Close view of the rover in the Martian dust', depth: 1, initial: { opacity: 0 },
       box: cover(ASPECT),
       children: [
-        { id: 'roverL', asset: 'sojourner', label: 'Sojourner, the Mars Pathfinder rover', box: { x: 50, y: 52, w: '46%' }, portrait: { w: '24%' },
+        { id: 'roverL', asset: 'sojourner', label: 'Sojourner, the Mars Pathfinder rover', box: { x: 50, y: 52, w: '25.9%', h: '38.7%' }, portrait: { w: '13.5%', h: '20.2%' },
           children: [
-            // Sits on the plate drawn on the rover's side (see sojourner.svg / the final rover art).
-            { id: 'plate', fx: 'nameplate', box: { x: 49, y: 64.6, w: '27%', h: '7.5%' }, initial: { vars: { wipe: 0 } } },
+            // Sits on the blank plate drawn on the rover's side (sojourner.webp: x 33–60 %, y 51–65 %).
+            { id: 'plate', fx: 'nameplate', box: { x: 46.6, y: 57.8, w: '26%', h: '13.4%' }, initial: { vars: { wipe: 0 } } },
           ] },
-        ...(dust ? [{ id: 'dustCover', fx: 'dustReveal', box: { x: 50, y: 52, w: '70%', h: '74%' }, portrait: { w: '36.5%', h: '39%' } } as LayerDef] : []),
+        ...(dust ? [{ id: 'dustCover', fx: 'dustReveal', box: { x: 50, y: 52, w: '40%', h: '52%' }, portrait: { w: '21%', h: '28%' } } as LayerDef] : []),
         { id: 'revealTag', fx: 'nameTag', props: { name: 'Sojourner', role: 'Mars Pathfinder rover · 1997' },
           box: { x: 50, y: 20, anchor: [0.5, 1] }, portrait: { y: 34 }, initial: { opacity: 0 } },
       ] },

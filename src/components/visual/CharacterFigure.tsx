@@ -33,11 +33,17 @@ export default function CharacterFigure({ character, costume, expression = 'neut
   const look = c.looks[costume];
   const art = look.expressions?.[expression] ?? look.base;
   const mark = c.faceScreen ? undefined : emoteFor[expression];
-  return <span className="figure" data-character={character} data-expression={expression}>
+  // The drawing box takes the art's exact proportions (bottom-centred in the layer), so face-screen and
+  // emote positions given as fractions of the drawing land on the drawing.
+  return <span className="figure" data-character={character} data-expression={expression}
+    style={{ '--fa': (assets[art] as { aspect: number }).aspect } as React.CSSProperties}>
     <span className="figure-body">
       <span className="figure-flip">
         <SceneArt asset={art} className="figure-art"/>
-        {c.faceScreen && <PipFace expression={expression}/>}
+        {c.faceScreen && (look.face
+          ? <span className="pip-screen" style={{ left: `${look.face.x * 100}%`, top: `${look.face.y * 100}%`,
+              width: `${look.face.w * 100}%`, height: `${look.face.h * 100}%` }}><PipFace expression={expression} fit/></span>
+          : <PipFace expression={expression}/>)}
         {c.faceScreen && costume === 'flight' && <span className="mag-field" aria-hidden="true"/>}
       </span>
     </span>

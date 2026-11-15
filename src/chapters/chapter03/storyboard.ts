@@ -82,7 +82,7 @@ export const storyboard: Beat<LineId>[] = [
     id: 'L06', slug: 'mara-approaches', sequence: 'D', title: 'Mara approaches Sojourner', stage: 'legacySite',
     // Screenplay: "The music becomes quieter. Mara slowly approaches Sojourner."
     expressions: { mara: 'reflective', eli: 'neutral', pip: 'neutral' },
-    layers: { mara: [{ xp: 46, duration: 4.6, delay: 1.4, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }] },
+    layers: { mara: [{ xp: 95, duration: 4.6, delay: 1.4, ease: 'none', flags: { walk: true } }, { flags: { walk: false }, duration: 0.01 }] },
     camera: { to: [{ shot: 'siteWide', duration: 2.6, ease: 'sine.inOut' }, { shot: 'maraRover', duration: 3.6, delay: 0.6, ease: 'sine.inOut' }] },
     caption: { kind: 'scene', text: 'The Final Salute' },
     music: { mood: 'emotional', level: 0.45 },
@@ -153,16 +153,14 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'L12', slug: 'pip-lifts-sojourner', sequence: 'E', title: 'Pip lifts Sojourner', stage: 'legacySite',
-    // Screenplay: "Pip carefully lifts Sojourner with his mechanical arms." Pip takes the carrying pose, then
-    // the rover (its own layer) rises from the ground onto his open hands. Slow, so it reads as careful.
+    // Screenplay: "Pip carefully lifts Sojourner with his mechanical arms." Until a carrying pose is drawn,
+    // the rover (its own layer) is lifted slowly to Pip's chest, held in front of him. It never floats free.
     layers: {
       crewDisplay: hide(0.5),
-      pip: hide(0.4, 1),
-      pipCarry: show(0.4, 1),
       roverS: [
-        { yp: -12, duration: 1.4, delay: 2, ease: 'sine.inOut' },
-        // Onto Pip's open hands, at the left edge of his figure (offsets are % of the rover's own box).
-        { xp: 50, yp: -34, scale: 0.85, duration: 2.8, ease: 'sine.inOut' },
+        { yp: -10, duration: 1.4, delay: 1.4, ease: 'sine.inOut' },
+        // Offsets are % of the rover's own box: onto Pip's chest.
+        { xp: 117, yp: -38, scale: 0.62, duration: 2.8, ease: 'sine.inOut' },
       ],
     },
     camera: { to: { shot: 'pipRover', duration: 1.8, ease: 'sine.inOut' } },
@@ -184,9 +182,9 @@ export const storyboard: Beat<LineId>[] = [
     // The emotional climax: the crew walks toward Aster, Pip carrying Sojourner, and the camera pulls back.
     transition: { kind: 'crossfade', duration: 2.2 },
     layers: {
-      maraW: { xp: 120, duration: 15, ease: 'none', flags: { walk: true } },
-      eliW: { xp: 118, duration: 15, ease: 'none', flags: { walk: true } },
-      pipW: { xp: 220, duration: 15, ease: 'none', flags: { walk: true } },
+      maraW: { xp: 250, duration: 15, ease: 'none', flags: { walk: true } },
+      eliW: { xp: 222, duration: 15, ease: 'none', flags: { walk: true } },
+      pipW: { xp: 343, duration: 15, ease: 'none', flags: { walk: true } },
     },
     sound: [{ cue: 'wind', at: 0.5 }],
     camera: { from: 'walkNear', to: { shot: 'pullBack', duration: 13, delay: 1, ease: 'sine.inOut' } },

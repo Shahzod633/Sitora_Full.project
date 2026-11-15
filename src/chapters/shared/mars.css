@@ -46,17 +46,18 @@
 .mission-sub { font: 600 clamp(18px, 3.4cqmin, 40px)/1 "Barlow Condensed", sans-serif; letter-spacing: 0.34em; }
 
 /* Sojourner's nameplate: --wipe (0–1) on the layer clears the dust and brings the name up. */
-.nameplate {
-  position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; container-type: size;
-  background: linear-gradient(#a79a85, #7f7362); border: 1px solid #2e1d18; transform: rotate(-2.6deg);
-}
+/* Transparent: the plate itself is part of the rover drawing; only the name and the dust are drawn here. */
+.nameplate { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; container-type: size; border-radius: 6%; }
 .nameplate b {
-  font: 600 62cqh/1 "Barlow Condensed", sans-serif; letter-spacing: 0.2em; color: #201612; padding-left: 0.2em;
+  font: 600 min(46cqh, 11.5cqw)/1 "Barlow Condensed", sans-serif; letter-spacing: 0.12em; color: #3a2a22; padding-left: 0.12em;
   opacity: clamp(0, calc(var(--wipe, 0) * 1.6 - 0.3), 1);
 }
 .nameplate i {
-  position: absolute; inset: 0; opacity: calc(1 - var(--wipe, 0));
-  background: radial-gradient(ellipse at 30% 40%, #b9764c, #9a5a3a 70%);
+  position: absolute; inset: -4%; opacity: calc(1 - var(--wipe, 0)); filter: blur(1.5px); border-radius: 30%;
+  background:
+    radial-gradient(ellipse at 22% 35%, rgba(196, 128, 84, 0.95), transparent 55%),
+    radial-gradient(ellipse at 70% 60%, rgba(176, 106, 68, 0.9), transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(160, 96, 62, 0.78), rgba(160, 96, 62, 0.35) 80%);
   -webkit-mask-image: linear-gradient(90deg, transparent calc(var(--wipe, 0) * 130% - 30%), #000 calc(var(--wipe, 0) * 130%)); mask-image: linear-gradient(90deg, transparent calc(var(--wipe, 0) * 130% - 30%), #000 calc(var(--wipe, 0) * 130%));
 }
 

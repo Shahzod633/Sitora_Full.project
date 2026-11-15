@@ -50,6 +50,8 @@
 /* ---- Characters -------------------------------------------------------- */
 .layer-figure, .figure, .figure-body, .figure-flip { position: absolute; inset: 0; display: block; }
 .figure-art { inset: 0; background-position: center bottom; }
+.figure-flip { inset: 0 auto 0 50%; height: 100%; width: auto; aspect-ratio: var(--fa, 0.6); translate: -50% 0; }
+.figure-emote { --fw: calc(var(--fa, 0.6) * 100%); }
 .layer[data-flip="true"] .figure-flip { transform: scaleX(-1); }
 .tone-interior .is-character .figure-body { animation: breathe 5.5s ease-in-out infinite; transform-origin: 50% 100%; }
 .tone-interior [data-layer="eli"] .figure-body { animation-delay: -2.2s; }
@@ -66,6 +68,8 @@
 
 /* Pip: face screen, expressions, magnetic feet */
 .pip-face { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.pip-screen { position: absolute; display: block; }
+.pip-face.is-fit { filter: drop-shadow(0 0 2px rgba(175, 232, 209, 0.7)); }
 .pip-expression { animation: face-flicker 0.3s steps(2) both; }
 .pip-scanline { animation: pip-scan 1.3s linear infinite; }
 .pip-data rect { animation: blink 0.9s steps(2) infinite; }

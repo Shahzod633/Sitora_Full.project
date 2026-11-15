@@ -75,7 +75,15 @@ function eyes(expression: Expression) {
   }
 }
 
-export default function PipFace({ expression = 'neutral' }: { expression?: Expression }) {
+/** `fit`: draw only the eyes, stretched to fill the parent box (the face screen of painted Pip art). */
+export default function PipFace({ expression = 'neutral', fit = false }: { expression?: Expression; fit?: boolean }) {
+  if (fit) {
+    return <svg className="pip-face is-fit" viewBox="33 49 76 48" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+      <g key={expression} className={`pip-expression face-${expression}`} fill="#afe8d1" stroke="#afe8d1">
+        {eyes(expression)}
+      </g>
+    </svg>;
+  }
   return <svg className="pip-face" viewBox="0 0 150 236" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
     <path d={SCREEN} fill="#284a54" stroke="#263d45" strokeWidth="3" strokeLinejoin="round"/>
     <g key={expression} className={`pip-expression face-${expression}`} transform="rotate(-6 72 70)" fill="#afe8d1" stroke="#afe8d1">

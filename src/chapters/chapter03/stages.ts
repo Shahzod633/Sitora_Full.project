@@ -52,11 +52,12 @@ export const stages: Record<StageId, StageDef> = {
           { id: 'sunGlow', fx: 'glow', props: { tone: 'cool' }, box: { x: 68, y: 58, w: '36%', h: '64%' }, initial: { opacity: 0.7 } },
           { id: 'asterS', asset: 'asterMars', label: 'Aster in the distance', box: { x: 80, y: 68, w: '24%', anchor: [0.5, 1] }, initial: { brightness: 0.32 } },
           { id: 'maraW', asset: 'maraMars', label: 'Mara', box: { x: 27, y: 88, h: '25%', anchor: [0.5, 1] }, initial: { brightness: 0.34 } },
-          { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 34, y: 89, h: '25.5%', anchor: [0.5, 1] }, initial: { brightness: 0.34 } },
-          // Pip faces the ship (flipped); the rover rests on his hands as its own layer.
-          { id: 'pipW', asset: 'pipCarry', label: 'Pip', box: { x: 41, y: 89.5, h: '11.5%', anchor: [0.5, 1] }, initial: { brightness: 0.36, flags: { flip: true } },
+          // Eli is drawn facing left: mirrored so all three walk toward the ship.
+          { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 34, y: 89, h: '25.5%', anchor: [0.5, 1] }, initial: { brightness: 0.34, flags: { flip: true } } },
+          // Pip carries the rover against his chest (its own layer; no carrying pose has been drawn yet).
+          { id: 'pipW', asset: 'pipMars', label: 'Pip', box: { x: 41, y: 89.5, w: '2.63%', h: '11.5%', anchor: [0.5, 1] }, initial: { brightness: 0.36 },
             children: [
-              { id: 'roverW', asset: 'sojourner', label: 'Sojourner, carried by Pip', box: { x: 104, y: 52, w: '146%' } },
+              { id: 'roverW', asset: 'sojourner', label: 'Sojourner, carried by Pip', box: { x: 60, y: 58, w: '150%', h: '51%' }, initial: { brightness: 0.9 } },
             ] },
           { id: 'skyMark', box: { x: 50, y: 8, w: '40%', h: '10%' } },
         ] },
