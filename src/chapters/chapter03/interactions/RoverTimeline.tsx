@@ -28,6 +28,7 @@ export default function RoverTimeline({ id }: FxProps) {
   const tabs = React.useRef<(HTMLButtonElement | null)[]>([]);
   const entry = roverTimeline[index];
 
+  const last = roverTimeline.length - 1;
   const select = (next: number, focus = false) => {
     const target = (next + roverTimeline.length) % roverTimeline.length;
     setIndex(target);
@@ -35,6 +36,9 @@ export default function RoverTimeline({ id }: FxProps) {
     playCue('tick');
     if (focus) tabs.current[target]?.focus();
   };
+  // The "Next mission" button walks forward through the timeline and stops at the last entry (it is disabled
+  // there); the arrow keys on the tablist still wrap, which is the expected tablist behaviour.
+  const nextMission = () => { if (index < last) select(index + 1); };
 
   const onKey = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); e.stopPropagation(); select(index + 1, true); }
@@ -86,7 +90,7 @@ export default function RoverTimeline({ id }: FxProps) {
     <footer className="timeline-foot">
       <p className="rover-progress" role="status">{seen.size} of {roverTimeline.length} missions explored</p>
       <div className="timeline-actions">
-        <button type="button" className="activity-button is-quiet" onClick={() => select(index + 1)} disabled={!live}>Next mission</button>
+        <button type="button" className="activity-button is-quiet" onClick={nextMission} disabled={!live || index === last}>Next mission</button>
         <button type="button" className="activity-button" onClick={() => interact(id)} disabled={!live}>Continue the story</button>
       </div>
     </footer>

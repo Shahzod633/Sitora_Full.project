@@ -105,16 +105,16 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'B11', slug: 'eli-interrupts-pip', sequence: 'B', title: 'Eli interrupts Pip', stage: 'cockpit',
-    // Whip from Pip to Eli in the same wide painting (comic timing); his open-mouth frame carries the line.
-    layers: { pipDiag: hide(0.2) },
-    camera: { to: { shot: 'eliWide', duration: 0.35, ease: 'power3.out' } },
-    dialogueDelay: 0.1,
+    // Cut to the bridge group panel: Mara stands beside Eli (silent), Pip to the right. Eli delivers the line.
+    layers: { bridge: show(0.3), pipDiag: hide(0.2) },
+    camera: { from: 'bridgeGroup', to: { shot: 'bridgeGroup', duration: 0.5, ease: 'power3.out' } },
+    dialogueDelay: 0.35,
     dialogue: ['eli-dont-start'],
     advance: { mode: 'dialogue' },
   },
   {
     id: 'B12', slug: 'pip-joke', sequence: 'B', title: "Pip's joke", stage: 'cockpit',
-    layers: { twoShot: hide(0.45) },
+    layers: { bridge: hide(0.45), twoShot: hide(0.45) },
     camera: { to: { shot: 'pipMara', duration: 1 } },
     dialogue: ['pip-disabling-concern'],
     // Screenplay: "Mara smiles." The two-shot's closed-mouth frame has her smiling.
@@ -188,6 +188,7 @@ export const storyboard: Beat<LineId>[] = [
       dust: [{ opacity: 0.8, duration: 0.5, delay: 1.2 }, { opacity: 0, duration: 1.8 }],
       landingGlow: { opacity: 0, duration: 0.8, delay: 1.6 },
       asterThrust: { opacity: 0, duration: 0.8, delay: 1.6 },
+      asterShadow: { opacity: 1, duration: 1, delay: 1.4 },
       refuelLine: { opacity: 1, duration: 0.6, delay: 2.6 },
       refuelStatus: [{ opacity: 1, duration: 0.5, delay: 2.8 }, { vars: { progress: 0.64 }, duration: 3.6, ease: 'none' }],
       baseGlow: { opacity: 0.7, duration: 2, delay: 2.4 },
@@ -357,6 +358,7 @@ export const storyboard: Beat<LineId>[] = [
     transition: { kind: 'crossfade', duration: 1.3 },
     layers: {
       landingGlow: { opacity: 1, duration: 0.6, delay: 0.6 },
+      asterShadow: { opacity: 0, duration: 0.8, delay: 0.6 },
       dust: [{ opacity: 0.7, duration: 0.6, delay: 0.8 }, { opacity: 0, duration: 2 }],
       aster: [
         { dy: -2.5, duration: 1.3, delay: 0.6, ease: 'power1.in' },

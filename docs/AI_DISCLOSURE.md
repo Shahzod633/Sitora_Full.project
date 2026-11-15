@@ -35,6 +35,14 @@ space background, Mara turnaround) whether it was hand-drawn, AI-generated, or A
 with which tool. If any are AI-generated, the challenge rules may require a visible disclosure in the app —
 the credits panel has an "AI disclosure" section where it can be stated.]
 
+## Scene-fix paintings (added Nov 2026)
+
+Five finished scene paintings were supplied by the team and integrated as final art (web-sized WebP copies;
+originals kept): the Aster bridge group shot, the lunar crew panel, the orbital Moon, the lunar refuelling
+plate and the Mars sunset. They replace earlier vector placeholders. The team states how each was produced in
+their own submission; this repository records them as team-supplied final artwork through the asset manifest
+(`status: 'final'`), so no "Placeholder art" label is shown for the scenes that now use them.
+
 ## Not implied
 
 NASA does not endorse ASTER. NASA names appear only to identify real historical missions and to credit

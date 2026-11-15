@@ -99,6 +99,10 @@ export const stages: Record<StageId, StageDef> = {
         props: { base: 'cockpitTwoShot', mara: 'cockpitTwoShotMara', eli: 'cockpitTwoShotEli' },
         box: cover(2000 / 1125),
         children: [marker('twoEli', 28.2, 30, 9, 16), marker('twoMara', 31.5, 50, 9, 16)] },
+      // Bridge group shot: Mara standing beside Eli with Pip to the right, Earth in the window (B11).
+      { id: 'bridge', asset: 'bridgeCrew', label: 'Aster bridge: Mara and Eli side by side, Pip to the right', depth: 1,
+        initial: { opacity: 0 }, box: cover(16 / 9),
+        children: [marker('maraB', 29, 32, 12, 24), marker('eliB', 46, 30, 12, 24), marker('pipB', 69, 40, 10, 20)] },
       { id: 'consoleGlow', fx: 'glow', props: { tone: 'amber' }, depth: 1, initial: { opacity: 0 },
         box: { x: 50, y: 70, w: '112cqw', h: '56cqh' } },
       { id: 'hud', fx: 'hud', props: { system: 'Aster flight computer', title: 'Approaching the Moon' }, depth: 0,
@@ -120,6 +124,9 @@ export const stages: Record<StageId, StageDef> = {
       twoEli: { target: 'twoEli', zoom: 1.9, screen: [0.44, 0.38], portrait: { target: 'twoEli', zoom: 1.6, screen: [0.5, 0.36] } },
       twoEliClose: { target: 'twoEli', zoom: 2.2, screen: [0.46, 0.38], portrait: { target: 'twoEli', zoom: 1.8, screen: [0.5, 0.36] } },
       twoMara: { target: 'twoMara', zoom: 1.9, screen: [0.44, 0.42], portrait: { target: 'twoMara', zoom: 1.6, screen: [0.5, 0.4] } },
+      // All three faces kept in the upper two-thirds, clear of the dialogue box; bounded to the painting.
+      bridgeGroup: { target: ['maraB', 'pipB'], focus: [0.5, 0.3], fill: 0.92, screen: [0.5, 0.36], bounds: 'bridge',
+        portrait: { target: ['maraB', 'pipB'], focus: [0.5, 0.3], fill: 1, screen: [0.5, 0.32], bounds: 'bridge' } },
     },
   },
 
@@ -143,38 +150,35 @@ export const stages: Record<StageId, StageDef> = {
   },
 
   // ---------------------------------------------------------------- Fictional lunar refuelling station (B15, B16, B31)
+  // One painted plate (terrain, domes, landing pad, parked gantry, Earth in sky). Aster, its contact shadow and
+  // the refuelling status are children of the plate, so they share its crop/scale on every viewport. The pad
+  // centre in the painting is ~(51%, 79%); Aster lands there.
   lunarBase: {
     id: 'lunarBase', label: 'A fictional future lunar base and refuelling pad', tone: 'moon', costume: 'flight', music: 'moon',
+    bounds: 'plate',
     layers: [
-      stars(0.04, 34),
-      { id: 'skyEarth', asset: 'earth', label: 'Earth in the lunar sky', depth: 0.12,
-        box: { x: 82, y: 14, w: 'min(8cqw, 14cqh)', aspect: 1 }, portrait: { x: 78, y: 10, w: '18cqw' } },
-      { id: 'ground', asset: 'moonSurface', label: 'Lunar surface', depth: 1,
-        box: { x: 50, y: 100, w: '104cqw', h: '62cqh', anchor: [0.5, 1] }, portrait: { w: '230cqw', h: '56cqh' } },
-      { id: 'baseGlow', fx: 'glow', props: { tone: 'amber' }, depth: 1, initial: { opacity: 0.45 },
-        box: { x: 38, y: 58, w: '72cqw', h: '26cqh' }, portrait: { x: 34, y: 56, w: '150cqw' } },
-      { id: 'facility', asset: 'lunarBase', label: 'Lunar facility', depth: 1,
-        box: { x: 36, y: 63, w: '62cqw', anchor: [0.5, 0.94] }, portrait: { x: 30, y: 60, w: '140cqw' } },
-      { id: 'pad', fx: 'landingPad', depth: 1, box: { x: 63, y: 70, w: '28cqw', h: '5cqw' }, portrait: { x: 60, y: 66, w: '66cqw', h: '12cqw' } },
-      { id: 'gantry', asset: 'refuelGantry', label: 'Refuelling gantry', depth: 1, initial: { flags: { flip: true } },
-        box: { x: 83, y: 71, h: '30cqh', anchor: [0.77, 0.97] }, portrait: { x: 92, y: 67, h: '19cqh' } },
-      { id: 'aster', asset: 'aster', label: 'Aster', depth: 1,
-        box: { x: 62, y: 69, w: 'min(28cqw, 50cqh)', anchor: [0.5, 0.96] }, portrait: { x: 58, y: 65, w: '66cqw' },
-        children: [thruster, { id: 'landingGlow', fx: 'landingGlow', box: { x: 50, y: 100, w: '50%', h: '50%' }, initial: { opacity: 0 } }] },
-      { id: 'dust', fx: 'dust', depth: 1, box: { x: 63, y: 69, w: '34cqw', h: '8cqh' }, portrait: { x: 58, y: 65, w: '80cqw' }, initial: { opacity: 0 } },
-      { id: 'refuelLine', fx: 'refuelLine', depth: 1, box: { x: 74, y: 58.5, w: '3cqmin', h: '3cqmin' }, portrait: { x: 77, y: 56 }, initial: { opacity: 0 } },
-      { id: 'refuelStatus', fx: 'statusTag', props: { label: 'Refueling' }, depth: 1,
-        box: { x: 80, y: 43.5, anchor: [1, 1] }, portrait: { x: 88, y: 45 }, initial: { opacity: 0, vars: { progress: 0 } } },
+      { id: 'plate', asset: 'lunarPad', label: 'Lunar refuelling facility: terrain, domes, landing pad and parked gantry', depth: 1,
+        box: cover(16 / 9),
+        children: [
+          marker('padMark', 51, 79, 40, 10),
+          { id: 'baseGlow', fx: 'glow', props: { tone: 'amber' }, box: { x: 18, y: 62, w: '30%', h: '18%' }, initial: { opacity: 0.35 } },
+          { id: 'asterShadow', fx: 'shadow', box: { x: 51, y: 81, w: '34%', h: '7%' }, initial: { opacity: 0 } },
+          { id: 'aster', asset: 'aster', label: 'Aster', box: { x: 51, y: 80, w: '30%', anchor: [0.5, 0.92] },
+            children: [thruster, { id: 'landingGlow', fx: 'landingGlow', box: { x: 50, y: 100, w: '50%', h: '50%' }, initial: { opacity: 0 } }] },
+          { id: 'dust', fx: 'dust', box: { x: 51, y: 79, w: '42%', h: '9%' }, initial: { opacity: 0 } },
+          { id: 'refuelLine', fx: 'refuelLine', box: { x: 80, y: 56, w: '4%', h: '4%' }, initial: { opacity: 0 } },
+          { id: 'refuelStatus', fx: 'statusTag', props: { label: 'Refueling' }, box: { x: 88, y: 42, anchor: [1, 1] }, initial: { opacity: 0, vars: { progress: 0 } } },
+        ] },
       vignette(),
     ],
     shots: {
       wide: {},
       descentHigh: { point: [52, 28], zoom: 1.32, portrait: { point: [50, 30], zoom: 1.2 } },
-      descentTrack: { point: [58, 52], zoom: 1.14, portrait: { point: [56, 52], zoom: 1.12 } },
-      landed: { point: [56, 58], zoom: 1.08, portrait: { point: [56, 56], zoom: 1.08 } },
-      refuel: { target: ['aster', 'gantry'], focus: [0.5, 0.45], fill: 0.92 },
-      liftoffNear: { point: [60, 58], zoom: 1.2, portrait: { point: [58, 56], zoom: 1.16 } },
-      liftoffSky: { point: [62, 32], zoom: 1.12, portrait: { point: [58, 32], zoom: 1.1 } },
+      descentTrack: { point: [54, 52], zoom: 1.14, portrait: { point: [52, 52], zoom: 1.12 } },
+      landed: { point: [51, 62], zoom: 1.08, portrait: { point: [51, 60], zoom: 1.08 } },
+      refuel: { target: ['aster', 'padMark'], focus: [0.5, 0.4], fill: 0.9 },
+      liftoffNear: { point: [51, 58], zoom: 1.2, portrait: { point: [51, 56], zoom: 1.16 } },
+      liftoffSky: { point: [54, 32], zoom: 1.12, portrait: { point: [52, 32], zoom: 1.1 } },
     },
   },
 
@@ -184,16 +188,16 @@ export const stages: Record<StageId, StageDef> = {
   apolloSite: {
     id: 'apolloSite', label: 'The Apollo 11 landing site on the Moon', tone: 'moon', costume: 'eva', bounds: 'crewScene', music: 'moon',
     layers: [
-      // Pinned to the bottom and 8 % oversized so the source's top-right window icons stay off-screen.
-      { id: 'crewScene', asset: 'moonCrewPainting', label: 'Mara, Eli and Pip on the lunar surface near the base', depth: 1,
-        box: cover(1721 / 914, 1.08, 1),
+      // The finished lunar crew panel (16:9): Mara standing (left), Eli kneeling (centre), Pip, Apollo site right.
+      { id: 'crewScene', asset: 'moonCrewPainting', label: 'Mara, Eli and Pip on the lunar surface near the Apollo 11 site', depth: 1,
+        box: cover(16 / 9),
         children: [
-          marker('maraM', 28, 56, 11, 64),
-          marker('eliM', 45, 69, 20, 38),
-          marker('pipM', 64, 76, 14, 24),
-          marker('baseM', 76, 46, 40, 26),
-          { id: 'pipThinking', fx: 'pipStatus', props: { mode: 'thinking' }, box: { x: 67, y: 68, anchor: [0, 0.5] }, initial: { opacity: 0 } },
-          { id: 'pipSaved', fx: 'pipStatus', props: { mode: 'saved', text: 'Saved to memory' }, box: { x: 67, y: 68, anchor: [0, 0.5] }, initial: { opacity: 0 } },
+          marker('maraM', 14, 30, 16, 50),
+          marker('eliM', 32, 43, 18, 44),
+          marker('pipM', 52, 50, 14, 36),
+          marker('baseM', 80, 46, 22, 24),
+          { id: 'pipThinking', fx: 'pipStatus', props: { mode: 'thinking' }, box: { x: 60, y: 44, anchor: [0, 0.5] }, initial: { opacity: 0 } },
+          { id: 'pipSaved', fx: 'pipStatus', props: { mode: 'saved', text: 'Saved to memory' }, box: { x: 60, y: 44, anchor: [0, 0.5] }, initial: { opacity: 0 } },
         ] },
       { id: 'apolloScene', asset: 'apolloPainting', label: 'The Apollo 11 descent stage on the lunar surface', depth: 1, initial: { opacity: 0 },
         box: cover(1672 / 941),

@@ -50,7 +50,7 @@ export const characters: Record<CharacterId, Character> = {
       deck: { base: 'mara', portrait: { focus: [0.6, 0.27], zoom: 2.15 }, emote: [0.86, 0.12],
         painted: { closed: 'maraSheet', focus: [0.123, 0.135], zoom: 5.4 } },
       eva: { base: 'maraEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
-        painted: { closed: 'moonCrewPainting', focus: [0.28, 0.3], zoom: 8 } },
+        painted: { closed: 'moonCrewPainting', focus: [0.14, 0.15], zoom: 9 } },
       // Portrait cropped from the Mars figure itself (her face behind the visor).
       mars: { base: 'maraMars', portrait: { focus: [0.56, 0.11], zoom: 2.4 }, emote: [0.8, 0.04],
         painted: { closed: 'maraMars', focus: [0.56, 0.115], zoom: 2.4 } },
@@ -64,7 +64,7 @@ export const characters: Record<CharacterId, Character> = {
       deck: { base: 'eli', portrait: { focus: [0.5, 0.25], zoom: 2.1 }, emote: [0.82, 0.08],
         painted: { closed: 'cockpitTwoShot', talking: 'cockpitTwoShotEli', focus: [0.272, 0.3], zoom: 6.5 } },
       eva: { base: 'eliEva', portrait: { focus: [0.6, 0.19], zoom: 2.6 }, emote: [0.84, 0.05],
-        painted: { closed: 'moonCrewPainting', focus: [0.452, 0.56], zoom: 8 } },
+        painted: { closed: 'moonCrewPainting', focus: [0.32, 0.33], zoom: 9 } },
       mars: { base: 'eliMars', portrait: { focus: [0.44, 0.12], zoom: 2.3 }, emote: [0.78, 0.04],
         painted: { closed: 'eliMars', focus: [0.44, 0.12], zoom: 2.3 } },
     },

@@ -69,14 +69,20 @@ export const assets = {
     brief: 'Deep starfield, dark navy to muted blue, soft white stars. Tileable or oversized (bleed for parallax).' }),
   earth: asset({ kind: 'object', fallback: earth, aspect: 1, status: 'temporary',
     brief: 'Earth from orbit on transparency, hand-drawn, soft cyan halo. Reused at many scales (B01, cockpit window, lunar sky).' }),
-  moonGlobe: asset({ kind: 'object', fallback: moonGlobe, aspect: 1, status: 'temporary',
-    brief: 'MISSING ART: the Moon from space on transparency (B13 window, B14 lunar orbit, B32 departure).' }),
+  moonGlobe: asset({ kind: 'object', fallback: moonGlobe, src: 'assets/art/moon-globe.webp', aspect: 1, status: 'final',
+    brief: 'The Moon from space on transparency, painted maria (B13 window, B14 lunar orbit, B32 departure).' }),
   cockpit: asset({ kind: 'background', fallback: bridge, aspect: 1400 / 680, fit: 'stretch', status: 'temporary',
     brief: 'Aster flight deck with transparent windows (space shows through). Wide enough to crop on Mara, Eli, Pip and the window.' }),
   moonSurface: asset({ kind: 'background', fallback: moonSurface, aspect: 1400 / 550, fit: 'stretch', status: 'temporary',
     brief: 'Lunar ground strip with horizon ridge on transparency; desaturated grey-blue.' }),
   lunarBase: asset({ kind: 'object', fallback: facility, aspect: 4.5, status: 'temporary',
     brief: 'Fictional lunar facility skyline (future technology, no NASA branding).' }),
+  // One complete plate: grey terrain, habitat domes, landing pad and parked refuelling gantry, Earth in sky.
+  lunarPad: asset({ kind: 'background', fallback: moonSurface, src: 'assets/art/lunar-refuel-pad.webp', aspect: 16 / 9, fit: 'stretch', status: 'final',
+    brief: 'Fictional lunar refuelling facility as one 16:9 plate: terrain, domes, landing pad (centre ~51%, 79%), parked gantry.' }),
+  // Chapter 1 bridge group shot (Mara beside Eli, Pip to the right, Earth in the window).
+  bridgeCrew: asset({ kind: 'background', fallback: bridge, src: 'assets/art/aster-bridge-crew.webp', aspect: 16 / 9, fit: 'stretch', status: 'final',
+    brief: 'Aster bridge: Mara and Eli standing side by side with Pip to the right, Earth in the window.' }),
   refuelGantry: asset({ kind: 'object', fallback: gantry, aspect: 160 / 220, status: 'temporary',
     brief: 'MISSING ART: refuelling gantry/arm that connects to Aster on the pad (B16).' }),
   aster: asset({ kind: 'object', fallback: aster, src: 'assets/art/aster.webp', aspect: 1810 / 869, status: 'final',
@@ -97,7 +103,8 @@ export const assets = {
     brief: 'Apollo 11 descent stage on the lunar surface with Earth.' }),
   // moon-crew-aster.webp is a copy of moon-crew.webp with the NASA insignia covered by painted ASTER patches
   // (NASA Space Apps rules). Temporary until the artist repaints the suits; the original file is unchanged.
-  moonCrewPainting: asset({ kind: 'background', fallback: moonSurface, src: 'assets/art/moon-crew-aster.webp', aspect: 1721 / 914, fit: 'stretch', status: 'final',
+  // The team's finished lunar crew panel: Mara standing, Eli kneeling, Pip, all facing the Apollo 11 site.
+  moonCrewPainting: asset({ kind: 'background', fallback: moonSurface, src: 'assets/art/moon-crew-illustrated.webp', aspect: 16 / 9, fit: 'stretch', status: 'final',
     brief: 'Mara, Eli and Pip in EVA gear near the lunar base. Needs the suits repainted with the ASTER mark (NASA insignia are covered by a temporary patch) and a clean export without the window-control icons.' }),
   apolloDescent: asset({ kind: 'object', fallback: apollo, aspect: 490 / 290, status: 'temporary',
     brief: 'Apollo 11 descent stage as it stands today (ascent stage gone). Historically accurate silhouette.' }),
@@ -195,8 +202,8 @@ export const assets = {
     brief: 'Mara standing at attention giving a military salute, sealed suit, facing right, transparent.' }),
   pipCarry: asset({ kind: 'character', fallback: pipCarry, aspect: 150 / 236, status: 'temporary',
     brief: 'MISSING ART: Pip holding both arms forward, hands open under the load (Sojourner is a separate layer), transparent.' }),
-  marsSunset: asset({ kind: 'background', fallback: marsSunset, aspect: 16 / 9, fit: 'stretch', status: 'temporary',
-    brief: 'MISSING ART: panoramic Martian plain at sunset (warm sky, cool blue glow around the Sun), 16:9 or wider. No characters, no ship.' }),
+  marsSunset: asset({ kind: 'background', fallback: marsSunset, src: 'assets/art/mars-sunset.webp', aspect: 16 / 9, fit: 'stretch', status: 'final',
+    brief: 'Panoramic Martian plain at sunset with a small Sun and restrained bluish haze. No characters, no ship.' }),
 } as const;
 
 export type AssetId = keyof typeof assets;

@@ -4,8 +4,11 @@
    ========================================================================== */
 
 /* ---- Interaction D: the rover timeline ---------------------------------------- */
+/* The section is a fixed frame; only the mission content (.rover-panel) scrolls, so the footer keeps its
+   own layout row and can never be overlapped by overflowing body copy (that overlap used to swallow the
+   Next mission / Continue clicks). */
 .rover-timeline {
-  position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; user-select: text; container-type: inline-size;
+  position: absolute; inset: 0; overflow: hidden; user-select: text; container-type: inline-size;
   display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: clamp(10px, 1.8cqh, 18px); padding: clamp(16px, 3cqmin, 30px);
   background: linear-gradient(#0f2731f7, #0a1a22f7); color: #dff1f2; border: 1px solid rgba(140, 220, 235, 0.55); border-radius: 2px;
   box-shadow: 0 0 40px rgba(90, 200, 230, 0.18), 0 22px 64px rgba(0, 0, 0, 0.6);
@@ -25,7 +28,7 @@
 .rover-tab-year { font: 600 24px/1 "Barlow Condensed", sans-serif; color: var(--accent); }
 .rover-tab-name { font-size: 13px; font-weight: 600; }
 
-.rover-panel { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(14px, 3cqw, 34px); align-items: start; animation: rise 0.4s ease-out both; min-height: 0; }
+.rover-panel { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(14px, 3cqw, 34px); align-items: start; animation: rise 0.4s ease-out both; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
 .rover-visual { display: grid; gap: 12px; }
 .rover-holo { display: flex; gap: 6%; height: clamp(84px, 16cqh, 150px); --cam-z: 1; }
 .rover-holo .holo-model { flex: 1; animation: holo-float 5s ease-in-out infinite; }
@@ -50,15 +53,27 @@
 .rover-text details p { margin: 6px 0 0; font-size: 14px; }
 .rover-timeline .archive-sources { font-size: 12px !important; color: #9fc6cc; }
 .rover-timeline a { color: #f1bb8d; }
-.rover-timeline .timeline-foot { border-top-color: rgba(140, 220, 235, 0.3); }
+/* Opaque footer in its own layer: the action row is never drawn over the mission copy. */
+.rover-timeline .timeline-foot {
+  position: relative; z-index: 2; margin: 0 calc(-1 * clamp(16px, 3cqmin, 30px)) calc(-1 * clamp(16px, 3cqmin, 30px));
+  padding: 12px clamp(16px, 3cqmin, 30px) max(12px, env(safe-area-inset-bottom));
+  background: #0a1a22; border-top: 1px solid rgba(140, 220, 235, 0.3);
+}
 .rover-progress { margin: 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #9fc6cc; }
 
 @container (max-width: 720px) {
   .rover-panel { grid-template-columns: 1fr; }
+  .rover-tabs { grid-template-columns: repeat(2, 1fr); }
   .rover-tabs button { padding: 8px; min-height: 52px; }
   .rover-tab-year { font-size: 20px; }
   .rover-tab-name { font-size: 11px; }
   .rover-holo { height: 74px; }
+}
+/* Narrow phones: stack the footer so the two actions each get a full-width, 44px+ touch target. */
+@container (max-width: 440px) {
+  .rover-timeline .timeline-foot { flex-direction: column; align-items: stretch; }
+  .rover-timeline .timeline-actions { flex-direction: column; }
+  .rover-timeline .timeline-actions .activity-button { width: 100%; }
 }
 
 /* ---- The crew display (fictional) ------------------------------------------------ */

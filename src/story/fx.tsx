@@ -71,6 +71,8 @@ export function Fx({ id, kind, props }: Props) {
       return <span className="fx-dust"><i/><i/><i/><i/><i/><i/></span>;
     case 'landingGlow':
       return <span className="fx-landing-glow"/>;
+    case 'shadow':
+      return <span className="fx-shadow"/>;
     case 'perimeter':
       return <svg className="perimeter" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
         <ellipse cx="50" cy="10" rx="47" ry="8"/>
