@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="none">
+  <!-- TEMPORARY placeholder: close view of the discovery site (low camera, drifted dust, scattered rocks,
+       distant hills). The rover and the dust are separate layers. Replace with the artists' painting, 16:9. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9b735b"/><stop offset="1" stop-color="#dcb086"/>
+    </linearGradient>
+    <linearGradient id="gr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b26c46"/><stop offset="1" stop-color="#733a27"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path d="M0 330l180-40 160 30 150-50 130 40 170-34 190 46 180-40 200 36 240-30v80H0z" fill="#a8704f" opacity=".65"/>
+  <path d="M0 360q420-34 820-8t780-18v566H0z" fill="url(#gr)"/>
+  <path d="M0 470q360-30 760-6t840-20" fill="none" stroke="#cf9166" stroke-width="4" opacity=".35"/>
+  <path d="M0 610q460-40 860-8t740-26" fill="none" stroke="#cf9166" stroke-width="6" opacity=".25"/>
+  <g fill="#5a2c20">
+    <path d="m90 560 70-34 80 16 22 46-104 20z"/><path d="m1290 520 60-28 70 14 18 38-92 16z"/>
+    <path d="m1420 740 90-40 100 20 26 56-130 24z"/><path d="m30 800 80-36 90 18 20 50-116 20z"/>
+    <path d="m420 430 30-14 34 8 8 18-44 8z"/><path d="m1090 420 26-12 30 8 6 14-38 6z"/><path d="m700 400 18-8 20 4 4 10-26 4z"/>
+  </g>
+  <g fill="#8d4e36" opacity=".8">
+    <path d="m120 540 40-16 52 12-60 14z"/><path d="m1310 504 36-14 46 10-56 14z"/><path d="m1450 716 60-22 70 14-90 20z"/>
+  </g>
+  <ellipse cx="800" cy="650" rx="430" ry="60" fill="#5f2e20" opacity=".28"/>
+</svg>

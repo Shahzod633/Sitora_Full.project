@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 280">
+  <!-- TEMPORARY placeholder: the Sojourner rover (Mars Pathfinder, 1997) on transparency, three-quarter view.
+       Six cleated wheels on a rocker-bogie, flat solar panel on top, antenna mast, front cameras and the APXS
+       instrument at the rear. Dust-worn, not operating. No mission insignia. Replace with the artists' drawing. -->
+  <g stroke="#2e1d18" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- far wheels -->
+    <g fill="#4c4038"><circle cx="118" cy="218" r="30"/><circle cx="222" cy="222" r="30"/><circle cx="326" cy="216" r="30"/></g>
+    <!-- rocker-bogie -->
+    <path d="m96 206 76-46 62 50m-62-50 120-6 46 46" fill="none" stroke="#8a7d6c" stroke-width="9"/>
+    <!-- body -->
+    <path d="m84 150 250-12 22 34-18 30-242 10-24-28z" fill="#b9a98c"/>
+    <path d="m84 150 250-12 6 14-250 12z" fill="#d0c2a4"/>
+    <!-- solar panel -->
+    <path d="m58 118 300-18 30 30-304 20z" fill="#3d4f66"/>
+    <path d="m96 116 6 30m44-34 6 32m44-34 6 30m44-34 6 32m44-34 6 30" stroke="#6f86a3" stroke-width="2.5"/>
+    <path d="m72 132 302-18" stroke="#6f86a3" stroke-width="2.5"/>
+    <!-- antenna mast -->
+    <path d="m300 104-4-74" fill="none" stroke="#c9bfae" stroke-width="5"/><circle cx="296" cy="26" r="6" fill="#e6ab73"/>
+    <!-- front cameras -->
+    <path d="m350 150 24-2 4 20-24 2z" fill="#6c6156"/><circle cx="364" cy="160" r="5" fill="#1d262c"/>
+    <!-- APXS at the rear -->
+    <path d="m84 164-34 6-6 22 30 4z" fill="#8a7d6c"/><circle cx="52" cy="184" r="9" fill="#e0c998"/>
+    <!-- near wheels with cleats -->
+    <g fill="#6a5d52"><circle cx="100" cy="232" r="34"/><circle cx="210" cy="236" r="34"/><circle cx="320" cy="230" r="34"/></g>
+    <g fill="#2e1d18" stroke="none"><circle cx="100" cy="232" r="10"/><circle cx="210" cy="236" r="10"/><circle cx="320" cy="230" r="10"/></g>
+    <g stroke="#3a2c26" stroke-width="5">
+      <path d="m100 198v10m0 48v10m-34-34h10m48 0h10m-58-24 7 7m34 34 7 7m0-48-7 7m-34 34-7 7"/>
+      <path d="m210 202v10m0 48v10m-34-34h10m48 0h10m-58-24 7 7m34 34 7 7m0-48-7 7m-34 34-7 7"/>
+      <path d="m320 196v10m0 48v10m-34-34h10m48 0h10m-58-24 7 7m34 34 7 7m0-48-7 7m-34 34-7 7"/>
+    </g>
+    <!-- nameplate (the name is drawn by the story when Mara wipes it) -->
+    <path d="m150 172 110-5 2 18-110 5z" fill="#8f8371"/>
+  </g>
+  <!-- dust resting in the hollows -->
+  <g fill="#b06a44" opacity=".55"><path d="m70 132 120-8 40 6-150 12z"/><path d="m90 196 60-4 20 8-70 6z"/><ellipse cx="210" cy="268" rx="150" ry="8"/></g>
+</svg>

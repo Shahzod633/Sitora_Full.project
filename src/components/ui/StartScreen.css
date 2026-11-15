@@ -1,11 +1,61 @@
-.cover-earth { width: min(82vw, 108vh); aspect-ratio: 1; left: 68%; top: 45%; translate: -50% -50%; }
-.cover-copy { position: absolute; top: 50%; left: max(var(--edge), 9vw); translate: 0 -50%; }
-.cover-copy .aster-mark { width: 42px; height: 42px; margin-bottom: 16px; }
-.cover-copy .title { margin: 0; font: 600 clamp(90px, 12vw, 195px)/.9 "Barlow Condensed", sans-serif; letter-spacing: -.025em; }
-.cover-copy .title span { display: block; font-size: clamp(22px, 2.7vw, 40px); letter-spacing: 0; margin-top: 16px; }
-.chapter-label { font-size: 12px; text-transform: uppercase; letter-spacing: .17em; color: #ecc296; margin: 30px 0 12px; }
-.sound-toggle { position: absolute; bottom: var(--bottom); right: var(--edge); width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid #79908b; color: var(--paper); background: #112832; border-radius: 50%; }
+@import './PauseMenu.css';
+
+.start-screen { background: #08131a; }
+/* The artists' painting of Earth's limb, slightly oversized so it can drift. */
+.cover-art { inset: -3%; background-size: cover; background-position: 70% 60%; animation: cover-in 2.4s ease-out both, sky-drift 90s ease-in-out infinite alternate; }
+.cover-shade {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(6, 14, 20, 0.86) 0%, rgba(6, 14, 20, 0.5) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(6, 14, 20, 0.55), transparent 34%);
+}
+.cover-aster-track { position: absolute; left: 0; right: 0; top: 17%; height: 9vh; pointer-events: none; opacity: 0.9; animation: aster-cross 52s linear infinite; }
+.cover-aster { position: absolute; left: 0; top: 0; height: 100%; aspect-ratio: 1810 / 869; }
+.cover-copy { position: absolute; z-index: 1; left: max(var(--edge), 8vw); top: 50%; translate: 0 -50%; max-width: 560px; }
+.cover-copy .aster-mark { width: 42px; height: 42px; margin-bottom: 14px; }
+.cover-copy .title { margin: 0; font: 600 clamp(88px, 13vw, 200px)/0.86 "Barlow Condensed", sans-serif; letter-spacing: 0.02em; text-shadow: 0 4px 26px rgba(4, 10, 14, 0.6); }
+.cover-copy .subtitle { margin: 12px 0 0; font: 600 clamp(18px, 2.1vw, 30px)/1.1 "Barlow Condensed", sans-serif; letter-spacing: 0.24em; text-transform: uppercase; color: #e8dcc0; text-shadow: 0 2px 12px rgba(4, 10, 14, 0.7); }
+.chapter-label { margin: 30px 0 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 15px; color: var(--paper); text-shadow: 0 1px 8px rgba(4, 10, 14, 0.7); }
+.chapter-label span { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #ecc296; padding-right: 12px; border-right: 1px solid rgba(146, 164, 155, 0.6); }
+.cover-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; }
+.cover-chapters { margin-top: 16px; max-width: 420px; animation: cover-rise 0.4s ease-out both; }
+.cover-chapters button { background: rgba(8, 19, 26, 0.72); }
+.cover-tools { position: absolute; z-index: 1; right: var(--edge); bottom: var(--bottom); display: flex; align-items: center; gap: 18px; }
+.cover-copy > * { animation: cover-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.cover-copy > :nth-child(2) { animation-delay: 0.62s; }
+.cover-copy > :nth-child(3) { animation-delay: 0.74s; }
+.cover-copy > :nth-child(4) { animation-delay: 0.86s; }
+.cover-copy > :nth-child(5) { animation-delay: 0.98s; }
+.cover-copy > :first-child { animation-delay: 0.5s; }
+.cover-copy > .cover-chapters { animation-delay: 0s; }
+.cover-tools { animation: cover-in 0.8s 1.3s both; }
+@keyframes cover-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cover-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes aster-cross { from { transform: translateX(-115%); } to { transform: translateX(110%); } }
+@keyframes sky-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-1.5%, 1%) scale(1.03); } }
+
+.chapter-loading { display: grid; place-items: center; background: #070f15; }
+.chapter-loading-copy {
+  margin: 0; display: grid; justify-items: center; gap: 16px; padding: 24px; text-align: center; max-width: 420px;
+  font: 600 20px/1.3 "Barlow Condensed", sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: #b8c9bf;
+  animation: cover-in 0.6s 0.4s both;
+}
+.chapter-loading-copy p { margin: 0; font: 400 15px/1.5 "Segoe UI", system-ui, sans-serif; letter-spacing: 0; text-transform: none; color: var(--paper); }
+
 @media (max-aspect-ratio: 1/1) {
-  .cover-earth { width: 104vw; left: 66%; top: 28%; }
-  .cover-copy { top: auto; bottom: 9%; translate: none; left: var(--edge); }
+  .cover-art { background-position: 78% 50%; }
+  .cover-shade { background: linear-gradient(0deg, rgba(6, 14, 20, 0.9) 0%, rgba(6, 14, 20, 0.55) 46%, transparent 72%); }
+  .cover-aster-track { top: 20%; height: 6vh; }
+  .cover-copy { top: auto; bottom: calc(var(--bottom) + 64px); translate: none; left: var(--edge); right: var(--edge); }
+  .cover-copy .title { font-size: clamp(80px, 26vw, 140px); }
+  .cover-tools { left: var(--edge); justify-content: space-between; }
+}
+@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
+  .cover-copy .title { font-size: clamp(56px, 16vh, 110px); }
+  .chapter-label { margin: 12px 0 10px; }
+  .cover-copy .aster-mark { display: none; }
+  .cover-chapters { position: fixed; right: var(--edge); top: 12px; margin: 0; width: min(46vw, 380px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-art, .cover-aster-track, .cover-copy > *, .cover-tools { animation: none; }
+  .cover-aster-track { transform: translateX(-20%); }
 }

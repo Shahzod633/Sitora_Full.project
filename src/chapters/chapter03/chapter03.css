@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Chapter 03: the rover timeline, the crew display and the closing sequence.
+   (Panel basics such as .timeline-head and .timeline-foot come from chapter02.css.)
+   ========================================================================== */
+
+/* ---- Interaction D: the rover timeline ---------------------------------------- */
+.rover-timeline {
+  position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; user-select: text; container-type: inline-size;
+  display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: clamp(10px, 1.8cqh, 18px); padding: clamp(16px, 3cqmin, 30px);
+  background: linear-gradient(#0f2731f7, #0a1a22f7); color: #dff1f2; border: 1px solid rgba(140, 220, 235, 0.55); border-radius: 2px;
+  box-shadow: 0 0 40px rgba(90, 200, 230, 0.18), 0 22px 64px rgba(0, 0, 0, 0.6);
+}
+.rover-timeline .archive-kicker { color: #9fc6cc; }
+.rover-timeline .archive-badge { background: #bfeef5; color: #0a1a22; }
+.rover-timeline .timeline-head h2 { color: #f1e9d4; }
+.rover-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; position: relative; }
+.rover-tabs::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: rgba(140, 220, 235, 0.35); }
+.rover-tabs button {
+  min-height: 56px; display: grid; gap: 2px; align-content: center; justify-items: start; padding: 10px 12px; text-align: left;
+  background: rgba(140, 220, 235, 0.06); color: #dff1f2; border: 1px solid rgba(140, 220, 235, 0.3); border-top: 3px solid rgba(140, 220, 235, 0.4); border-radius: 0 0 2px 2px;
+}
+.rover-tabs button:hover { background: rgba(140, 220, 235, 0.14); }
+.rover-tabs button[aria-selected="true"] { background: rgba(140, 220, 235, 0.2); border-color: #bfeef5; border-top-color: var(--accent); }
+.rover-tabs button[data-seen="true"] .rover-tab-year::after { content: " ✓"; color: #afe8d1; }
+.rover-tab-year { font: 600 24px/1 "Barlow Condensed", sans-serif; color: var(--accent); }
+.rover-tab-name { font-size: 13px; font-weight: 600; }
+
+.rover-panel { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(14px, 3cqw, 34px); align-items: start; animation: rise 0.4s ease-out both; min-height: 0; }
+.rover-visual { display: grid; gap: 12px; }
+.rover-holo { display: flex; gap: 6%; height: clamp(84px, 16cqh, 150px); --cam-z: 1; }
+.rover-holo .holo-model { flex: 1; animation: holo-float 5s ease-in-out infinite; }
+.rover-holo .holo-model:nth-child(2) { animation-delay: -2.2s; }
+.rover-timeline .archive-figure { margin: 0; }
+.rover-timeline .archive-figure img, .rover-timeline .photo-placeholder { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.rover-timeline .photo-placeholder { gap: 2px; font-size: 9px; color: #c4dadd; background: repeating-linear-gradient(135deg, #15303a 0 8px, #122a33 8px 16px); border-color: rgba(140, 220, 235, 0.4); }
+.rover-timeline .photo-placeholder strong { font-size: 12px; }
+.rover-timeline .archive-figure figcaption { margin-top: 6px; font-size: 12px; line-height: 1.4; color: #c4dadd; }
+.rover-timeline .archive-credit { color: #9fc6cc; }
+.rover-mission { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #9fc6cc; }
+.rover-text h3 { margin: 4px 0 8px; font: 600 clamp(28px, 3.6vw, 46px)/1 "Barlow Condensed", sans-serif; color: #f1e9d4; }
+.rover-text p { margin: 0 0 10px; line-height: 1.5; font-size: 15px; }
+.rover-summary { font-size: clamp(16px, 1.3vw, 19px) !important; color: #f1e9d4; }
+.rover-text ul { margin: 0 0 10px; padding-left: 18px; display: grid; gap: 5px; font-size: 14px; line-height: 1.45; }
+.rover-status { font-size: 13px !important; }
+.rover-status > span { display: inline-block; margin-right: 6px; padding: 2px 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; background: #6d7f84; color: #0a1a22; }
+.rover-status[data-state="active"] > span { background: #afe8d1; }
+.rover-status small { color: #9fc6cc; }
+.rover-text details { margin-bottom: 10px; font-size: 14px; }
+.rover-text summary { cursor: pointer; min-height: 32px; display: flex; align-items: center; color: #bfeef5; font-weight: 600; }
+.rover-text details p { margin: 6px 0 0; font-size: 14px; }
+.rover-timeline .archive-sources { font-size: 12px !important; color: #9fc6cc; }
+.rover-timeline a { color: #f1bb8d; }
+.rover-timeline .timeline-foot { border-top-color: rgba(140, 220, 235, 0.3); }
+.rover-progress { margin: 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #9fc6cc; }
+
+@container (max-width: 720px) {
+  .rover-panel { grid-template-columns: 1fr; }
+  .rover-tabs button { padding: 8px; min-height: 52px; }
+  .rover-tab-year { font-size: 20px; }
+  .rover-tab-name { font-size: 11px; }
+  .rover-holo { height: 74px; }
+}
+
+/* ---- The crew display (fictional) ------------------------------------------------ */
+.crew-display {
+  display: grid; gap: 6px; justify-items: center; padding: 14px 26px 12px; text-align: center; text-transform: uppercase;
+  background: rgba(9, 24, 30, 0.9); border: 1px solid #e6ab73; color: #f6d9ae; box-shadow: 0 0 26px rgba(230, 171, 115, 0.22);
+}
+.crew-display-system { font-size: 10px; letter-spacing: 0.26em; color: #b8c9bf; }
+.crew-display strong { font: 600 clamp(22px, 3cqw, 38px)/1 "Barlow Condensed", sans-serif; letter-spacing: 0.14em; }
+.crew-display-dest { font-size: 13px; letter-spacing: 0.16em; color: var(--paper); }
+.crew-display small { margin-top: 4px; font-size: 10px; letter-spacing: 0.06em; text-transform: none; color: #b8c9bf; white-space: normal; max-width: 70cqw; }
+
+/* ---- The line of knowledge ---------------------------------------------------------- */
+.legacy-line { position: absolute; inset: 9% 4% 12%; }
+/* The line is drawn by uncovering it: left to right on wide screens, bottom to top on upright phones. */
+.legacy-line svg {
+  position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
+  --reveal: calc(clamp(0, calc(var(--p, 0) - 0.5), 6) / 6);
+  clip-path: inset(-10% calc((1 - var(--reveal)) * 92% + 4%) -10% -10%);
+  filter: drop-shadow(0 0 6px rgba(244, 220, 168, 0.9));
+}
+.legacy-line[data-portrait="true"] svg { clip-path: inset(calc((1 - var(--reveal)) * 88% + 6%) -10% -10% -10%); }
+.legacy-path { fill: none; stroke: #f4dca8; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.legacy-node {
+  position: absolute; width: clamp(74px, 11cqw, 150px); translate: -50% -100%; display: grid; justify-items: center; gap: 6px; padding-bottom: 14px;
+  opacity: clamp(0, calc(var(--p, 0) - var(--i)), 1); scale: calc(0.86 + 0.14 * clamp(0, calc(var(--p, 0) - var(--i)), 1));
+}
+.legacy-thumb { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #10232c; border: 1px solid rgba(244, 220, 168, 0.6); box-shadow: 0 0 18px rgba(244, 220, 168, 0.18); }
+.legacy-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.legacy-art { inset: 6%; }
+.legacy-dot { position: absolute; left: 50%; bottom: 0; width: 12px; height: 12px; translate: -50% 50%; border-radius: 50%; background: #f4dca8; box-shadow: 0 0 12px #f4dca8; }
+.legacy-label { display: grid; justify-items: center; text-align: center; font-size: 11px; letter-spacing: 0.1em; color: #d8cdb1; }
+.legacy-label strong { font: 600 clamp(14px, 1.6cqw, 21px)/1.05 "Barlow Condensed", sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper); }
+.legacy-label em { font-style: normal; margin-top: 2px; padding: 1px 5px; border: 1px dashed rgba(241, 233, 212, 0.6); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; }
+.legacy-node.is-fiction .legacy-thumb { border-style: dashed; }
+.legacy-line[data-portrait="true"] { inset: 12% 4% 6%; }
+.legacy-line[data-portrait="true"] .legacy-node { width: 96px; gap: 3px; }
+
+/* ---- The end ---------------------------------------------------------------------------- */
+.final-title { display: grid; justify-items: center; text-align: center; padding: 20px; width: min(760px, 92cqw); color: var(--paper); }
+.final-title > * { animation: end-in 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.final-title .aster-mark { width: 44px; height: 44px; animation-delay: 0.4s; }
+.final-title h1 { margin: 24px 0 18px; font: 600 clamp(34px, 7.4cqmin, 88px)/1 "Barlow Condensed", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; animation-delay: 1s; }
+.final-end { margin: 0; font: 600 clamp(18px, 3cqmin, 30px)/1 "Barlow Condensed", sans-serif; letter-spacing: 0.5em; padding-left: 0.5em; text-transform: uppercase; color: #ecc296; animation-delay: 2.8s; }
+.final-title .end-actions { animation-delay: 4.4s; }
+@media (prefers-reduced-motion: reduce) { .final-title > * { animation: none; } }

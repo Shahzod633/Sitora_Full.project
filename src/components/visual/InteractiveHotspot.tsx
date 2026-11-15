@@ -2,34 +2,38 @@ import React from 'react';
 import './InteractiveHotspot.css';
 
 type Props = {
-  x: number; // 0 to 1 relative position
-  y: number;
-  width: number;
-  height: number;
-  onClick: () => void;
-  label?: string;
+  label: string;
+  hint?: string;
+  /** Only the active hotspot is focusable and clickable; it pulses and shows its label. */
+  active: boolean;
+  onActivate: () => void;
 };
 
-const InteractiveHotspot: React.FC<Props> = ({ x, y, width, height, onClick, label }) => {
-  const style = {
-    left: `${x * 100}%`,
-    top: `${y * 100}%`,
-    width: `${width * 100}%`,
-    height: `${height * 100}%`,
-  } as React.CSSProperties;
+// Fills its parent layer box, so it stays aligned with the artwork under any camera framing.
+const InteractiveHotspot: React.FC<Props> = ({ label, hint, active, onActivate }) => {
+  const ref = React.useRef<HTMLButtonElement>(null);
+  React.useEffect(() => {
+    if (active) ref.current?.focus({ preventScroll: true });
+  }, [active]);
 
   return (
     <button
+      ref={ref}
+      type="button"
       className="hotspot"
-      style={style}
-      onClick={onClick}
-      aria-label={label ?? 'hotspot'}
+      data-active={active}
+      disabled={!active}
+      onClick={event => { event.stopPropagation(); onActivate(); }}
+      aria-label={hint ? `${label}. ${hint}` : label}
     >
-      {/* visually hidden label */}
-      <span className="sr-only">{label}</span>
+      <span className="hotspot-ring" aria-hidden="true"/>
+      <span className="hotspot-marker" aria-hidden="true"/>
+      <span className="hotspot-label" aria-hidden="true">
+        <strong>{label}</strong>
+        {hint && <span>{hint}</span>}
+      </span>
     </button>
   );
 };
 
 export default InteractiveHotspot;
-

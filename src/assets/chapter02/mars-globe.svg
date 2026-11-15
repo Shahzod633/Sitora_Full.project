@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- TEMPORARY placeholder: Mars from orbit on transparency. Replace with the artists' painted globe. -->
+  <defs>
+    <radialGradient id="g" cx="38%" cy="34%" r="72%">
+      <stop offset="0" stop-color="#e0a070"/><stop offset=".55" stop-color="#b9643f"/><stop offset="1" stop-color="#4a2018"/>
+    </radialGradient>
+    <clipPath id="c"><circle cx="200" cy="200" r="186"/></clipPath>
+  </defs>
+  <circle cx="200" cy="200" r="194" fill="#e9a878" opacity=".16"/>
+  <circle cx="200" cy="200" r="186" fill="url(#g)"/>
+  <g clip-path="url(#c)" fill="#8c452e" opacity=".55">
+    <path d="M40 150q60-30 120-8t110-14 90 20v34q-60 18-120 4t-110 18-90-10z"/>
+    <path d="M70 250q50-16 96 0t92-8 80 14l-8 30q-50 10-96-4t-90 10-70-12z" opacity=".7"/>
+    <ellipse cx="150" cy="118" rx="26" ry="12" fill="#6f3524"/>
+    <ellipse cx="262" cy="214" rx="18" ry="9" fill="#6f3524"/>
+  </g>
+  <g clip-path="url(#c)" fill="#f3e3d2" opacity=".85">
+    <ellipse cx="204" cy="22" rx="72" ry="16"/><ellipse cx="196" cy="380" rx="50" ry="10"/>
+  </g>
+  <circle cx="200" cy="200" r="186" fill="none" stroke="#f0b98c" stroke-width="3" opacity=".5"/>
+</svg>

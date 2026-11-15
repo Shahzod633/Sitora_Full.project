@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300">
+  <!-- TEMPORARY placeholder: a car-sized rover of the Curiosity / Perseverance design: boxy body, mast with a
+       camera head, power source at the rear, long arm with an instrument turret, six large wheels. One tone
+       for the hologram effect. No mission insignia. Replace with the artists' drawing or a credited NASA image. -->
+  <g stroke="#1c3440" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" fill="#9fc6c4">
+    <circle cx="112" cy="244" r="36"/><circle cx="230" cy="250" r="36"/><circle cx="348" cy="242" r="36"/>
+    <path d="m112 244 70-70 48 76m-48-76 110-4 56 72" fill="none" stroke-width="10" stroke="#6f9a9c"/>
+    <path d="m112 124 220-10 26 34-16 46-224 8-22-38z" fill="#7fb0b3"/>
+    <path d="m112 124 220-10 8 16-222 10z"/>
+    <path d="m112 150-62-34-14 30 62 30z" fill="#6f9a9c"/><path d="m60 126 40 22m-46-8 40 22" stroke-width="2.5" stroke="#3f6c74"/>
+    <path d="m300 116 0-84" fill="none" stroke-width="9"/>
+    <path d="m270 8 70 0 6 30-82 0z"/><circle cx="292" cy="23" r="9" fill="#1c3440"/><circle cx="322" cy="23" r="6" fill="#1c3440"/>
+    <path d="m356 150 60 12 10 56" fill="none" stroke-width="8"/>
+    <path d="m404 214 44 0 4 30-52 0z"/><circle cx="426" cy="229" r="7" fill="#1c3440"/>
+    <circle cx="200" cy="100" r="18"/><path d="m200 118 0 6" stroke-width="5"/>
+  </g>
+</svg>
