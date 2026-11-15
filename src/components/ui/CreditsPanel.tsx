@@ -1,6 +1,9 @@
 import React from 'react';
 import './CreditsPanel.css';
-import { archivePhotos, assets, pathfinderPhotos, publicUrl, roverPhotos, type ArchivePhoto, type AssetDef } from '../../data/assetManifest';
+import {
+  apolloLrvPhoto, archivePhotos, assets, lunokhodModelPhoto, lunokhodOrbitPhoto, pathfinderPhotos,
+  publicUrl, reflectorPhoto, roverPhotos, type ArchivePhoto, type AssetDef,
+} from '../../data/assetManifest';
 import { sources } from '../../data/missions';
 
 export default function CreditsPanel({ onClose }: { onClose: () => void }) {
@@ -12,7 +15,8 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
   }, []);
   const temporary = Object.values<AssetDef>(assets).filter(a => a.status === 'temporary').length;
   const photos = new Map<string, ArchivePhoto>();
-  [...archivePhotos, ...pathfinderPhotos, ...Object.values(roverPhotos)].forEach(p => photos.set(p.nasaId, p));
+  [...archivePhotos, reflectorPhoto, lunokhodModelPhoto, lunokhodOrbitPhoto, apolloLrvPhoto,
+    ...pathfinderPhotos, ...Object.values(roverPhotos)].forEach(p => photos.set(p.nasaId, p));
 
   return <dialog className="credits-panel" ref={ref} aria-labelledby="credits-title"
     onCancel={event => { event.preventDefault(); onClose(); }}

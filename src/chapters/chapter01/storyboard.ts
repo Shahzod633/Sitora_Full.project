@@ -279,7 +279,7 @@ export const storyboard: Beat<LineId>[] = [
     advance: { mode: 'auto', hold: 6.6 },
   },
   {
-    id: 'B25', slug: 'first-landing', sequence: 'E', title: 'The first lunar landing', stage: 'archive',
+    id: 'B25', slug: 'lunar-hardware-archive', sequence: 'E', title: 'Lunar hardware archive', stage: 'archive',
     layers: {
       archivePanel: { opacity: 1, duration: 0.8 },
       recon: { opacity: 0.16, duration: 0.8 },
@@ -287,7 +287,8 @@ export const storyboard: Beat<LineId>[] = [
       reconLabel: { opacity: 0, duration: 0.4 },
     },
     camera: { to: { shot: 'wide', duration: 1.2 } },
-    advance: { mode: 'confirm', label: 'Return to the present' },
+    // Three records: Apollo 11 + reflector, Lunokhod 1, NASA Apollo LRVs.
+    advance: { mode: 'interaction', target: 'archivePanel' },
   },
   {
     id: 'B26', slug: 'return-to-future', sequence: 'E', title: 'Back to the present', stage: 'apolloSite',
@@ -299,6 +300,17 @@ export const storyboard: Beat<LineId>[] = [
   },
 
   // ============================================================ SEQUENCE F — WHAT REMAINS
+  {
+    // Additional dialogue inserted after the lunar archive: Pip puts the two rovers side by side,
+    // Eli draws the line forward to Mars. Original screenplay lines follow unchanged.
+    id: 'B26A', slug: 'rovers-compared', sequence: 'F', title: 'One rover was driven from Earth', stage: 'apolloSite',
+    layers: { apolloScene: hide(1) },
+    camera: { to: { shot: 'pipCrew', duration: 1.6, ease: 'sine.inOut' } },
+    dialogueDelay: 0.6,
+    dialogue: ['pip-one-from-earth', 'eli-little-robot-mars'],
+    onLine: { 'eli-little-robot-mars': { camera: { to: { shot: 'eliCrew', duration: 1 } } } },
+    advance: { mode: 'dialogue' },
+  },
   {
     id: 'B27', slug: 'reflection', sequence: 'F', title: 'Reflection', stage: 'apolloSite',
     layers: { apolloScene: hide(1.6) },

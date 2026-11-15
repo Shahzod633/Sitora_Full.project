@@ -283,11 +283,42 @@ export const archivePhotos: ArchivePhoto[] = [
   },
 ];
 
+/** Chapter 1 lunar hardware archive: four extra photos used by the three-record archive after Apollo 11. */
+export const reflectorPhoto: ArchivePhoto = {
+  nasaId: 'AS11-40-5952', file: 'assets/nasa/AS11-40-5952.jpg', available: true,
+  caption: 'Apollo 11 laser retroreflector at Tranquility Base.',
+  credit: 'Photo: Neil Armstrong / NASA',
+  source: 'https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/images11.html',
+};
+
+export const lunokhodModelPhoto: ArchivePhoto = {
+  nasaId: 'lunokhod-1-model', file: 'assets/archive/lunokhod-1-model.jpg', available: true,
+  caption: 'Scale model of Lunokhod 1 at the Polytechnic Museum, Moscow.',
+  credit: 'Photo: Vladimir Petrovich Galin / Wikimedia Commons · public domain',
+  source: 'https://commons.wikimedia.org/wiki/File:Lunokhod-1_model.jpg',
+};
+
+export const lunokhodOrbitPhoto: ArchivePhoto = {
+  nasaId: 'M175502049RE', file: 'assets/nasa/M175502049RE-lunokhod-1.jpg', available: true,
+  caption: "Lunokhod 1 at its final parking spot: later orbital image with an enlarged inset.",
+  credit: 'Image: NASA/GSFC/Arizona State University · LROC NAC M175502049RE',
+  source: 'https://lroc.im-ldi.com/images/402',
+};
+
+export const apolloLrvPhoto: ArchivePhoto = {
+  nasaId: 'AS15-88-11901', file: 'assets/nasa/AS15-88-11901.jpg', available: true,
+  caption: 'Apollo 15 Lunar Roving Vehicle at Hadley–Apennine.',
+  credit: 'Photo: David Scott / NASA',
+  source: 'https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?frame=11901&mission=AS15&roll=88',
+};
+
+
 export const publicUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 
 export const assetManifest = {
   assets,
   archivePhotos,
+  lunarArchivePhotos: [reflectorPhoto, lunokhodModelPhoto, lunokhodOrbitPhoto, apolloLrvPhoto],
   pathfinderPhotos,
   roverPhotos,
   audio: { click: publicUrl('assets/audio/click-placeholder.wav') },

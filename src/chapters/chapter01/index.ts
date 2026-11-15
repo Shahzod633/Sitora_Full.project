@@ -7,6 +7,7 @@ export const chapter01: Chapter<LineId> = {
   id: 'chapter01',
   number: '01',
   title: 'Where It All Began',
+  additionalLines: ['pip-one-from-earth', 'eli-little-robot-mars'],
   ending: { kicker: 'Chapter 01 Complete', title: 'Where It All Began', note: 'To be continued...', nextLabel: 'Next destination', nextValue: 'Mars' },
   sequences: {
     A: 'The Beginning',

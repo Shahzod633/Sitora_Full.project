@@ -18,6 +18,9 @@ export const scriptOrder = [
   'pip-old-equipment',
   'mara-exactly',
   'pip-humans-strange',
+  // After the lunar hardware archive (approved additional staging).
+  'pip-one-from-earth',
+  'eli-little-robot-mars',
   'mara-never-imagined',
   'eli-neither-can-we',
   'pip-still-important',
@@ -57,6 +60,12 @@ export const script: Record<LineId, ScriptLine<LineId>> = {
     text: 'Exactly.' },
   'pip-humans-strange': { id: 'pip-humans-strange', speaker: 'pip', expression: 'curious',
     text: 'Humans are very strange.' },
+
+  // After the lunar hardware archive
+  'pip-one-from-earth': { id: 'pip-one-from-earth', speaker: 'pip', expression: 'analyzing',
+    text: 'One rover was driven from Earth. The other had its drivers on the Moon.' },
+  'eli-little-robot-mars': { id: 'eli-little-robot-mars', speaker: 'eli', expression: 'smile',
+    text: 'Exactly. And on Mars, a little robot did the exploring, too.' },
 
   // After the Apollo 11 flashback
   'mara-never-imagined': { id: 'mara-never-imagined', speaker: 'mara', expression: 'reflective',

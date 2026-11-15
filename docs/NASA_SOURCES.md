@@ -17,6 +17,19 @@ labelled *"Illustrative animation — not mission data"*.
 | Curiosity (landed 6 Aug 2012, Gale Crater; found chemical and mineral evidence of past habitable environments; active) | https://science.nasa.gov/mission/msl-curiosity/ |
 | Perseverance (landed 18 Feb 2021, Jezero Crater; seeks signs of ancient life, collects samples; active; passed Opportunity's distance record Oct 2026) | https://science.nasa.gov/mission/mars-2020-perseverance/ |
 
+## Chapter 1 lunar hardware archive (added Nov 2026)
+
+Three records after the Apollo 11 encounter: the laser retroreflector, the Soviet Lunokhod 1 mission
+(historical context), and the NASA Apollo Lunar Roving Vehicles. Science claims verified against:
+- Apollo 11 reflector: https://ilrs.cddis.eosdis.nasa.gov/missions/satellite_missions/current_missions/ap11_general.html
+- Apollo LRV overview: https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_lrv.html
+- Apollo 15 distance and sample total: https://www.nasa.gov/wp-content/uploads/static/history/SP-4029/Apollo_15a_Summary.htm
+- Lunokhod 1 and its reflector: https://lroc.im-ldi.com/images/402
+
+Two dialogue lines inserted after the archive (approved additional staging, not original screenplay):
+- PIP — “One rover was driven from Earth. The other had its drivers on the Moon.”
+- ELI — “Exactly. And on Mars, a little robot did the exploring, too.”
+
 ## Photographs (catalogue pages)
 
 | ID | Shows | Credit | Catalogue |
@@ -24,6 +37,10 @@ labelled *"Illustrative animation — not mission data"*.
 | AS11-40-5903 | Aldrin on the Moon | Neil Armstrong / NASA | nssdc.gsfc.nasa.gov/imgcat/html/object_page/a11_h_40_5903.html |
 | AS11-40-5878 | Bootprint | Buzz Aldrin / NASA | nssdc.gsfc.nasa.gov/planetary/lunar/apollo11.html |
 | AS11-44-6642 | Ascent stage and Earth | Michael Collins / NASA | nssdc.gsfc.nasa.gov/imgcat/html/object_page/a11_h_44_6642.html |
+| AS11-40-5952 | Apollo 11 laser retroreflector at Tranquility Base | Neil Armstrong / NASA | nasa.gov/wp-content/uploads/static/history/alsj/a11/images11.html |
+| lunokhod-1-model | Scale model of Lunokhod 1, Polytechnic Museum, Moscow | Vladimir Petrovich Galin / Wikimedia Commons (public domain) | commons.wikimedia.org/wiki/File:Lunokhod-1_model.jpg |
+| M175502049RE | Lunokhod 1 at its final parking spot, orbital image with inset | NASA/GSFC/Arizona State University | lroc.im-ldi.com/images/402 |
+| AS15-88-11901 | Apollo 15 Lunar Roving Vehicle at Hadley–Apennine | David Scott / NASA | eol.jsc.nasa.gov/SearchPhotos/photo.pl?frame=11901&mission=AS15&roll=88 |
 | PIA00634 | APXS on "Barnacle Bill" | NASA/JPL | jpl.nasa.gov/images/pia00634-… |
 | PIA00638 | Sojourner near "Barnacle Bill" | NASA/JPL | science.nasa.gov/photojournal/sojourner-near-barnacle-bill/ |
 | PIA01466 | Pathfinder 360° panorama | NASA/JPL | science.nasa.gov/photojournal/improved-mpf-360-degree-color-panorama/ |
