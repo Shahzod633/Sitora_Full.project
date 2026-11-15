@@ -73,9 +73,9 @@ hologram fallback). `marsDigSite` + `marsCloseUp` carry 13 beats of Ch2 and 13 o
 | Galley dialogue | `IMG_0105` / `IMG_0106` combination frames are ready if the team writes galley lines. |
 | `refuelGantry`, `lunarBase`, `moonGlobe`, `reconLander`, `reconAstronaut`, `moonSurface`, `spaceStars`, `earth` | Ch1 vector placeholders that still render; painted versions would unify the style. |
 
-## 7. NASA photographs (not artwork — download, don't draw)
+## 7. NASA photographs — done
 
-Save to `public/assets/nasa/<ID>.jpg` and set `available: true` in `assetManifest.ts`:
+All nine are in `public/assets/nasa/` and enabled in `assetManifest.ts`:
 AS11-40-5903, AS11-40-5878, AS11-44-6642 (Apollo 11) · PIA00634, PIA00638, PIA01466 (Pathfinder) ·
 PIA18079 (Opportunity) · PIA16239 (Curiosity) · PIA24542 (Perseverance). Catalogue links are in
-`NASA_SOURCES.md`. Until then each shows a labelled "Archival photo placeholder".
+`NASA_SOURCES.md`.

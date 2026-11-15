@@ -197,8 +197,8 @@ export const assets = {
 
 export type AssetId = keyof typeof assets;
 
-/** Archival photographs for the Apollo 11 flashback. Files are NOT bundled yet. Download the NASA originals,
- * save them under public/assets/nasa/ with the given file name and set `available: true`. */
+/** Archival photographs. Web-sized copies of the originals from the NASA Image and Video Library
+ * (images.nasa.gov), saved under public/assets/nasa/. Set `available: false` to fall back to a placeholder. */
 export type ArchivePhoto = {
   nasaId: string;
   file: string;
@@ -211,19 +211,19 @@ export type ArchivePhoto = {
 /** Mars Pathfinder / Sojourner photographs for the 1997 reconstruction (Chapter 2). */
 export const pathfinderPhotos: ArchivePhoto[] = [
   {
-    nasaId: 'PIA00634', file: 'assets/nasa/PIA00634.jpg', available: false,
+    nasaId: 'PIA00634', file: 'assets/nasa/PIA00634.jpg', available: true,
     caption: "Sojourner's Alpha Proton X-ray Spectrometer studies the rock \u201cBarnacle Bill\u201d, its first rock analysis, begun on Sol 3.",
     credit: 'Image: NASA/JPL',
     source: 'https://www.jpl.nasa.gov/images/pia00634-sojourners-apxs-studies-barnacle-bill/',
   },
   {
-    nasaId: 'PIA00638', file: 'assets/nasa/PIA00638.jpg', available: false,
+    nasaId: 'PIA00638', file: 'assets/nasa/PIA00638.jpg', available: true,
     caption: 'Sojourner on the Martian surface near \u201cBarnacle Bill\u201d, seen by the Imager for Mars Pathfinder.',
     credit: 'Image: NASA/JPL',
     source: 'https://science.nasa.gov/photojournal/sojourner-near-barnacle-bill/',
   },
   {
-    nasaId: 'PIA01466', file: 'assets/nasa/PIA01466.jpg', available: false,
+    nasaId: 'PIA01466', file: 'assets/nasa/PIA01466.jpg', available: true,
     caption: 'Colour panorama from the Pathfinder lander: the petals, Sojourner\u2019s tracks and the distant Twin Peaks.',
     credit: 'Image: NASA/JPL',
     source: 'https://science.nasa.gov/photojournal/improved-mpf-360-degree-color-panorama/',
@@ -233,25 +233,25 @@ export const pathfinderPhotos: ArchivePhoto[] = [
 /** One photograph per rover-timeline entry (Chapter 3), keyed by entry id. */
 export const roverPhotos: Record<string, ArchivePhoto> = {
   sojourner: {
-    nasaId: 'PIA00638', file: 'assets/nasa/PIA00638.jpg', available: false,
+    nasaId: 'PIA00638', file: 'assets/nasa/PIA00638.jpg', available: true,
     caption: 'Sojourner near the rock \u201cBarnacle Bill\u201d, July 1997.',
     credit: 'Image: NASA/JPL',
     source: 'https://science.nasa.gov/photojournal/sojourner-near-barnacle-bill/',
   },
   mer: {
-    nasaId: 'PIA18079', file: 'assets/nasa/PIA18079.jpg', available: false,
+    nasaId: 'PIA18079', file: 'assets/nasa/PIA18079.jpg', available: true,
     caption: 'Self-portrait by Opportunity, March 2014, after wind had cleaned dust from its solar panels.',
     credit: 'Image: NASA/JPL-Caltech/Cornell Univ./Arizona State Univ.',
     source: 'https://photojournal.jpl.nasa.gov/catalog/PIA18079',
   },
   curiosity: {
-    nasaId: 'PIA16239', file: 'assets/nasa/PIA16239.jpg', available: false,
+    nasaId: 'PIA16239', file: 'assets/nasa/PIA16239.jpg', available: true,
     caption: 'Self-portrait by Curiosity at \u201cRocknest\u201d in Gale Crater, assembled from 55 arm-camera images.',
     credit: 'Image: NASA/JPL-Caltech/MSSS',
     source: 'https://photojournal.jpl.nasa.gov/catalog/pia16239',
   },
   perseverance: {
-    nasaId: 'PIA24542', file: 'assets/nasa/PIA24542.jpg', available: false,
+    nasaId: 'PIA24542', file: 'assets/nasa/PIA24542.jpg', available: true,
     caption: 'Perseverance with the Ingenuity helicopter, April 2021, assembled from 62 arm-camera images.',
     credit: 'Image: NASA/JPL-Caltech/MSSS',
     source: 'https://science.nasa.gov/photojournal/perseverances-selfie-with-ingenuity/',
@@ -260,19 +260,19 @@ export const roverPhotos: Record<string, ArchivePhoto> = {
 
 export const archivePhotos: ArchivePhoto[] = [
   {
-    nasaId: 'AS11-40-5903', file: 'assets/nasa/AS11-40-5903.jpg', available: false,
+    nasaId: 'AS11-40-5903', file: 'assets/nasa/AS11-40-5903.jpg', available: true,
     caption: 'Buzz Aldrin on the lunar surface. Neil Armstrong and the lunar module are reflected in his visor.',
     credit: 'Photo: Neil Armstrong / NASA',
     source: 'https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a11_h_40_5903.html',
   },
   {
-    nasaId: 'AS11-40-5878', file: 'assets/nasa/AS11-40-5878.jpg', available: false,
+    nasaId: 'AS11-40-5878', file: 'assets/nasa/AS11-40-5878.jpg', available: true,
     caption: 'A bootprint in the lunar soil, photographed to study the nature of the lunar dust.',
     credit: 'Photo: Buzz Aldrin / NASA',
     source: 'https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11.html',
   },
   {
-    nasaId: 'AS11-44-6642', file: 'assets/nasa/AS11-44-6642.jpg', available: false,
+    nasaId: 'AS11-44-6642', file: 'assets/nasa/AS11-44-6642.jpg', available: true,
     caption: "Eagle's ascent stage returning to Columbia in lunar orbit, with Earth beyond.",
     credit: 'Photo: Michael Collins / NASA',
     source: 'https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/a11_h_44_6642.html',

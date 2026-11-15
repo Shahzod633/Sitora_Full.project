@@ -31,7 +31,11 @@ labelled *"Illustrative animation — not mission data"*.
 | PIA16239 | Curiosity at "Rocknest" | NASA/JPL-Caltech/MSSS | photojournal.jpl.nasa.gov/catalog/pia16239 |
 | PIA24542 | Perseverance with Ingenuity | NASA/JPL-Caltech/MSSS | science.nasa.gov/photojournal/perseverances-selfie-with-ingenuity/ |
 
-The image files are **not** in the build yet (no files were downloaded). Each shows a labelled placeholder.
+**In the build** since 15 Nov 2026: originals downloaded from the NASA Image and Video Library
+(`https://images-assets.nasa.gov/image/<id>/<id>~orig.jpg`), checked against their NASA metadata (title, credit,
+date), and saved as web-sized copies (≤1600 px; the panorama 2400 px) in `public/assets/nasa/`. NASA imagery is
+generally not copyrighted; NASA asks that it be credited and that it not imply endorsement. Credits are shown
+under every photo and in Credits & Sources.
 
 ## Screenplay points flagged for review (dialogue left unchanged)
 

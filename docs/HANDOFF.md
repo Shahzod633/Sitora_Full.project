@@ -29,16 +29,15 @@ Testing was done with the pane hidden, so animation-frame timing was simulated i
 
 All Mars art, Sojourner, Mars suits, Mara kneel/salute, Pip carry/Mars/flight, sunset, holograms,
 mini-game sprites, landed Aster (flying Aster stand-in), the Mars EVA portraits (cropped from the lunar
-painting), several Ch1 vector placeholders, and all 9 NASA photographs. Scenes using them show a
-"Placeholder art" label. Full list: `ASSET_CHECKLIST.md`.
+painting) and several Ch1 vector placeholders. Scenes using them show a "Placeholder art" label. Full list:
+`ASSET_CHECKLIST.md`. (The 9 NASA photographs are included.)
 
 ## Decisions for the team
 
 1. "Days" vs "sols" in Mara's line (see `NASA_SOURCES.md`).
 2. NASA insignia on `moon-crew.webp` suits must be repainted.
 3. Complete the illustration section of `AI_DISCLOSURE.md`.
-4. Download the NASA photos and flip `available: true`.
-5. Runtime is ~10–11 min vs the 7–9 target — trim holds if needed (`hold` values in storyboards).
+4. Runtime is ~10–11 min vs the 7–9 target — trim holds if needed (`hold` values in storyboards).
 
 ## Next polish steps
 
