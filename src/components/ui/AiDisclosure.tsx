@@ -1,5 +1,6 @@
 import React from 'react';
 import './AiDisclosure.css';
+import { publicUrl } from '../../data/assetManifest';
 
 // "What's made with AI?" — a plain statement of who made what: the team's own story, characters and direction
 // on one side, and the production help from AI tools on the other. It complements Credits & Sources (which
@@ -11,7 +12,7 @@ import './AiDisclosure.css';
 /** The clickable mark. Icon and label share one hit area; phones use the short label. */
 export function AiButton({ onOpen, className = '' }: { onOpen: () => void; className?: string }) {
   return <button type="button" className={`ai-chip ${className}`} aria-haspopup="dialog"
-    aria-label="What’s made with AI? Open the AI / SI credits"
+    aria-label="What’s made with AI? Open Project Details"
     onClick={event => { event.stopPropagation(); onOpen(); }}>
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
       <circle cx="12" cy="12" r="9.2"/><path d="M12 11v6" strokeLinecap="round"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/>
@@ -47,8 +48,8 @@ export default function AiPanel({ onClose, onCredits }: PanelProps) {
     <div className="ai-body">
       <header className="ai-head">
         <div>
-          <p className="ai-kicker">AI / SI credits</p>
-          <h2 id="ai-title">Human creativity. AI-assisted production.</h2>
+          <p className="ai-kicker">ASTER · Authorship &amp; AI / SI credits</p>
+          <h2 id="ai-title">Project Details</h2>
         </div>
         <button type="button" className="ai-close" aria-label="Close" onClick={onClose} autoFocus>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
@@ -57,6 +58,13 @@ export default function AiPanel({ onClose, onCredits }: PanelProps) {
       <div className="ai-scroll">
         <p id="ai-intro" className="ai-intro">ASTER began with our team’s original story, characters, and artistic direction. We used AI
           tools to help bring parts of that vision to the screen. Here is how the work was shared.</p>
+
+        <section className="ai-block" data-kind="team">
+          <h3>About ASTER</h3>
+          <p>Abandoned But Not Forgotten is an interactive webcomic in three chapters, created for the NASA
+            Space Apps Challenge. Illustrated scenes, dialogue, sound and mini-games connect a fictional
+            future expedition with the legacy of real space missions.</p>
+        </section>
 
         <section className="ai-block" data-kind="team">
           <h3>Created by our team</h3>
@@ -86,11 +94,32 @@ export default function AiPanel({ onClose, onCredits }: PanelProps) {
             activities, scene transitions, responsive layouts, animations, and bug fixes, as well as the
             temporary placeholder graphics that are labelled on screen.</p>
           <p>The team’s creative authorship and the tools’ production assistance are described separately here.</p>
+          <p>ChatGPT also helped structure development requests and draft explanatory project text. These
+            tools are production assistants, not sources of historical mission data.</p>
+        </section>
+
+        <section className="ai-block" data-kind="sources">
+          <h3>Fact and fiction</h3>
+          <p>Apollo 11, Lunokhod 1, Mars Pathfinder and the Mars rovers are real missions. Their historical
+            information and archive images are credited in the source sections. Aster, its crew, the lunar
+            refuelling stop, the human Mars expedition and the recovery of Sojourner are fiction, not NASA
+            operations or plans. NASA does not endorse this project.</p>
+          <p>The APXS spectrum in the rover activity is an illustrative animation, not measured mission data.</p>
+        </section>
+
+        <section className="ai-block" data-kind="sources">
+          <h3>Sound and typography</h3>
+          <p>Character voice blips, story cues and ambient music are synthesized in the browser by the
+            website’s code. A legacy click sample remains in the project; its origin is not documented.</p>
+          <p>Barlow Condensed is used under the SIL Open Font License 1.1. <a href={publicUrl('assets/fonts/OFL.txt')}
+            target="_blank" rel="noreferrer">Read the font license</a>.</p>
         </section>
 
         <section className="ai-block" data-kind="sources">
           <h3>Sources and historical material</h3>
-          <p>Historical information and third-party materials are credited separately in Credits &amp; Sources.
+          <p>NASA Data lists the NASA mission information and imagery used in the story. Space Agency &amp;
+            Other lists used materials from other providers. Development tools are described here, not
+            listed as data sources.
             Generated illustrations are artistic interpretations, not NASA photographs or mission records.</p>
           <button type="button" className="ai-link" onClick={onCredits}>View Credits &amp; Sources</button>
         </section>

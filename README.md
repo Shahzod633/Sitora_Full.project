@@ -28,6 +28,7 @@ Vite сохранит готовую версию в `dist/`. Панель ра�
 
 ## Документация
 
+- [docs/PROJECT_DETAILS.md](docs/PROJECT_DETAILS.md) — описание проекта, авторский вклад, использование AI / SI и распределение источников; соответствует разделу Project Details на сайте.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — устройство движка, интерактивы, звук.
 - [docs/STORYBOARD.md](docs/STORYBOARD.md) — раскадровка всех трёх глав.
 - [docs/EXISTING_ASSETS_INVENTORY.md](docs/EXISTING_ASSETS_INVENTORY.md) и [docs/ASSET_CHECKLIST.md](docs/ASSET_CHECKLIST.md) — что из арта есть и что нужно нарисовать.

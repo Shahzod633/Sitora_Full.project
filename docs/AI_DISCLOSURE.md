@@ -1,9 +1,15 @@
 # AI usage disclosure
 
 Prepared for the NASA Space Apps Challenge submission. The same statement is published in the app: the
-**“What’s made with AI?”** mark (title screen and every chapter) opens the panel in
+**Project Details** button or **“What’s made with AI?”** mark (title screen and every chapter) opens the panel in
 `src/components/ui/AiDisclosure.tsx`. Keep the two in step — when AI-assisted artwork or code is added,
 update both.
+
+Project Details also describes the three-chapter format, fact versus fiction, sound and font licensing.
+Credits & Sources contains only the materials used: **NASA Data** (mission information and NASA imagery,
+including partner-hosted LROC imagery) and **Space Agency & Other** (the Wikimedia Commons Lunokhod model
+photograph and Natural Earth coastline data used in the fallback Earth illustration). Development tools
+are described in Project Details, not linked as data sources.
 
 ## Authorship, as confirmed by the team
 
@@ -20,6 +26,7 @@ update both.
 | Painted star field (`space-painted.webp`) | Image generation (see below) |
 | Logo (`aster-logo.png`) | Supplied by the team; prepared for the web with image processing |
 | Website code | Written and refined with AI coding tools (OpenAI Codex; Anthropic's Claude through Claude Code) under the team's direction |
+| Development requests and explanatory project text | ChatGPT assisted with structuring requests and drafting text |
 | Sound | Voice blips, cues and music are synthesized in the browser by the site's code. One short click sample (`click-placeholder.wav`) comes from the first prototype; its origin is not recorded, so the in-app panel makes no claim about audio |
 
 Not claimed anywhere: "100% handmade", "no AI-generated code", percentages of human vs AI contribution, or
@@ -43,8 +50,9 @@ rover drawings, poses) were written as SVG code with AI coding assistance. They 
 
 ## Sound
 
-All voice blips, sound cues and ambient music are synthesized in the browser by code (original; no
-samples or third-party recordings). No AI audio generation is used.
+Voice blips, sound cues and ambient music are synthesized in the browser by code. A legacy click sample
+(`click-placeholder.wav`) remains in the repository with undocumented provenance; the disclosure does not
+claim that every audio asset is original or that all recordings have a verified origin.
 
 ## Story and data
 

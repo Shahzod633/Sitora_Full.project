@@ -60,6 +60,7 @@ export default function StartScreen({ onBegin, onCredits, onAi, initial }: Props
       </ol>}
     </div>
     <div className="cover-tools">
+      <button type="button" className="text-button" onClick={onAi}>Project Details</button>
       <button type="button" className="text-button" onClick={onCredits}>Credits &amp; Sources</button>
       <AiButton onOpen={onAi}/>
       <SoundToggle/>

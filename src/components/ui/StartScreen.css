@@ -45,9 +45,12 @@
   .cover-art { background-position: 78% 50%; }
   .cover-shade { background: linear-gradient(0deg, rgba(6, 14, 20, 0.9) 0%, rgba(6, 14, 20, 0.55) 46%, transparent 72%); }
   .cover-aster-track { top: 20%; height: 6vh; }
-  .cover-copy { top: auto; bottom: calc(var(--bottom) + 64px); translate: none; left: var(--edge); right: var(--edge); }
+  .cover-copy { top: auto; bottom: calc(var(--bottom) + 118px); translate: none; left: var(--edge); right: var(--edge); }
   .cover-copy .title { font-size: clamp(80px, 26vw, 140px); }
-  .cover-tools { left: var(--edge); justify-content: space-between; }
+  .cover-tools { left: var(--edge); display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; }
+  .cover-tools > .text-button { min-height: 44px; }
+  .cover-tools > :nth-child(2n) { justify-self: end; }
+  .cover-tools > .ai-chip { justify-self: start; }
 }
 @media (max-height: 520px) and (min-aspect-ratio: 1/1) {
   .cover-copy .title { font-size: clamp(56px, 16vh, 110px); }

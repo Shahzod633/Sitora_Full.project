@@ -25,6 +25,11 @@ export const StoryController: React.FC = () => {
   const openCredits = useCallback(() => setCredits(true), []);
   const openAi = useCallback(() => setAi(true), []);
   const closeAi = useCallback(() => setAi(false), []);
+  const creditsToDetails = useCallback(() => {
+    setCredits(false);
+    setCreditsFromAi(false);
+    setAi(true);
+  }, []);
   // One modal at a time: the AI panel hands over to Credits & Sources and the story stays held meanwhile.
   const aiToCredits = useCallback(() => {
     setAi(false);
@@ -74,7 +79,7 @@ export const StoryController: React.FC = () => {
       nextNumber={hasNext ? chapterList[index + 1].number : undefined}
       onNext={hasNext ? () => start(index + 1) : undefined}
       onReplay={replay} onReplayStory={replayStory} onSelectChapter={start} onTitle={toTitle} onCredits={openCredits}
-      onAi={openAi} held={ai || creditsFromAi}/>;
+      onAi={openAi} held={ai || credits || creditsFromAi}/>;
   } else {
     screen = <main className="scene chapter-loading" aria-busy={!failed}>
       {failed
@@ -91,7 +96,7 @@ export const StoryController: React.FC = () => {
     <AudioProvider>
       {screen}
       {ai && <AiPanel onClose={closeAi} onCredits={aiToCredits}/>}
-      {credits && <CreditsPanel onClose={closeCredits}/>}
+      {credits && <CreditsPanel onClose={closeCredits} onProjectDetails={creditsToDetails}/>}
     </AudioProvider>
   );
 };

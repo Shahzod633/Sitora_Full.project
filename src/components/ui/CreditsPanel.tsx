@@ -1,12 +1,12 @@
 import React from 'react';
 import './CreditsPanel.css';
 import {
-  apolloLrvPhoto, archivePhotos, assets, lunokhodModelPhoto, lunokhodOrbitPhoto, pathfinderPhotos,
-  publicUrl, reflectorPhoto, roverPhotos, type ArchivePhoto, type AssetDef,
+  apolloLrvPhoto, archivePhotos, lunokhodModelPhoto, lunokhodOrbitPhoto, pathfinderPhotos,
+  reflectorPhoto, roverPhotos, type ArchivePhoto,
 } from '../../data/assetManifest';
 import { sources } from '../../data/missions';
 
-export default function CreditsPanel({ onClose }: { onClose: () => void }) {
+export default function CreditsPanel({ onClose, onProjectDetails }: { onClose: () => void; onProjectDetails: () => void }) {
   const ref = React.useRef<HTMLDialogElement>(null);
   React.useLayoutEffect(() => {
     const dialog = ref.current!;
@@ -20,9 +20,9 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
       if (opener?.isConnected) opener.focus({ preventScroll: true });
     };
   }, []);
-  const temporary = Object.values<AssetDef>(assets).filter(a => a.status === 'temporary').length;
   const photos = new Map<string, ArchivePhoto>();
-  [...archivePhotos, reflectorPhoto, lunokhodModelPhoto, lunokhodOrbitPhoto, apolloLrvPhoto,
+  // NASA mission imagery stays here even when a partner hosts it. The Wikimedia museum photo is separate.
+  [...archivePhotos, reflectorPhoto, lunokhodOrbitPhoto, apolloLrvPhoto,
     ...pathfinderPhotos, ...Object.values(roverPhotos)].forEach(p => photos.set(p.nasaId, p));
 
   // Only a click on the backdrop closes the panel. The dialog element has no padding of its own, so taps on the
@@ -39,62 +39,38 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
     </header>
     <div className="credits-scroll">
     <section>
-      <h3>ASTER — Abandoned But Not Forgotten</h3>
-      <p>An interactive webcomic in three chapters, created for the NASA Space Apps Challenge (“Abandoned but Not
-        Forgotten”). Original story, characters, screenplay and illustrations by the ASTER team.</p>
-      <p className="credits-note">Work in progress: {temporary} art slots in this build still hold temporary
-        placeholders or stand-ins, labelled on screen, which the ASTER art team is replacing with final artwork.</p>
+      <p>Sources of the historical information, archive images and geographic data used in ASTER.</p>
+      <button type="button" className="close-button" onClick={onProjectDetails}>Project Details</button>
+      <p className="credits-note">Authorship, development tools and AI / SI assistance are described in Project Details.</p>
     </section>
     <section>
-      <h3>Fact and fiction</h3>
-      <p>Apollo 11, Mars Pathfinder, Sojourner, Spirit, Opportunity, Curiosity and Perseverance are real; the
-        dates and findings shown in the archive panels are documented history from the NASA sources below.</p>
-      <p>Aster, its crew, the lunar refuelling stop, the human Mars expedition, the recovery of Sojourner, the
-        “Heritage Recovery” authorization and the Mars Colony Museum are fiction. They are not NASA operations,
-        policies or plans, and NASA does not endorse this project. Reconstructions are illustrations, not footage.</p>
-      <p className="credits-note">Mission lengths for Mars rovers are counted in sols (Martian days of about
-        24 hours 39 minutes). The characters say “days” as people do in conversation; the timelines say “sols”.</p>
-    </section>
-    <section>
-      <h3>Historical sources</h3>
+      <h3>NASA Data</h3>
+      <p>Mission histories, dates and scientific findings used in the lunar archive, Mars Pathfinder panels
+        and rover timeline.</p>
       <ul>
         {Object.values(sources).map(s => <li key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.label}</a></li>)}
         <li><a href="https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11.html" target="_blank" rel="noreferrer">NASA NSSDC — Apollo 11 archive</a></li>
+        <li><a href="https://ilrs.cddis.eosdis.nasa.gov/missions/satellite_missions/current_missions/ap11_general.html" target="_blank" rel="noreferrer">NASA ILRS — Apollo 11 laser retroreflector</a> — lunar archive.</li>
+        <li><a href="https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_lrv.html" target="_blank" rel="noreferrer">NASA NSSDC — Lunar Roving Vehicle</a> — lunar archive.</li>
+        <li><a href="https://www.nasa.gov/wp-content/uploads/static/history/SP-4029/Apollo_15a_Summary.htm" target="_blank" rel="noreferrer">NASA — Apollo 15 mission summary</a> — distance travelled and samples returned.</li>
         <li>NASA (2011), “Recommendations to Space-Faring Entities: How to Protect and Preserve the Historic and
           Scientific Value of U.S. Government Lunar Artifacts”.</li>
       </ul>
-      <h3>NASA photographs</h3>
+      <h4>NASA mission imagery</h4>
       <ul>
         {[...photos.values()].map(p => <li key={p.nasaId}>
-          {p.nasaId}: {p.credit}{p.available ? '' : ' (image pending)'} — <a href={p.source} target="_blank" rel="noreferrer">catalogue</a>
+          <a href={p.source} target="_blank" rel="noreferrer">{p.caption}</a> — {p.credit}{p.available ? '' : ' (image pending)'}
         </li>)}
       </ul>
     </section>
     <section>
-      <h3>Illustrated star field</h3>
-      <p>The painted deep-space background used in space scenes and chapter-end cards was generated
-        with OpenAI image generation, using the team’s ASTER title-screen painting as a style reference.</p>
-    </section>
-    <section>
-      <h3>Sound</h3>
-      <p>Character voice blips, story sound cues and the ambient music are original and synthesized in your browser.
-        No third-party recordings are used.</p>
-    </section>
-    <section>
-      <h3>AI disclosure</h3>
-      <p>The story, characters, visual direction, the original Mara and Eli character references and the
-        mini-game concepts are the team’s own work. Pip and the spacecraft were conceived by the team; their
-        illustrations, the backgrounds and the additional character poses were produced with generative image
-        tools from the team’s references and direction.</p>
-      <p>AI coding tools (OpenAI Codex and Anthropic’s Claude) helped write and refine the website’s code and
-        its temporary placeholder graphics. The full statement is under “What’s made with AI?” on the title
-        screen and in every chapter, and in docs/AI_DISCLOSURE.md.</p>
-    </section>
-    <section>
-      <h3>Typefaces and data</h3>
+      <h3>Space Agency &amp; Other</h3>
+      <p>Non-NASA materials used in the lunar archive and the Earth illustration.</p>
       <ul>
-        <li>Barlow Condensed — SIL Open Font License 1.1 (<a href={publicUrl('assets/fonts/OFL.txt')} target="_blank" rel="noreferrer">license</a>)</li>
-        <li>Earth illustration coastlines — Natural Earth (public domain)</li>
+        <li><a href={lunokhodModelPhoto.source} target="_blank" rel="noreferrer">Wikimedia Commons — Lunokhod 1 model</a>
+          {' '}— {lunokhodModelPhoto.credit}. Used in the Chapter 01 lunar hardware archive.</li>
+        <li><a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noreferrer">Natural Earth — map data</a>
+          {' '}— public-domain coastline geometry used in the project’s fallback Earth illustration.</li>
       </ul>
     </section>
     <button type="button" className="close-button" onClick={onClose}>Close</button>
