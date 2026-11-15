@@ -49,7 +49,7 @@ export const stages: Record<StageId, StageDef> = {
     layers: [
       { id: 'plain', asset: 'marsSunset', label: 'A wide Martian plain under a sunset sky', depth: 1, box: cover(16 / 9),
         children: [
-          { id: 'asterS', asset: 'asterMars', label: 'Aster in the distance', box: { x: 80, y: 68, w: '24%', anchor: [0.5, 1] }, initial: { brightness: 0.32 } },
+          { id: 'asterS', asset: 'aster', label: 'Aster in the distance', box: { x: 80, y: 68, w: '28%', anchor: [0.5, 1] }, initial: { brightness: 0.32 } },
           { id: 'maraW', asset: 'maraMars', label: 'Mara', box: { x: 27, y: 88, h: '25%', anchor: [0.5, 1] }, initial: { brightness: 0.34 } },
           // Eli is drawn facing left: mirrored so all three walk toward the ship.
           { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 34, y: 89, h: '25.5%', anchor: [0.5, 1] }, initial: { brightness: 0.34, flags: { flip: true } } },

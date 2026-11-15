@@ -91,7 +91,7 @@ export const stages: Record<StageId, StageDef> = {
     layers: [
       { id: 'land', asset: 'marsLandscape', label: 'A wide, dusty Martian plain under a butterscotch sky', depth: 1, box: cover(16 / 9),
         children: [
-          { id: 'asterL', asset: 'asterMars', label: 'Aster, landed', box: { x: 74, y: 63, w: '30%', anchor: [0.5, 1] },
+          { id: 'asterL', asset: 'aster', label: 'Aster, landed', box: { x: 74, y: 63, w: '34%', anchor: [0.5, 1] },
             children: [
               thruster,
               { id: 'landingGlow', fx: 'landingGlow', box: { x: 50, y: 100, w: '60%', h: '60%' }, initial: { opacity: 0 } },
