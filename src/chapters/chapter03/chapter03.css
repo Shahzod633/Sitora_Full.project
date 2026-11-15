@@ -120,3 +120,11 @@
 .final-end { margin: 0; font: 600 clamp(18px, 3cqmin, 30px)/1 "Barlow Condensed", sans-serif; letter-spacing: 0.5em; padding-left: 0.5em; text-transform: uppercase; color: #ecc296; animation-delay: 2.8s; }
 .final-title .end-actions { animation-delay: 4.4s; }
 @media (prefers-reduced-motion: reduce) { .final-title > * { animation: none; } }
+/* Martian Sunset owns an opaque backdrop, including while the old stage is being retired. */
+.stage[data-stage="sunset"] { background: #a76b51; }
+.stage[data-stage="sunset"] [data-layer="maraW"] > .layer-art,
+.stage[data-stage="sunset"] [data-layer="eliW"] > .layer-art { background-position: center bottom; }
+@media (prefers-reduced-motion: reduce) {
+  /* Lock the complete tableau, including camera reflows, for reduced motion. */
+  .stage[data-stage="sunset"] .cam { transform: none !important; }
+}

@@ -179,23 +179,19 @@ export const storyboard: Beat<LineId>[] = [
   // ============================================================ SEQUENCE F — MARTIAN SUNSET
   {
     id: 'L14', slug: 'martian-sunset', sequence: 'F', title: 'Martian sunset', stage: 'sunset',
-    // The emotional climax: the crew walks toward Aster, Pip carrying Sojourner, and the camera pulls back.
-    transition: { kind: 'crossfade', duration: 2.2 },
-    layers: {
-      maraW: { xp: 250, duration: 15, ease: 'none', flags: { walk: true } },
-      eliW: { xp: 222, duration: 15, ease: 'none', flags: { walk: true } },
-      pipW: { xp: 343, duration: 15, ease: 'none', flags: { walk: true } },
-    },
+    // A dissolve superimposed the large discovery-site crew over the smaller sunset crew.
+    // Change scenes behind an opaque veil; standing artwork stays fixed on the ground.
+    transition: { kind: 'black', duration: 1.2 },
+    expressions: { pip: 'content' },
     sound: [{ cue: 'wind', at: 0.5 }],
-    camera: { from: 'walkNear', to: { shot: 'pullBack', duration: 13, delay: 1, ease: 'sine.inOut' } },
+    camera: { from: 'returnNear', to: { shot: 'pullBack', duration: 13, ease: 'sine.inOut' } },
     caption: { kind: 'scene', text: 'One More Passenger' },
     advance: { mode: 'auto', hold: 14 },
   },
   {
     id: 'L15', slug: 'camera-rises', sequence: 'F', title: 'The camera rises', stage: 'sunset',
-    // Screenplay: "The camera rises above the Martian surface."
+    // Hold the complete return composition as dusk falls; keep everyone in frame.
     layers: { nightFall: { opacity: 0.72, duration: 5, ease: 'sine.in' } },
-    camera: { to: { shot: 'sky', duration: 5.4, ease: 'sine.inOut' } },
     advance: { mode: 'auto', hold: 5 },
   },
 

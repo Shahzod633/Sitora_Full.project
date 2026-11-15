@@ -257,7 +257,7 @@ export const stages: Record<StageId, StageDef> = {
   ending: {
     id: 'ending', label: 'Chapter one complete', tone: 'black', costume: 'flight', music: 'space',
     layers: [
-      { ...stars(0.02), initial: { opacity: 0.35 } },
+      { ...stars(0.02), initial: { opacity: 0.85 } },
       { id: 'mars', fx: 'marsGlint', depth: 0.02, box: { x: 78, y: 26, w: '2.6cqmin', h: '2.6cqmin' }, portrait: { x: 74, y: 16 } },
       { id: 'endCard', fx: 'endCard', depth: 0, box: { x: 50, y: 50 } },
     ],

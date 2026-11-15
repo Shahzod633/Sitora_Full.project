@@ -41,33 +41,41 @@ export const stages: Record<StageId, StageDef> = {
   },
 
   // ---------------------------------------------------------------- Martian sunset (L14–L15)
-  // One wide painting. The crew, the rover and the ship are separate, darkened layers, so they read as
-  // silhouettes against the sky and can walk while the camera pulls back.
+  // No walk-cycle art is available. Keep the crew planted while the camera pulls back.
+  // The landscape contains no figures; every passenger is rendered exactly once below.
   sunset: {
-    id: 'sunset', label: 'The crew walking toward Aster across the Martian plain at sunset, Pip carrying Sojourner', tone: 'dusk',
+    id: 'sunset', label: 'The crew facing Aster on the Martian plain at sunset, Pip holding Sojourner', tone: 'dusk',
     costume: 'mars', bounds: 'plain', music: 'finale',
     layers: [
-      { id: 'plain', asset: 'marsSunset', label: 'A wide Martian plain under a sunset sky', depth: 1, box: cover(16 / 9),
+      { id: 'plain', asset: 'marsSunset', label: 'A wide Martian plain under a sunset sky', depth: 1, box: cover(16 / 9) },
+      { id: 'asterS', asset: 'aster', label: 'Aster in the distance', depth: 1,
+        box: { x: 79, y: 67, w: '26cqw', h: '18cqh', anchor: [0.5, 1] },
+        portrait: { x: 73, y: 65, w: '48cqw', h: '14cqh' }, initial: { brightness: 0.65 } },
+      // Viewport-relative group instead of children of a cover-cropped landscape: all boots and
+      // the carried rover fit on narrow phones too. Children share the same camera plane.
+      { id: 'returnParty', depth: 1,
+        box: { x: 43, y: 85, w: 'min(48cqw, 70cqh)', aspect: 1.6, anchor: [0.5, 1] },
+        portrait: { x: 46, y: 81, w: '82cqw' },
         children: [
-          { id: 'asterS', asset: 'aster', label: 'Aster in the distance', box: { x: 80, y: 68, w: '28%', anchor: [0.5, 1] }, initial: { brightness: 0.32 } },
-          { id: 'maraW', asset: 'maraMars', label: 'Mara', box: { x: 27, y: 88, h: '25%', anchor: [0.5, 1] }, initial: { brightness: 0.34 } },
-          // Eli is drawn facing left: mirrored so all three walk toward the ship.
-          { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 34, y: 89, h: '25.5%', anchor: [0.5, 1] }, initial: { brightness: 0.34, flags: { flip: true } } },
-          // Pip carries the rover against his chest (its own layer; no carrying pose has been drawn yet).
-          { id: 'pipW', asset: 'pipMars', label: 'Pip', box: { x: 41, y: 89.5, w: '2.63%', h: '11.5%', anchor: [0.5, 1] }, initial: { brightness: 0.36 },
+          { id: 'maraShadow', fx: 'shadow', box: { x: 18, y: 99, w: '22%', h: '3%' }, initial: { opacity: 0.65 } },
+          { id: 'eliShadow', fx: 'shadow', box: { x: 47, y: 99, w: '22%', h: '3%' }, initial: { opacity: 0.65 } },
+          { id: 'pipShadow', fx: 'shadow', box: { x: 78, y: 99, w: '18%', h: '3%' }, initial: { opacity: 0.65 } },
+          { id: 'maraW', asset: 'maraMars', label: 'Mara', box: { x: 18, y: 100, w: '18%', h: '100%', anchor: [0.5, 1] }, initial: { brightness: 0.7 } },
+          { id: 'eliW', asset: 'eliMars', label: 'Eli', box: { x: 47, y: 100, w: '19%', h: '100%', anchor: [0.5, 1] }, initial: { brightness: 0.7, flags: { flip: true } } },
+          // Existing Pip art has lowered hands. The rover sits between those hands, not over his face.
+          // Parenting keeps their attachment exact throughout the camera move and responsive reflow.
+          { id: 'pipW', character: 'pip', label: 'Pip holding Sojourner', box: { x: 78, y: 100, w: '12.62%', h: '50%', anchor: [0.5, 1] }, initial: { brightness: 0.7 },
             children: [
-              { id: 'roverW', asset: 'sojourner', label: 'Sojourner, carried by Pip', box: { x: 60, y: 58, w: '150%', h: '51%' }, initial: { brightness: 0.9 } },
+              { id: 'roverW', asset: 'sojourner', label: 'Sojourner, held in Pip’s hands', box: { x: 57, y: 75, w: '104%', h: '28%', anchor: [0.5, 1] } },
             ] },
-          { id: 'skyMark', box: { x: 50, y: 8, w: '40%', h: '10%' } },
         ] },
       { id: 'nightFall', fx: 'tint', props: { tone: 'black' }, depth: 0, box: full, initial: { opacity: 0 } },
       vignette(0.4),
     ],
     shots: {
       wide: {},
-      walkNear: { target: ['maraW', 'pipW'], focus: [0.6, 0.4], zoom: 2.3, screen: [0.46, 0.54], portrait: { target: ['maraW', 'pipW'], focus: [0.6, 0.4], zoom: 1.5, screen: [0.5, 0.5] } },
-      pullBack: { target: 'plain', focus: [0.5, 0.5], zoom: 1, portrait: { target: ['maraW', 'asterS'], focus: [0.5, 0.4], zoom: 1 } },
-      sky: { target: 'skyMark', focus: [0.5, 0.5], zoom: 1.5, screen: [0.5, 0.3] },
+      returnNear: { point: [50, 58], zoom: 1.08 },
+      pullBack: { point: [50, 50], zoom: 1 },
     },
   },
 

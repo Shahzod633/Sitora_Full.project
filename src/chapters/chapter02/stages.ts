@@ -26,6 +26,9 @@ export const stages: Record<StageId, StageDef> = {
         props: { base: 'observationDeck', eli: 'observationDeckEli', mara: 'observationDeckMara' },
         children: [marker('eliO', 23, 50, 16, 76), marker('maraO', 47, 60, 16, 60), marker('moonO', 76, 26, 10, 16), marker('earthO', 46, 66, 70, 40)] },
       vignette(0.2),
+      // The rear-view paintings only have lip-sync variants. Use the approved smiling portrait
+      // as a distinct cutaway on one line instead of inventing expressions in this camera angle.
+      { id: 'maraReaction', fx: 'observationReaction', depth: 0, box: full, initial: { opacity: 0 } },
     ],
     shots: {
       wide: {},
@@ -163,7 +166,7 @@ export const stages: Record<StageId, StageDef> = {
   ending: {
     id: 'ending', label: 'Chapter two complete', tone: 'black', costume: 'mars', music: 'mars',
     layers: [
-      { ...stars(0.02), initial: { opacity: 0.3 } },
+      { ...stars(0.02), initial: { opacity: 0.85 } },
       { id: 'endCard', fx: 'endCard', depth: 0, box: { x: 50, y: 50 } },
     ],
     shots: { wide: {} },

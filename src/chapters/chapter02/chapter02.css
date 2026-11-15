@@ -143,3 +143,23 @@
 @media (prefers-reduced-motion: reduce) {
   .timeline-event, .compare-bar i, .timeline-compare, .timeline-totals, .dust-canvas { transition: none; }
 }
+/* Before Mars: a short, independent portrait panel from the approved turnaround sheet. */
+.observation-reaction {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-bottom: 14cqh;
+  background: #0c1a21;
+  pointer-events: none;
+}
+.observation-reaction .character-portrait {
+  width: min(72cqw, 48cqh);
+  height: min(72cqw, 48cqh);
+  flex: none;
+  border-radius: 0;
+  border: 2px solid #b99471;
+  background: #000;
+}
+.observation-reaction .portrait-figure,
+.observation-reaction .portrait-emote { animation: none; }

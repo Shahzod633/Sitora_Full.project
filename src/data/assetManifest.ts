@@ -65,11 +65,10 @@ export type AssetDef = {
 const asset = (def: AssetDef) => def;
 
 export const assets = {
-  // One shared real photograph for every open-space scene: ESA/Hubble potw1624a, "Scattered stars in Sagittarius".
-  // Wide crop for landscape, portrait crop for tall phones. Credited in Credits & Sources and on the end cards.
-  spaceStars: asset({ kind: 'background', fallback: space, src: 'assets/art/space-hubble-wide.webp',
-    mobileSrc: 'assets/art/space-hubble-portrait.webp', aspect: 2400 / 1136, fit: 'cover', status: 'final',
-    brief: 'Real deep-space photograph (ESA/Hubble & NASA, potw1624a). Shared starfield behind every space scene and chapter-end card.' }),
+  // Illustrated space matched to the title painting. One crop-safe asset serves both orientations.
+  spaceStars: asset({ kind: 'background', fallback: space, src: 'assets/art/space-painted.webp',
+    aspect: 1672 / 941, fit: 'cover', status: 'final',
+    brief: 'Painted navy starfield with sparse ivory stars, generated to match the ASTER title-screen illustration. Shared by open-space scenes and chapter-end cards.' }),
   earth: asset({ kind: 'object', fallback: earth, aspect: 1, status: 'temporary',
     brief: 'Earth from orbit on transparency, hand-drawn, soft cyan halo. Reused at many scales (B01, cockpit window, lunar sky).' }),
   moonGlobe: asset({ kind: 'object', fallback: moonGlobe, src: 'assets/art/moon-globe.webp', aspect: 1, status: 'final',

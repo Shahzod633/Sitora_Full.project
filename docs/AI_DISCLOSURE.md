@@ -43,6 +43,13 @@ plate and the Mars sunset. They replace earlier vector placeholders. The team st
 their own submission; this repository records them as team-supplied final artwork through the asset manifest
 (`status: 'final'`), so no "Placeholder art" label is shown for the scenes that now use them.
 
+## Illustrated star field (15 November 2026)
+
+`public/assets/art/space-painted.webp` was created with the built-in OpenAI image-generation tool,
+using `space-earth-limb.jpg` as the style reference. It replaces the photographic Hubble star field
+in open-space scenes and chapter-completion screens. The reference painting was not changed.
+The complete generation prompt is recorded in `SPACE_BACKGROUND_PROMPT.md`.
+
 ## Not implied
 
 NASA does not endorse ASTER. NASA names appear only to identify real historical missions and to credit

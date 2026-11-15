@@ -28,8 +28,5 @@ export default function ChapterEndCard() {
       <button ref={next ? undefined : primary} type="button" className={next ? 'text-button' : 'end-replay'} onClick={replay}>Replay Chapter</button>
       <button type="button" className="text-button" onClick={credits}>Credits &amp; Sources</button>
     </div>
-    <p className="end-photo-credit">
-      Star field: <a href="https://esahubble.org/images/potw1624a/" target="_blank" rel="noreferrer">ESA/Hubble &amp; NASA</a>
-    </p>
   </div>;
 }

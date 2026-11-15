@@ -25,7 +25,10 @@ export const storyboard: Beat<LineId>[] = [
     camera: { to: { shot: 'eliO', duration: 1.4 } },
     dialogue: ['pro-eli-weird', 'pro-mara-next-stop', 'pro-eli-routine'],
     onLine: {
-      'pro-mara-next-stop': { camera: { to: { shot: 'maraO', duration: 1.1 } } },
+      'pro-mara-next-stop': {
+        camera: { to: { shot: 'maraO', duration: 1.1 } },
+        layers: { maraReaction: [show(0.18), hide(0.25, 3)] },
+      },
       'pro-eli-routine': { camera: { to: { shot: 'two', duration: 1.2 } } },
     },
     advance: { mode: 'dialogue' },
