@@ -10,10 +10,15 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
   const ref = React.useRef<HTMLDialogElement>(null);
   React.useLayoutEffect(() => {
     const dialog = ref.current!;
+    // Focus returns to whatever opened the panel once it closes.
+    const opener = document.activeElement as HTMLElement | null;
     // Older mobile browsers have no modal <dialog>: fall back to a plain open dialog (styled as an overlay).
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
-    return () => { if (typeof dialog.close === 'function' && dialog.open) dialog.close(); };
+    return () => {
+      if (typeof dialog.close === 'function' && dialog.open) dialog.close();
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+    };
   }, []);
   const temporary = Object.values<AssetDef>(assets).filter(a => a.status === 'temporary').length;
   const photos = new Map<string, ArchivePhoto>();
@@ -77,9 +82,13 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
     </section>
     <section>
       <h3>AI disclosure</h3>
-      <p>The team used AI coding assistance to write parts of the website code and its temporary placeholder
-        graphics. The story, creative direction, illustrations and integration are the team’s own; the team’s
-        statement about tools used for the artwork is in docs/AI_DISCLOSURE.md.</p>
+      <p>The story, characters, visual direction, the original Mara and Eli character references and the
+        mini-game concepts are the team’s own work. Pip and the spacecraft were conceived by the team; their
+        illustrations, the backgrounds and the additional character poses were produced with generative image
+        tools from the team’s references and direction.</p>
+      <p>AI coding tools (OpenAI Codex and Anthropic’s Claude) helped write and refine the website’s code and
+        its temporary placeholder graphics. The full statement is under “What’s made with AI?” on the title
+        screen and in every chapter, and in docs/AI_DISCLOSURE.md.</p>
     </section>
     <section>
       <h3>Typefaces and data</h3>

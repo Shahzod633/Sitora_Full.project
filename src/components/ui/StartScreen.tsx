@@ -2,6 +2,7 @@ import React from 'react';
 import './StartScreen.css';
 import { useAudio } from '../audio/AudioContext';
 import SoundToggle from '../audio/SoundToggle';
+import { AiButton } from './AiDisclosure';
 import SceneArt from '../visual/SceneArt';
 import { AsterMark } from '../visual/ChapterFrame';
 import { preloadAssets } from '../../data/assetManifest';
@@ -11,11 +12,13 @@ type Props = {
   /** Start the story at chapter `index` (0-based). */
   onBegin: (index: number) => void;
   onCredits: () => void;
+  /** Open the "What's made with AI?" panel. */
+  onAi: () => void;
   /** Chapter requested by a ?chapter=N link: offered as the primary action. */
   initial?: number;
 };
 
-export default function StartScreen({ onBegin, onCredits, initial }: Props) {
+export default function StartScreen({ onBegin, onCredits, onAi, initial }: Props) {
   const { unlock } = useAudio();
   const [chapters, setChapters] = React.useState(false);
   const first = initial ?? 0;
@@ -58,6 +61,7 @@ export default function StartScreen({ onBegin, onCredits, initial }: Props) {
     </div>
     <div className="cover-tools">
       <button type="button" className="text-button" onClick={onCredits}>Credits &amp; Sources</button>
+      <AiButton onOpen={onAi}/>
       <SoundToggle/>
     </div>
   </main>;

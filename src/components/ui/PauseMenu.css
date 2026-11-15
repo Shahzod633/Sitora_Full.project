@@ -37,7 +37,7 @@
 .sound-mute input { width: 20px; height: 20px; accent-color: #e6ab79; }
 
 @media (max-width: 650px) {
-  .pause-button { top: 64px; width: 44px; height: 44px; }
+  .pause-button { top: 70px; width: 44px; height: 44px; }
   .pause-menu h2 { font-size: 44px; }
 }
 @media (max-height: 520px) and (min-aspect-ratio: 1/1) {

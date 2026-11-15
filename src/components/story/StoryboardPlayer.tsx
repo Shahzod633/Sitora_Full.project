@@ -8,6 +8,7 @@ import { characters, type CharacterId } from '../../data/characters';
 import { SHOW_PLACEHOLDER_LABEL, assets, isTemporary, type AssetId } from '../../data/assetManifest';
 import DialogueBox, { type DialogueBoxHandle } from '../dialogue/DialogueBox';
 import PauseMenu from '../ui/PauseMenu';
+import { AiButton } from '../ui/AiDisclosure';
 import SoundToggle from '../audio/SoundToggle';
 import { HUD_SLOT_ID } from '../interactions/ActivityHud';
 import ChapterFrame, { Captions } from '../visual/ChapterFrame';
@@ -25,6 +26,10 @@ type Props = {
   onSelectChapter: (index: number) => void;
   onTitle: () => void;
   onCredits: () => void;
+  /** Open the "What's made with AI?" panel. */
+  onAi: () => void;
+  /** An information panel is open over the story: hold the chapter until it closes. */
+  held: boolean;
 };
 
 /** Development only: ?beat=B17 starts the chapter at a given beat. */
@@ -65,7 +70,7 @@ export default function StoryboardPlayer({ chapter, ...rest }: Props) {
   return <PlayerView director={director} {...rest}/>;
 }
 
-function PlayerView({ director, nextNumber, onNext, onReplay, onReplayStory, onSelectChapter, onTitle, onCredits }:
+function PlayerView({ director, nextNumber, onNext, onReplay, onReplayStory, onSelectChapter, onTitle, onCredits, onAi, held }:
   { director: Director } & Omit<Props, 'chapter'>) {
   const snap: Snapshot = React.useSyncExternalStore(director.subscribe, director.getSnapshot);
   const chapter = director.chapter;
@@ -93,6 +98,23 @@ function PlayerView({ director, nextNumber, onNext, onReplay, onReplayStory, onS
 
   // After a portrait/landscape recomposition React has re-laid out the boxes; re-frame the camera.
   React.useLayoutEffect(() => { director.reflow(); }, [director, snap.portrait]);
+
+  // An information panel (AI credits, or Credits opened from it) freezes the story through the normal pause —
+  // timers, timelines, the typewriter, the mini-games and audio — without showing the pause menu. Closing it
+  // resumes only if this hold did the pausing: a story the reader had already paused stays paused.
+  const [heldByPanel, setHeldByPanel] = React.useState(false);
+  React.useLayoutEffect(() => {
+    if (held) {
+      if (!director.getSnapshot().paused) {
+        director.pause();
+        setHeldByPanel(true);
+      }
+    } else if (heldByPanel) {
+      director.resume();
+      setHeldByPanel(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [held, director]);
 
   const pause = React.useCallback(() => director.pause(), [director]);
   const resume = React.useCallback(() => director.resume(), [director]);
@@ -174,8 +196,9 @@ function PlayerView({ director, nextNumber, onNext, onReplay, onReplayStory, onS
       <div id={HUD_SLOT_ID}/>
       <DialogueBox ref={dialogue} line={snap.line} visible={snap.dialogueVisible} costume={snap.costume}
         expression={speakerExpression} onAdvance={director.advanceLine} onTalkingChange={setTalking} paused={snap.paused}/>
+      <AiButton onOpen={onAi}/>
       <SoundToggle/>
-      <PauseMenu open={snap.paused} onPause={pause} onResume={resume} currentChapter={chapter.id}
+      <PauseMenu open={snap.paused && !held && !heldByPanel} onPause={pause} onResume={resume} currentChapter={chapter.id}
         onRestart={onReplay} onSelectChapter={onSelectChapter} onTitle={onTitle} onCredits={onCredits}/>
       {DevOverlay && <React.Suspense fallback={null}><DevOverlay director={director} snap={snap}/></React.Suspense>}
     </main>

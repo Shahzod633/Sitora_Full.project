@@ -29,7 +29,7 @@ export function LegacyLine() {
   const n = legacyMilestones.length;
   // The line climbs from Apollo 11 (bottom left) to the Aster expedition (top right); upright phones stack it.
   const points = legacyMilestones.map((_, i) => portrait
-    ? { x: i % 2 ? 68 : 32, y: 93 - (i * 71) / (n - 1) }
+    ? { x: i % 2 ? 68 : 32, y: 95 - (i * 65) / (n - 1) }
     : { x: 8 + (i * 82) / (n - 1), y: 76 - (i * 32) / (n - 1) });
   return <div className="legacy-line" data-portrait={portrait} role="img"
     aria-label="Apollo 11, Sojourner, Spirit, Opportunity, Curiosity, Perseverance and, finally, the fictional Aster expedition, connected by a glowing line">

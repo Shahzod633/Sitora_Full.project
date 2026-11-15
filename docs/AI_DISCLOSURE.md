@@ -1,11 +1,36 @@
 # AI usage disclosure
 
-Prepared for the NASA Space Apps Challenge submission. **Team: please review and complete the bracketed
-part before submitting** — only the team knows how each illustration was made.
+Prepared for the NASA Space Apps Challenge submission. The same statement is published in the app: the
+**“What’s made with AI?”** mark (title screen and every chapter) opens the panel in
+`src/components/ui/AiDisclosure.tsx`. Keep the two in step — when AI-assisted artwork or code is added,
+update both.
+
+## Authorship, as confirmed by the team
+
+| Area | Who |
+| --- | --- |
+| Story, screenplay, characters, their personalities, relationships and roles | The team, from scratch |
+| Visual direction and intended style | The team |
+| Original drawings / visual references of Mara and Eli | The team |
+| Mini-game ideas and their design intent | The team |
+| Pip | Conceived by the team; his original illustration was **not** hand-drawn by the team (AI-assisted) |
+| The spacecraft (Aster) | Concept by the team; the illustration is AI-assisted, not fully hand-drawn |
+| Backgrounds and additional character poses | Generative image tools, guided by the team's references and direction |
+| Pip carrying Sojourner (`pip-carry-sojourner.webp`) | Image generation from the existing drawings |
+| Painted star field (`space-painted.webp`) | Image generation (see below) |
+| Logo (`aster-logo.png`) | Supplied by the team; prepared for the web with image processing |
+| Website code | Written and refined with AI coding tools (OpenAI Codex; Anthropic's Claude through Claude Code) under the team's direction |
+| Sound | Voice blips, cues and music are synthesized in the browser by the site's code. One short click sample (`click-placeholder.wav`) comes from the first prototype; its origin is not recorded, so the in-app panel makes no claim about audio |
+
+Not claimed anywhere: "100% handmade", "no AI-generated code", percentages of human vs AI contribution, or
+that every asset was individually reviewed. The panel also notes that NASA's communications now use the
+term Super Intelligence (SI) and links to https://www.nasa.gov/what-is-super-intelligence/ — it does not
+say NASA requires, certifies or endorses this disclosure, and it makes no claim of compliance with a
+specific Space Apps rule (check the current official rules before stating one).
 
 ## Code
 
-The ASTER team used an AI coding assistant (Anthropic's Claude, through Claude Code) to help write and
+The ASTER team used AI coding tools (Anthropic's Claude through Claude Code, and OpenAI Codex) to help write and
 refactor the website's TypeScript/React/CSS code: the storyboard engine, the dialogue and audio systems,
 the three chapters' storyboard data, the interactive activities and this documentation. The team directed
 the work, chose the story and the staging, and reviewed the result.
@@ -28,12 +53,12 @@ Chapter 2 was supplied by the team as approved additional staging. Historical fa
 (`NASA_SOURCES.md`); AI assistance was used to locate and summarise those pages, and the facts were checked
 against them.
 
-## Illustrations — [TEAM TO CONFIRM]
+## Illustrations
 
-[State for each set of paintings (cockpit, galley, observation deck, Apollo site, lunar crew, Aster exterior,
-space background, Mara turnaround) whether it was hand-drawn, AI-generated, or AI-assisted and edited, and
-with which tool. If any are AI-generated, the challenge rules may require a visible disclosure in the app —
-the credits panel has an "AI disclosure" section where it can be stated.]
+See the authorship table above. In short: the team drew the original Mara and Eli references; Pip's and the
+spacecraft's illustrations, the scene backgrounds and the additional character poses were produced with
+generative image tools from the team's references and direction. The team has not listed the specific
+image tool for each painting; add that here if the submission needs it.
 
 ## Scene-fix paintings (added Nov 2026)
 

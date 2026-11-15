@@ -1,0 +1,90 @@
+/* "What's made with AI?" — the mark and its panel. Quiet by design: no pulse, no glow, no looping motion. */
+
+/* ---- The mark -------------------------------------------------------------- */
+.ai-chip {
+  display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 16px 0 13px; white-space: nowrap;
+  border: 1px solid #79908b; border-radius: 23px; background: #112832; color: var(--paper);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.04em; line-height: 1;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.ai-chip svg { flex: none; color: #ecc296; }
+.ai-chip:hover { border-color: var(--accent); }
+.ai-chip:active { background: #1c3a47; }
+.ai-chip-short { display: none; }
+
+/* In a chapter the bottom of the screen belongs to dialogue, Continue and the game controls, so the mark
+   has a fixed seat in the control cluster beside the sound and menu buttons. */
+.storyboard > .ai-chip { position: absolute; z-index: 5; top: max(64px, 9.5vh); right: calc(var(--edge) + 112px); }
+
+@media (max-width: 650px) {
+  .ai-chip { height: 44px; border-radius: 22px; padding: 0 14px 0 11px; gap: 7px; }
+  .ai-chip-full { display: none; }
+  .ai-chip-short { display: inline; }
+  .storyboard > .ai-chip { top: 70px; right: calc(var(--edge) + 108px); }
+}
+@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
+  .ai-chip { height: 38px; border-radius: 19px; padding: 0 12px 0 10px; }
+  .ai-chip-full { display: none; }
+  .ai-chip-short { display: inline; }
+  .storyboard > .ai-chip { top: 12px; right: calc(var(--edge) + 244px); }
+}
+
+/* ---- The panel --------------------------------------------------------------- */
+.ai-panel::backdrop { background: rgba(5, 12, 17, 0.84); }
+.ai-panel {
+  border: 3px solid #e8dfc8; border-radius: 2px; padding: 0; width: min(calc(100% - 28px), 660px);
+  max-height: min(90vh, 820px); max-height: min(90dvh, 820px); overflow: hidden;
+  background: #0b171d; color: var(--paper); box-shadow: 0 0 0 1px #0b171d, 0 22px 60px rgba(0, 0, 0, 0.6);
+}
+.ai-panel[open] { animation: ai-in 0.22s ease-out both; }
+.ai-panel:not(:modal) { position: fixed; z-index: 50; inset: 0; margin: auto; height: fit-content; box-shadow: 0 0 0 100vmax rgba(5, 12, 17, 0.84); }
+.ai-body { display: flex; flex-direction: column; max-height: inherit; }
+.ai-head {
+  flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: clamp(16px, 3vw, 26px) clamp(18px, 4vw, 32px) clamp(12px, 2vw, 18px); border-bottom: 1px solid rgba(241, 233, 212, 0.16);
+}
+.ai-kicker { margin: 0 0 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #ecc296; }
+.ai-panel h2 { margin: 0; font: 600 clamp(26px, 5.4vw, 38px)/1.05 "Barlow Condensed", sans-serif; letter-spacing: 0.02em; text-wrap: balance; }
+.ai-close {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 1px solid #79908b; border-radius: 50%;
+  background: #112832; color: var(--paper);
+}
+.ai-close:hover { border-color: var(--accent); }
+.ai-scroll {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  display: grid; gap: 14px; padding: clamp(14px, 2.4vw, 20px) clamp(18px, 4vw, 32px) max(22px, env(safe-area-inset-bottom));
+  user-select: text; -webkit-user-select: text;
+}
+.ai-panel p { margin: 0; font-size: 15px; line-height: 1.55; }
+.ai-intro { font-size: 16px !important; color: #e8dcc0; }
+.ai-block { display: grid; gap: 7px; padding: 13px 15px 14px; border: 1px solid rgba(241, 233, 212, 0.16); border-left: 3px solid #79908b; background: rgba(241, 233, 212, 0.04); }
+.ai-block[data-kind="team"] { border-left-color: #ecc296; }
+.ai-block[data-kind="shared"] { border-left-color: #c9b58e; }
+.ai-block[data-kind="ai"] { border-left-color: #8fc7c0; }
+.ai-block h3 { margin: 0; font: 600 19px/1.15 "Barlow Condensed", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: #f1e9d4; }
+.ai-block[data-kind="team"] h3 { color: #ecc296; }
+.ai-block[data-kind="ai"] h3 { color: #afe8d1; }
+.ai-link {
+  justify-self: start; min-height: 44px; margin-top: 2px; padding: 10px 18px; border: 1px solid #f5e8cb; border-radius: 2px;
+  background: var(--paper); color: var(--ink); font-size: 14px; font-weight: 600;
+}
+.ai-link:hover { background: #ffe4be; }
+.ai-terms { font-size: 13px !important; color: #b8c9bf; border-top: 1px solid rgba(241, 233, 212, 0.16); padding-top: 12px; }
+.ai-terms strong { color: var(--paper); }
+.ai-panel a { color: #f1bb8d; text-underline-offset: 3px; }
+
+/* Phones: a bottom sheet that scrolls inside itself; the scene underneath never moves. */
+@media (max-width: 650px) {
+  .ai-panel {
+    width: 100%; max-width: 100%; margin: auto 0 0; border-width: 3px 0 0; border-radius: 12px 12px 0 0;
+    max-height: 88vh; max-height: 88dvh;
+  }
+  .ai-panel[open] { animation-name: ai-sheet; }
+  .ai-panel p { font-size: 14.5px; }
+}
+@keyframes ai-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes ai-sheet { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ai-panel[open] { animation: none; }
+  .ai-chip { transition: none; }
+}

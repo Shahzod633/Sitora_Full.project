@@ -331,11 +331,11 @@
 
 @media (max-width: 650px) {
   /* Below the sound and menu buttons, so a long location line never runs underneath them. */
-  .captions { top: 122px; }
+  .captions { top: 126px; }
   .sequence-progress { top: 32px; gap: 3px; }
   .sequence-progress i { width: 9px; }
   .sequence-progress i[data-state="current"] { width: 18px; }
-  .storyboard > .sound-toggle { top: 64px; right: calc(var(--edge) + 54px); width: 44px; height: 44px; }
+  .storyboard > .sound-toggle { top: 70px; right: calc(var(--edge) + 54px); width: 44px; height: 44px; }
   .skip-hint { display: none; }
   .placeholder-chip { font-size: 9px; letter-spacing: 0.08em; }
   /* Phones: no room beside captions and panels; the label shows in cinematic moments only. */

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import StartScreen from '../ui/StartScreen';
 import CreditsPanel from '../ui/CreditsPanel';
+import AiPanel from '../ui/AiDisclosure';
 import StoryboardPlayer from './StoryboardPlayer';
 import { AudioProvider } from '../audio/AudioContext';
 import { chapterIndexFromQuery, chapterList } from '../../chapters';
@@ -17,8 +18,23 @@ export const StoryController: React.FC = () => {
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [failed, setFailed] = useState(false);
   const [credits, setCredits] = useState(false);
+  // "What's made with AI?" panel. While it (or Credits opened from it) is up, the chapter is held.
+  const [ai, setAi] = useState(false);
+  const [creditsFromAi, setCreditsFromAi] = useState(false);
 
   const openCredits = useCallback(() => setCredits(true), []);
+  const openAi = useCallback(() => setAi(true), []);
+  const closeAi = useCallback(() => setAi(false), []);
+  // One modal at a time: the AI panel hands over to Credits & Sources and the story stays held meanwhile.
+  const aiToCredits = useCallback(() => {
+    setAi(false);
+    setCreditsFromAi(true);
+    setCredits(true);
+  }, []);
+  const closeCredits = useCallback(() => {
+    setCredits(false);
+    setCreditsFromAi(false);
+  }, []);
   const start = useCallback((target: number) => {
     setIndex(target);
     setRun(r => r + 1);
@@ -51,13 +67,14 @@ export const StoryController: React.FC = () => {
 
   let screen: React.ReactNode;
   if (index === null) {
-    screen = <StartScreen onBegin={start} onCredits={openCredits} initial={chapterIndexFromQuery()}/>;
+    screen = <StartScreen onBegin={start} onCredits={openCredits} onAi={openAi} initial={chapterIndexFromQuery()}/>;
   } else if (chapter && chapter.id === chapterList[index].id) {
     const hasNext = index + 1 < chapterList.length;
     screen = <StoryboardPlayer key={`${chapter.id}:${run}`} chapter={chapter}
       nextNumber={hasNext ? chapterList[index + 1].number : undefined}
       onNext={hasNext ? () => start(index + 1) : undefined}
-      onReplay={replay} onReplayStory={replayStory} onSelectChapter={start} onTitle={toTitle} onCredits={openCredits}/>;
+      onReplay={replay} onReplayStory={replayStory} onSelectChapter={start} onTitle={toTitle} onCredits={openCredits}
+      onAi={openAi} held={ai || creditsFromAi}/>;
   } else {
     screen = <main className="scene chapter-loading" aria-busy={!failed}>
       {failed
@@ -73,7 +90,8 @@ export const StoryController: React.FC = () => {
   return (
     <AudioProvider>
       {screen}
-      {credits && <CreditsPanel onClose={() => setCredits(false)}/>}
+      {ai && <AiPanel onClose={closeAi} onCredits={aiToCredits}/>}
+      {credits && <CreditsPanel onClose={closeCredits}/>}
     </AudioProvider>
   );
 };
