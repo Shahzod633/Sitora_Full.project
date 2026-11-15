@@ -55,6 +55,15 @@ export default function CreditsPanel({ onClose }: { onClose: () => void }) {
       </ul>
     </section>
     <section>
+      <h3>Photographic star field</h3>
+      <p>The deep-space background behind every space scene and chapter-end card is a real photograph:
+        “Scattered stars in Sagittarius”, Hubble observation <a href="https://esahubble.org/images/potw1624a/"
+        target="_blank" rel="noreferrer">potw1624a</a>. Credit: ESA/Hubble &amp; NASA. Cropped for the portrait
+        layout. Licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC
+        BY 4.0</a>; see the <a href="https://esahubble.org/copyright/" target="_blank" rel="noreferrer">ESA/Hubble
+        image terms</a>. This photograph is not AI-generated.</p>
+    </section>
+    <section>
       <h3>Sound</h3>
       <p>Character voice blips, story sound cues and the ambient music are original and synthesized in your browser.
         No third-party recordings are used.</p>

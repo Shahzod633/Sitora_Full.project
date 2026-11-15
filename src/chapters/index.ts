@@ -24,12 +24,12 @@ export const chapterList: readonly ChapterEntry[] = [
   {
     id: 'chapter02', number: '02', title: 'The Little Explorer', place: 'Mars · Ares Vallis',
     load: () => import('./chapter02').then(m => m.chapter02 as Chapter),
-    preload: ['observationDeck', 'observationDeckEli', 'observationDeckMara', 'maraSheet', 'cockpitTwoShot'],
+    preload: ['spaceStars', 'observationDeck', 'observationDeckEli', 'observationDeckMara', 'maraSheet', 'cockpitTwoShot'],
   },
   {
     id: 'chapter03', number: '03', title: 'Those Who Came After', place: 'Mars · the legacy',
     load: () => import('./chapter03').then(m => m.chapter03 as Chapter),
-    preload: ['marsDigSite', 'sojourner', 'holoSpirit', 'holoCuriosity'],
+    preload: ['spaceStars', 'marsDigSite', 'sojourner', 'holoSpirit', 'holoCuriosity'],
   },
 ];
 

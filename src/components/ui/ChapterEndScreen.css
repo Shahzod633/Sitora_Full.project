@@ -11,5 +11,11 @@
 .end-next { color: #ecc296; animation-delay: 2.3s; }
 .end-next strong { color: #ff9e72; }
 .end-actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: center; animation-delay: 2.9s; }
+.end-photo-credit {
+  margin: 30px 0 0; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(216, 205, 177, 0.5); animation-delay: 3.6s;
+}
+.end-photo-credit a { color: inherit; text-underline-offset: 2px; }
+.end-photo-credit a:hover { color: rgba(236, 194, 150, 0.9); }
 @keyframes end-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .end-copy > * { animation: none; } }

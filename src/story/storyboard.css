@@ -96,7 +96,7 @@
 .fx-thruster { position: absolute; inset: 0; }
 .fx-thruster i {
   position: absolute; left: 30%; width: 44%; height: 26%; border-radius: 50%;
-  background: radial-gradient(closest-side, #fffbe8, rgba(155, 217, 203, 0.75) 45%, transparent);
+  background: radial-gradient(closest-side, #fffbe8, rgba(255, 196, 140, 0.72) 45%, transparent);
   animation: flicker 0.16s steps(2) infinite alternate;
 }
 .fx-thruster i:first-child { top: 16%; }

@@ -44,11 +44,13 @@ export const stages: Record<StageId, StageDef> = {
     layers: [
       stars(0.05),
       { id: 'sun', fx: 'glow', props: { tone: 'sun' }, depth: 0.1, box: { x: 4, y: 10, w: '70cqmax', h: '70cqmax' }, initial: { opacity: 0.3 } },
-      { id: 'marsFar', fx: 'marsGlint', depth: 0.06, box: { x: 80, y: 30, w: '3.4cqmin', h: '3.4cqmin' }, portrait: { x: 76, y: 22 } },
+      // The far destination in deep space: the same drawn Mars disc, small and off to the right, away from the HUD.
+      { id: 'marsFar', asset: 'marsGlobe', label: 'Mars, far ahead', depth: 0.06,
+        box: { x: 82, y: 28, w: '7cqmin', aspect: 1 }, portrait: { x: 76, y: 22, w: '12cqmin' } },
       { id: 'mars', asset: 'marsGlobe', label: 'Mars', depth: 0.4, initial: { opacity: 0 },
-        box: { x: 66, y: 52, w: 'min(64cqw, 90cqh)', aspect: 1 }, portrait: { x: 56, y: 38, w: 'min(140cqw, 62cqh)' } },
+        box: { x: 64, y: 52, w: 'min(58cqw, 78cqh)', aspect: 1 }, portrait: { x: 56, y: 38, w: 'min(136cqw, 60cqh)' } },
       { id: 'aster', asset: 'aster', label: 'Aster spacecraft', depth: 1,
-        box: { x: 46, y: 56, w: 'min(40cqw, 72cqh)' }, portrait: { x: 50, y: 66, w: '86cqw' }, children: [thruster] },
+        box: { x: 44, y: 56, w: 'min(40cqw, 72cqh)' }, portrait: { x: 50, y: 66, w: '86cqw' }, children: [thruster] },
       vignette(0.2),
     ],
     shots: {
