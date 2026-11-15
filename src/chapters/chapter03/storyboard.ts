@@ -153,24 +153,22 @@ export const storyboard: Beat<LineId>[] = [
   },
   {
     id: 'L12', slug: 'pip-lifts-sojourner', sequence: 'E', title: 'Pip lifts Sojourner', stage: 'legacySite',
-    // Screenplay: "Pip carefully lifts Sojourner with his mechanical arms." Until a carrying pose is drawn,
-    // the rover (its own layer) is lifted slowly to Pip's chest, held in front of him. It never floats free.
+    // Cut to the carrying pose while the camera is still on the crew, then frame the grip.
+    // Switch all three layers together: no floating rover or overlapping Pip silhouettes.
     layers: {
       crewDisplay: hide(0.5),
-      roverS: [
-        { yp: -10, duration: 1.4, delay: 1.4, ease: 'sine.inOut' },
-        // Offsets are % of the rover's own box: onto Pip's chest.
-        { xp: 117, yp: -38, scale: 0.62, duration: 2.8, ease: 'sine.inOut' },
-      ],
+      roverS: hide(0),
+      pip: hide(0),
+      pipCarry: show(0),
     },
-    camera: { to: { shot: 'pipRover', duration: 1.8, ease: 'sine.inOut' } },
+    camera: { to: { shot: 'pipHolding', duration: 1.8, ease: 'sine.inOut' } },
     advance: { mode: 'auto', hold: 7 },
   },
   {
     id: 'L13', slug: 'family-heirloom', sequence: 'E', title: 'A family heirloom', stage: 'legacySite',
     camera: { to: { shot: 'eliS', duration: 1.2 } },
     dialogue: ['eli-dont-drop', 'pip-heirloom'],
-    onLine: { 'pip-heirloom': { camera: { to: { shot: 'pipRover', duration: 1.2 } } } },
+    onLine: { 'pip-heirloom': { camera: { to: { shot: 'pipHolding', duration: 1.2 } } } },
     // Screenplay: "Eli smiles. The three characters begin walking toward their spacecraft."
     outro: { hold: 3.2, focus: 'all', expressions: { eli: 'smile', mara: 'smile' }, camera: { to: { shot: 'crew', duration: 2.6, ease: 'sine.inOut' } } },
     advance: { mode: 'dialogue' },

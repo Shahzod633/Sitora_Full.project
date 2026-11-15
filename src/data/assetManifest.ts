@@ -202,8 +202,8 @@ export const assets = {
     brief: 'Mara kneeling on one knee, reaching forward to wipe the nameplate, sealed suit, facing right, transparent.' }),
   maraSalute: asset({ kind: 'character', fallback: maraSalute, src: 'assets/art/mara-salute.webp', aspect: 487 / 1405, status: 'final',
     brief: 'Mara standing at attention giving a military salute, sealed suit, facing right, transparent.' }),
-  pipCarry: asset({ kind: 'character', fallback: pipCarry, aspect: 150 / 236, status: 'temporary',
-    brief: 'MISSING ART: Pip holding both arms forward, hands open under the load (Sojourner is a separate layer), transparent.' }),
+  pipCarry: asset({ kind: 'character', fallback: pipCarry, src: 'assets/art/pip-carry-sojourner.webp', aspect: 800 / 1966, status: 'final',
+    brief: 'Pip carrying Sojourner with bent elbows and both hands supporting the rover from below. One transparent illustration, facing right.' }),
   marsSunset: asset({ kind: 'background', fallback: marsSunset, src: 'assets/art/mars-sunset.webp', aspect: 16 / 9, fit: 'stretch', status: 'final',
     brief: 'Panoramic Martian plain at sunset with a small Sun and restrained bluish haze. No characters, no ship.' }),
 } as const;
